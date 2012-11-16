@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :idiom do
-    title "MyString"
-    description "MyText"
+    title "Ruby on Rails"
+    description "A sweet programming language and framework"
   end
 end

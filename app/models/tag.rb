@@ -10,4 +10,12 @@
 
 class Tag < ActiveRecord::Base
   has_many :languages, through: :tag_associations
+  has_many :tag_associations, dependent: :destroy
+
+  validates :name, presence: true, length: { maximum: 50 },
+    uniqueness: { case_sensitive: false }
+
+    
+
+
 end

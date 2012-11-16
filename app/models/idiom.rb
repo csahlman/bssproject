@@ -16,4 +16,5 @@ class Idiom < ActiveRecord::Base
   
   has_many :comments, dependent: :destroy 
   has_many :tags, through: :tag_associations
+  has_many :tag_associations, dependent: :destroy
 end

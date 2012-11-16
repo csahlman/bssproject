@@ -12,5 +12,7 @@
 require 'spec_helper'
 
 describe TagAssociation do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should require a tag_id and idiom_id" do
+    TagAssociation.new.should_not be_valid
+  end
 end

@@ -13,5 +13,5 @@ class TagAssociation < ActiveRecord::Base
   belongs_to :languages
   belongs_to :tags
 
-  validates_presence_of :tag_id, :presence_id
+  validates_presence_of :tag_id, :idiom_id
 end
