@@ -5,7 +5,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'factory_girl_rails'
 require 'factory_girl'
-require 'utilities'
+require 'support/utilities'
 
 
 

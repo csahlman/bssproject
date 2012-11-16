@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter only: [ :new, :create, :show, :index ]
+  skip_before_filter :authenticate, only: [ :new, :create, :show, :index ]
   respond_to :html, :js, :json
 
   def new
@@ -16,7 +16,8 @@ class UsersController < ApplicationController
     if @user.save
       sign_in(@user)
       respond_with @user do |f|
-        f.html { redirect_to @user, success: "#{@user.name} successfully created"}
+        f.html { redirect_to @user, flash: { success: 
+            "#{@user.name} successfully created"} }
         f.json { }
       end  
     else
