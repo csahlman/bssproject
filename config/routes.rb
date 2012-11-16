@@ -1,8 +1,17 @@
 BssProject::Application.routes.draw do
 
+  controller :sessions do
+    get 'sign_in' => :new
+    post 'sign_in' => :create
+    delete 'logout' => :destroy
+  end  
+
+
   root :to => 'users#index'
 
-  resources :users
+  resources :users do
+    
+  end  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

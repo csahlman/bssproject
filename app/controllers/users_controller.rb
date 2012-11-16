@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter only: [ :new, :create, :show, :index ]
   respond_to :html, :js, :json
 
   def new
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
     @user.password_confirmation= params[:user][:password_confirmation]
     @user.about_me= params[:user][:about_me]
     if @user.save
+      sign_in(@user)
       respond_with @user do |f|
         f.html { redirect_to @user, success: "#{@user.name} successfully created"}
         f.json { }

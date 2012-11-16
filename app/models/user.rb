@@ -9,6 +9,7 @@
 #  about_me        :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  remember_token  :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -26,11 +27,16 @@ class User < ActiveRecord::Base
 
   has_many :comments  
 
-  after_destroy :ensure_an_admin_remains
-  #make sure you can't delete last user
+  before_create :create_remember_token
+
+  after_destroy :ensure_an_admin_remains   #make sure you can't delete last user
 
 
   private 
+    def create_remember_token
+      self.remember_token= SecureRandom.urlsafe_base64
+    end
+
     def ensure_an_admin_remains
       if User.count.zero?
         raise "Can't delete last user" #an exception in the callback triggers an automatic rollback

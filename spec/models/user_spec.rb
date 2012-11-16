@@ -9,6 +9,7 @@
 #  about_me        :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  remember_token  :string(255)
 #
 
 require 'spec_helper'
@@ -26,6 +27,8 @@ describe User do
   it "creates a user with valid attributes" do
     @user.should be_valid
   end
+
+
   describe "validations" do
 
     it "should require a proper name" do
@@ -58,6 +61,14 @@ describe User do
       it "should not be able to delete the only user" do
         lambda { user.destroy }.should raise_error 
         #needs to be in a lambda block or it won't let me destroy the last user
+      end
+    end
+
+    describe "remember_token" do
+      it "should create a remember token on save" do
+        @user.remember_token.should be_nil
+        @user.save
+        @user.remember_token.should_not be_nil
       end
     end
 

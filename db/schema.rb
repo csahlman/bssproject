@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116164045) do
+ActiveRecord::Schema.define(:version => 20121116204948) do
 
   create_table "comments", :force => true do |t|
     t.text     "message"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20121116164045) do
     t.text     "about_me"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "remember_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
