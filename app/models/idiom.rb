@@ -15,4 +15,5 @@ class Idiom < ActiveRecord::Base
   validates :description, presence: true  
   
   has_many :comments, dependent: :destroy 
+  has_many :tags, through: :tag_associations
 end

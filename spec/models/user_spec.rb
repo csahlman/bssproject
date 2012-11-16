@@ -20,6 +20,8 @@ describe User do
     @user= User.new
     @user.name= @attr[:name]
     @user.email= @attr[:email]
+    @user.password= "foobar"
+    @user.password_confirmation= "foobar"
   end
   it "creates a user with valid attributes" do
     @user.should be_valid
