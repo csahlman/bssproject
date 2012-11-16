@@ -1,0 +1,52 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  password_digest :string(255)
+#  about_me        :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+require 'spec_helper'
+
+describe User do
+
+  before do
+    @attr= { name: "Jimmie", email: "csahlman@foobar.com"}
+    @user= User.new
+    @user.name= @attr[:name]
+    @user.email= @attr[:email]
+  end
+  it "creates a user with valid attributes" do
+    @user.should be_valid
+  end
+
+  it "should require a proper name" do
+    @user.name= ""
+    @user.should_not be_valid
+    @user.name= 'a'*51
+    @user.should_not be_valid
+  end
+
+  it "should require a proper email" do
+    email= %w[asdfaf@asdf, dasf@foo.fooosadf, jimmy@.com]
+    email.each do |e|
+      @user.email= e
+      @user.should_not be_valid
+    end  
+  end
+
+  it "should not create 2 users with the same email address" do
+    @user.save
+    @user2= User.new
+    @user2.name= @attr[:name]
+    @user2.email= @attr[:email]
+    @user2.should_not be_valid
+  end
+
+  
+end
