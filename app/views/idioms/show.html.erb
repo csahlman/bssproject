@@ -3,7 +3,26 @@
 <h1><%= @idiom.title %></h1><br>
 <p><%= @idiom.description %></p>
 
-<span>Tags: <%= render @idiom.tags %></span>
+<span>Tags: <%= render @idiom.tags %></span><br>
+
+<% if @idiom.comments.any? %>
+<h2>Comments</h2>
+<div class="comments">
+  <ul>
+    <%= render @idiom.comments %>
+  </ul>
+</div>
+<% else %>
+<h2>Be the first one to comment</h2>
+<% end %>
+
+<h3 id="create_new_comment">(+) Add a comment</h3>
+<% if signed_in? %>
+  <%= simple_form_for [@idiom, Comment.new], remote: true do |f| %>
+    <%= f.input :message %>
+    <%= f.button :submit %>
+  <% end %>
+<% end %>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

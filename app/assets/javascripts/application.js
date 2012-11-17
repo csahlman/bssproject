@@ -14,3 +14,15 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+$(document).ready(function () {
+  $('#new_comment').hide()
+
+  $('#create_new_comment').toggle(function() {
+    $('#new_comment').show()
+    $('#create_new_comment').html("(-) Collapse")
+  }, function() {
+    $('#new_comment').hide();
+    $('#create_new_comment').html("(+) Add a comment")
+  })
+});

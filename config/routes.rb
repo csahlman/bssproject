@@ -17,7 +17,9 @@ BssProject::Application.routes.draw do
   end  
 
 
-  resources :idioms
+  resources :idioms do
+    resources :comments
+  end  
 
   get 'tags/:tag', to: 'idioms#index', as: :tag
 
