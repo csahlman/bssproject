@@ -1,5 +1,15 @@
 BssProject::Application.routes.draw do
 
+  get "comments/create"
+
+  get "comments/show"
+
+  get "comments/index"
+
+  get "comments/update"
+
+  get "comments/destroy"
+
   controller :sessions do
     get 'sign_in' => :new
     post 'sign_in' => :create

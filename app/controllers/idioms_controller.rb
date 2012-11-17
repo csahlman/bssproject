@@ -19,7 +19,7 @@ class IdiomsController < ApplicationController
   end
 
   def destroy
-    # remember to add tests for this
+    @idiom= Idiom.find(params[:id])
   end
 
   def update

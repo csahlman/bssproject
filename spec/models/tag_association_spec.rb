@@ -12,7 +12,5 @@
 require 'spec_helper'
 
 describe TagAssociation do
-  it "should require a tag_id and idiom_id" do
-    TagAssociation.new.should_not be_valid
-  end
+
 end

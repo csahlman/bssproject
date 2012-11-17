@@ -1,6 +1,9 @@
 <%= content_for(:title) { "All languages" } %>
 
-<h1>View all Languages</h1>
+<h1>Languages</h1>
+
+<%= link_to "Create a new idiom", new_idiom_path, 
+    class: "btn btn-small btn-success" %><br />
 
 <ul id="idioms">
   <%= render @idioms %>
