@@ -6,3 +6,11 @@ def valid_signin(user)
   cookies[:remember_token] = user.remember_token
 end
 
+def test_sign_in(user)
+  controller.sign_in(user)
+end
+
+def test_current_user(user)
+  current_user=(user)
+end
+

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :authenticate, only: [ :new, :create, :show, :index ]
+  before_filter :must_be_own_profile, only: [ :edit, :update, :destroy ]
   respond_to :html, :js, :json
 
   def new
@@ -36,16 +37,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user= User.find(params[:id])
     @user.destroy
   end
 
   def edit
-    @user= User.find(params[:id])
   end
 
   def update
-    @user= User.find(params[:id])
     @user.email= params[:user][:email]
     @user.name= params[:user][:name]
     @user.password= params[:user][:password]
@@ -62,4 +60,11 @@ class UsersController < ApplicationController
       end  
     end
   end
+
+  private
+    def must_be_own_profile
+      @user= User.find(params[:id])
+      redirect_to root_path, flash: { error: "You don't have access to that" } unless
+        @user== current_user
+    end
 end

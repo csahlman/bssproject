@@ -36,10 +36,16 @@ describe UsersController do
   end
 
   describe "'GET' edit" do
-    let(:valid_user) { create(:user) }
-    it "should be success" do
+    let(:valid_user) { test_sign_in create(:user) }
+    let(:user) { create(:user) }
+    it "should be success for a signed in user" do
       get :edit, id: valid_user
       response.should render_template(:edit)
+    end
+
+    it "should redirect for a different user" do
+      get :edit, id: user
+      response.should redirect_to sign_in_path
     end
   end
 
@@ -62,20 +68,45 @@ describe UsersController do
     let!(:valid_user) { create(:user) }
     let!(:another_user) { create(:user) } 
     #let! creates it right away.  Will give an error if there is only 1 user
-    it "should not delete the user" do
-      expect { 
-        delete :destroy, id: another_user
-      }.to change(User, :count).by(-1)
+
+    describe "logged in" do
+      before { test_sign_in(valid_user) }
+      it "should delete the user" do
+        expect { 
+          delete :destroy, id: valid_user
+        }.to change(User, :count).by(-1)
+      end
+
+      it "should not be able to delete another user" do
+        expect {
+          delete :destroy, id: another_user
+        }.to_not change(User, :count)
+      end
     end
+
+    describe "logged out" do
+      it "should not delete the user" do
+        expect {
+          delete :destroy, id: valid_user
+        }.to_not change(User, :count)
+      end
+    end
+
   end
 
   describe "'PUT' update" do
-    let(:user) { create(:user) }
+    let!(:user) { test_sign_in create(:user) }
+    let!(:second_user) { create(:user) }
 
     context "valid attributes" do
       it "should  update with valid attributes" do
         put :update, id: user, user: attributes_for(:user)
         response.should redirect_to assigns(:user)
+      end
+
+      it "should not update another user's profile" do
+        put :update, id: second_user, user: attributes_for(:user)
+        response.should redirect_to root_path
       end
     end
 
