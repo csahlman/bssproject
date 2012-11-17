@@ -2,6 +2,7 @@ class IdiomsController < ApplicationController
   skip_before_filter :authenticate, only: [:show, :index]
 
   def new
+    @idiom= Idiom.new
   end
 
   def create
@@ -17,6 +18,7 @@ class IdiomsController < ApplicationController
   end
 
   def destroy
+    # remember to add tests for this
   end
 
   def update
@@ -32,11 +34,18 @@ class IdiomsController < ApplicationController
   end
 
   def edit
+    @idiom= Idiom.find(params[:id])
   end
 
   def show
+    @idiom= Idiom.find(params[:id])
+    respond_to do |f|
+      f.html
+      f.json { render json: @idiom}
+    end  
   end
 
   def index
+    @idioms= Idiom.all
   end
 end

@@ -1,2 +1,9 @@
-<h1>Idioms#new</h1>
-<p>Find me in app/views/idioms/new.html.erb</p>
+<%= content_for(:title) { "Create a new language"} %>
+
+<h1>Create a new language</h1>
+
+<%= simple_form_for @idiom do |f| %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <%= f.button :submit %>
+<% end %>

@@ -1,2 +1,7 @@
-<h1>Idioms#index</h1>
-<p>Find me in app/views/idioms/index.html.erb</p>
+<%= content_for(:title) { "All languages" } %>
+
+<h1>View all Languages</h1>
+
+<ul id="idioms">
+  <%= render @idioms %>
+</ul>
