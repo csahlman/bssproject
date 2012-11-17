@@ -1,4 +1,5 @@
 <%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= render 'shared/error_explanation', object: @user %>
   <div class="control-group">
     <%= f.label :name, :class => 'control-label' %>
     <div class="controls">
@@ -12,24 +13,24 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :password_digest, :class => 'control-label' %>
+    <%= f.label :password, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :password_digest, :class => 'text_field' %>
+      <%= f.password_field :password, :class => 'text_field' %>
     </div>
   </div>
+  <div class="control-group">
+    <%= f.label :password_confirmation, "Confirm Password", 
+      :class => 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password_confirmation, :class => 'text_field' %>
+    </div>
+  </div>  
   <div class="control-group">
     <%= f.label :about_me, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_area :about_me, :class => 'text_area' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :remember_token, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :remember_token, :class => 'text_field' %>
-    </div>
-  </div>
-
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

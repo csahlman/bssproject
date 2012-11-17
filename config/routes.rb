@@ -7,6 +7,10 @@ BssProject::Application.routes.draw do
   end  
 
 
+  resources :idioms
+
+  resources :tags
+
   root :to => 'users#index'
 
   resources :users do

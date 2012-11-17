@@ -5,7 +5,7 @@ describe "UserCreations" do
     before { @attr= { name: "Charlie", email: "asf@foo.com", password: "foobar",
         password_confirmation: "foobar", about_me: "asdfasdf"} }
 
-    it "should visit the signin path and create a user" do
+    it "should visit the signin path and create a user, sign out, and sign in" do
       visit new_user_path
       response.should have_selector('h1', content: "Sign up")  
       fill_in "Name", with: @attr[:name]
@@ -15,6 +15,9 @@ describe "UserCreations" do
       fill_in "About Me", with: @attr[:about_me]
       click_button "Create User"
       response.should have_selector("div", content: "#{@attr[:name]}")
+      click_link 'Sign out'
+      response.should have_selector('div.flash', content: "Logged out")
+
     end
 
     it "should visit the sign in path and fail" do

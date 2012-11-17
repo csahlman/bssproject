@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     if @user.save
       sign_in(@user)
       respond_with @user do |f|
-        f.html { redirect_to @user, flash: { success: 
+        f.html { redirect_to @user, flash: { notice: 
             "#{@user.name} successfully created"} }
         f.json { }
       end  
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     @user.about_me= params[:user][:about_me]
     if @user.save
       respond_with @user do |f|
-        f.html { redirect_to @user, success: "#{@user.name} successfully updated"}
+        f.html { redirect_to @user, flash: { notice: "#{@user.name} successfully updated"} }
         f.json { }
       end  
     else
