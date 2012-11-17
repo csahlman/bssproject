@@ -99,3 +99,18 @@ REQUESTING PAGE: POST /users with {"utf8"=>"✓", "user"=>{"name"=>"Charlie", "e
 REQUESTING PAGE: GET http://www.example.com/users/1 with {} and HTTP headers {"HTTP_REFERER"=>"/users"}
 REQUESTING PAGE: GET /users/new with {} and HTTP headers {}
 REQUESTING PAGE: POST /users with {"utf8"=>"✓", "user"=>{"name"=>"", "email"=>"asf@foo.com", "password"=>"foobar", "password_confirmation"=>"foobar", "about_me"=>"asdfasdf"}, "commit"=>"Create User"} and HTTP headers {"HTTP_REFERER"=>"/users/new"}
+REQUESTING PAGE: GET /users/new with {} and HTTP headers {}
+REQUESTING PAGE: POST /users with {"utf8"=>"✓", "user"=>{"name"=>"", "email"=>"asf@foo.com", "password"=>"foobar", "password_confirmation"=>"foobar", "about_me"=>"asdfasdf"}, "commit"=>"Create User"} and HTTP headers {"HTTP_REFERER"=>"/users/new"}
+REQUESTING PAGE: GET /users/new with {} and HTTP headers {}
+REQUESTING PAGE: POST /users with {"utf8"=>"✓", "user"=>{"name"=>"Charlie", "email"=>"asf@foo.com", "password"=>"foobar", "password_confirmation"=>"foobar", "about_me"=>"asdfasdf"}, "commit"=>"Create User"} and HTTP headers {"HTTP_REFERER"=>"/users/new"}
+REQUESTING PAGE: GET http://www.example.com/users/1 with {} and HTTP headers {"HTTP_REFERER"=>"/users"}
+REQUESTING PAGE: GET /users/new with {} and HTTP headers {}
+REQUESTING PAGE: POST /users with {"utf8"=>"✓", "user"=>{"name"=>"Charlie", "email"=>"asf@foo.com", "password"=>"foobar", "password_confirmation"=>"foobar", "about_me"=>"asdfasdf"}, "commit"=>"Create User"} and HTTP headers {"HTTP_REFERER"=>"/users/new"}
+REQUESTING PAGE: GET http://www.example.com/users/1 with {} and HTTP headers {"HTTP_REFERER"=>"/users"}
+REQUESTING PAGE: GET /users/new with {} and HTTP headers {}
+REQUESTING PAGE: POST /users with {"utf8"=>"✓", "user"=>{"name"=>"", "email"=>"asf@foo.com", "password"=>"foobar", "password_confirmation"=>"foobar", "about_me"=>"asdfasdf"}, "commit"=>"Create User"} and HTTP headers {"HTTP_REFERER"=>"/users/new"}
+REQUESTING PAGE: GET /users/new with {} and HTTP headers {}
+REQUESTING PAGE: POST /users with {"utf8"=>"✓", "user"=>{"name"=>"Charlie", "email"=>"asf@foo.com", "password"=>"foobar", "password_confirmation"=>"foobar", "about_me"=>"asdfasdf"}, "commit"=>"Create User"} and HTTP headers {"HTTP_REFERER"=>"/users/new"}
+REQUESTING PAGE: GET http://www.example.com/users/1 with {} and HTTP headers {"HTTP_REFERER"=>"/users"}
+REQUESTING PAGE: GET /users/new with {} and HTTP headers {}
+REQUESTING PAGE: POST /users with {"utf8"=>"✓", "user"=>{"name"=>"", "email"=>"asf@foo.com", "password"=>"foobar", "password_confirmation"=>"foobar", "about_me"=>"asdfasdf"}, "commit"=>"Create User"} and HTTP headers {"HTTP_REFERER"=>"/users/new"}
