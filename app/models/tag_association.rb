@@ -10,8 +10,8 @@
 #
 
 class TagAssociation < ActiveRecord::Base
-  belongs_to :languages
-  belongs_to :tags
+  belongs_to :idiom
+  belongs_to :tag
 
-  validates_presence_of :tag_id, :idiom_id
+  # validates_presence_of :tag_id, :idiom_id
 end

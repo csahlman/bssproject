@@ -3,6 +3,8 @@
 <h1><%= @idiom.title %></h1><br>
 <p><%= @idiom.description %></p>
 
+<span>Tags: <%= render @idiom.tags %></span>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               idioms_path, :class => 'btn'  %>

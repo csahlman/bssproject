@@ -5,5 +5,7 @@
 <%= simple_form_for @idiom do |f| %>
   <%= f.input :title %>
   <%= f.input :description %>
+  <%= f.label :tag_list, "Tags, separated by commas" %>
+  <%= f.input :tag_list, label: false,  as: :string %>
   <%= f.button :submit %>
 <% end %>

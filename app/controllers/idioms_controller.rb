@@ -9,6 +9,7 @@ class IdiomsController < ApplicationController
     @idiom= Idiom.new
     @idiom.title= params[:idiom][:title]
     @idiom.description= params[:idiom][:description]
+    @idiom.tag_list=(params[:idiom][:tag_list]) if params[:idiom][:tag_list]
 
     if @idiom.save
       redirect_to @idiom, flash: { notice: "#{@idiom.title} created"}
@@ -46,6 +47,15 @@ class IdiomsController < ApplicationController
   end
 
   def index
-    @idioms= Idiom.all
+    if params[:tag]
+      @idioms= Idiom.tagged_with(params[:tag])
+    else
+      @idiom= Idiom.all
+    end
+
+    respond_to do |f|
+      f.html
+      f.json { render json: @idioms }
+    end
   end
 end

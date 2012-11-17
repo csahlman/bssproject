@@ -9,7 +9,7 @@ BssProject::Application.routes.draw do
 
   resources :idioms
 
-  resources :tags
+  get 'tags/:tag', to: 'idioms#index', as: :tag
 
   root :to => 'users#index'
 
