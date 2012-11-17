@@ -25,7 +25,7 @@ describe "UserCreations" do
       fill_in "Confirm Password", with: @attr[:password]
       fill_in "About Me", with: @attr[:about_me]
       click_button "Create User"
-      response.should have_selector("div.errors", content: "Name")      
+      response.should have_selector("div.field_with_errors", content: "Name")      
     end
         
   end
