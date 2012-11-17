@@ -50,7 +50,7 @@ class IdiomsController < ApplicationController
     if params[:tag]
       @idioms= Idiom.tagged_with(params[:tag])
     else
-      @idiom= Idiom.all
+      @idioms= Idiom.all
     end
 
     respond_to do |f|
