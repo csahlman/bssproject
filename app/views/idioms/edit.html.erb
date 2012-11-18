@@ -1,2 +1,13 @@
-<h1>Idioms#edit</h1>
-<p>Find me in app/views/idioms/edit.html.erb</p>
+<%= content_for(:title) { "Edit #{@idiom.title}"} %>
+
+<h1>Edit the language</h1>
+
+<h3>Your edits will be logged</h3>
+
+<%= link_to "Edits History", idiom_edits_path(@idiom) %>
+
+<%= simple_form_for @idiom do |f| %>
+  <%= f.hidden_field :title, value: @idiom.title %>
+  <%= f.input :description %>
+  <%= f.button :submit %>
+<% end %>

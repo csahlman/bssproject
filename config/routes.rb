@@ -1,14 +1,10 @@
 BssProject::Application.routes.draw do
 
-  get "comments/create"
+  get "pages/home"
 
-  get "comments/show"
+  get "pages/about"
 
-  get "comments/index"
-
-  get "comments/update"
-
-  get "comments/destroy"
+  get "pages/contact"
 
   controller :sessions do
     get 'sign_in' => :new
@@ -19,11 +15,12 @@ BssProject::Application.routes.draw do
 
   resources :idioms do
     resources :comments
+    resources :edits
   end  
 
   get 'tags/:tag', to: 'idioms#index', as: :tag
 
-  root :to => 'users#index'
+  root :to => 'pages#home'
 
   resources :users do
     

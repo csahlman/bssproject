@@ -7,5 +7,8 @@ module IdiomsHelper
       yield(tag, classes[index.round])
     end
   end
+
+  #tags= Idiom.tag_counts
+  # classes= s, m, l string array
   
 end

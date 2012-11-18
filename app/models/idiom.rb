@@ -10,15 +10,15 @@
 #
 
 class Idiom < ActiveRecord::Base
-  attr_accessible :tag_list
 
   validates :title, presence: true, length: { maximum: 1000 },
     uniqueness: { case_sensitive: false }
-  validates :description, presence: true  
+  validates :description, presence: true, length: { maximum: 10000 }
   
   has_many :comments, dependent: :destroy 
   has_many :tags, through: :tag_associations
   has_many :tag_associations, dependent: :destroy
+  has_many :edits, dependent: :destroy
 
   def self.tagged_with(name)
     Tag.find_by_name!(name).idioms

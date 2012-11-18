@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
 
   has_many :comments  
 
+  has_many :edits
+
   before_create :create_remember_token
 
   after_destroy :ensure_an_admin_remains   #make sure you can't delete last user

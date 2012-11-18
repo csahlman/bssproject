@@ -24,6 +24,10 @@ class IdiomsController < ApplicationController
 
   def update
     @idiom= Idiom.find(params[:id])
+    @edit= @idiom.edits.new
+    @edit.user= current_user
+    @edit.description= @idiom.description
+    @edit.save!
     @idiom.title= params[:idiom][:title]
     @idiom.description= params[:idiom][:description]
 

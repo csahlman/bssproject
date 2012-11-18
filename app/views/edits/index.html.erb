@@ -1,0 +1,16 @@
+<%= content_for(:title) { "Edits history for #{@idiom.title}" } %>
+
+<h1>Edits history for <%= @idiom.title %></h1>
+
+<%= content_for(:sidebar) do %>
+  <h4>Current Description: </h4>
+  <p><%= @idiom.description %> </p>
+  <span class="time">
+    posted at <%= @idiom.updated_at.strftime("%Y-%m-%d %H:%M") %> 
+  </span>
+<% end %>
+
+
+<ul class="edits">
+  <%= render @edits %>
+</ul>

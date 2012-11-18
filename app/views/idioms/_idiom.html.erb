@@ -1,4 +1,4 @@
 <li>
   <%= link_to idiom.title, idiom %><br>
-  <span>    Tags: <%= render idiom.tags %></span>
+  <%= raw idiom.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
 </li><br>
