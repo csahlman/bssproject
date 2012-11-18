@@ -22,6 +22,10 @@ class Idiom < ActiveRecord::Base
 
   has_many :votes, as: :voteable
 
+  def total_score
+    votes.sum(:vote_value)
+  end
+
   def self.tagged_with(name)
     Tag.find_by_name!(name).idioms
   end

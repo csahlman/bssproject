@@ -14,5 +14,23 @@
 require 'spec_helper'
 
 describe Vote do
+
+  before do
+    @vote= Vote.new
+  end
+
+  it "should have a vote_value of -1 or 1" do
+    [0, 5, 'e', 20].each do |num|
+      @vote.vote_value= num
+      @vote.should_not be_valid
+    end
+
+    [-1, 1].each do |num|
+      @vote.vote_value= num
+      @vote.should be_valid
+    end
+  end
+
+
   
 end

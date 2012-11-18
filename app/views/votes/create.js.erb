@@ -3,4 +3,5 @@
 <% else %>
   $('#downvote').addClass('btn-success')
 <% end %>
+$('#votes_count').replaceWith('<%= j @vote.voteable.total_score %>')
 
