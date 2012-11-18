@@ -1,5 +1,6 @@
 BssProject::Application.routes.draw do
 
+
   get "pages/home"
 
   get "pages/about"
@@ -14,8 +15,13 @@ BssProject::Application.routes.draw do
 
 
   resources :idioms do
-    resources :comments
-    resources :edits
+    resources :comments do
+      resources :votes
+    end
+    resources :edits do
+      resources :votes
+    end  
+    resources :votes
   end  
 
   get 'tags/:tag', to: 'idioms#index', as: :tag

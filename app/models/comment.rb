@@ -16,5 +16,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :idiom
 
+  has_many :votes, as: :voteable
+
 
 end

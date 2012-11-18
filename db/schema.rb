@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118021553) do
+ActiveRecord::Schema.define(:version => 20121118132336) do
 
   create_table "comments", :force => true do |t|
     t.text     "message"
@@ -61,5 +61,16 @@ ActiveRecord::Schema.define(:version => 20121118021553) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.integer  "vote_value",    :default => 0
+    t.integer  "voteable_id"
+    t.string   "voteable_type"
+    t.integer  "user_id"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  add_index "votes", ["voteable_id", "voteable_type"], :name => "index_votes_on_voteable_id_and_voteable_type"
 
 end

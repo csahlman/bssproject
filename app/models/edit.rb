@@ -8,6 +8,7 @@
 #  user_id     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  edited_at   :datetime
 #
 
 class Edit < ActiveRecord::Base
@@ -17,6 +18,7 @@ class Edit < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :idiom
+  has_many :votes, as: :voteable
 
   default_scope order('created_at DESC')
 end
