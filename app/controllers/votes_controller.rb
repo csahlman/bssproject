@@ -3,7 +3,7 @@ class VotesController < ApplicationController
 
   def create
     @vote= @voteable.votes.new
-    @vote.vote_value= params[:vote][:vote_value]
+    @vote.vote_value = params[:vote][:vote_value]
     @vote.user= current_user
     if @vote.save
       respond_to do |f|
@@ -23,6 +23,20 @@ class VotesController < ApplicationController
 
   def index
     @votes= @voteable.votes
+  end
+
+  def update
+    @vote= @voteable.votes.find_by_user_id(current_user.id)
+    @vote.vote_value= params[:vote][:vote_value]
+    if @vote.save
+      respond_to do |f|
+        f.html
+        f.js
+        f.json
+      end
+    else
+      redirect_to root_path
+    end
   end
 
   private

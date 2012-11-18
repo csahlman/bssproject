@@ -1,0 +1,7 @@
+<% if @vote.vote_value == 1 %>
+  $('#downvote').removeClass('btn-success')
+  $('#upvote').addClass('btn-success')
+<% else %>
+  $('#downvote').addClass('btn-success')
+  $('#upvote').removeClass('btn-success')
+<% end %>

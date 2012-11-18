@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { within: 6..50 }
 
     
-
+  has_many :votes
   has_many :comments  
 
   has_many :edits

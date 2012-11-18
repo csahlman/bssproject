@@ -13,4 +13,18 @@
 
 class Vote < ActiveRecord::Base
   belongs_to :voteable, polymorphic: true
+  belongs_to :user
+
+  validates :vote_value, numericality: true, inclusion: { in: [-1, 1]}
+
+  def parse_commit(commit)
+    case commit
+    when "Upvote", "+"
+      1
+    when "Downvote", "-"  
+      -1
+    else
+      0  
+    end  
+  end
 end

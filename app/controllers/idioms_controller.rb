@@ -42,6 +42,7 @@ class IdiomsController < ApplicationController
 
   def show
     @idiom= Idiom.find(params[:id])
+    @vote= @idiom.votes.find_or_initialize_by_user_id(current_user.id)
     respond_to do |f|
       f.html
       f.json { render json: @idiom}
