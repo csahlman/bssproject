@@ -4,6 +4,7 @@
   <h4>Please give us your feedback</h4>  
   <p>Upvote for a good description.  You can see more possibilities
    in the edits history</p>
+  
   <%= simple_form_for [@idiom, @vote], html: { id: "upvote", 
     class: ( @vote.vote_value == 1 ) ? 'btn btn-small btn-success' : 
     'btn btn-small' }, remote: true do |f| %>

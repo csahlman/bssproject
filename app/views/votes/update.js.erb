@@ -1,8 +1,24 @@
-<% if @vote.vote_value == 1 %>
-  $('#downvote').removeClass('btn-success')
-  $('#upvote').addClass('btn-success')
-<% else %>
-  $('#downvote').addClass('btn-success')
-  $('#upvote').removeClass('btn-success')
-<% end %>
-$('#votes_count').html('<%= @vote.voteable.total_score.to_s %>')
+<% if @vote.voteable.class.to_s == "Idiom" %>
+  <% if @vote.vote_value == 1 %>
+    $('#downvote').removeClass('btn-success')
+    $('#upvote').addClass('btn-success')
+  <% else %>
+    $('#downvote').addClass('btn-success')
+    $('#upvote').removeClass('btn-success')
+  <% end %>
+  $('#votes_count').html('<%= @vote.voteable.total_score.to_s %>')
+<% elsif @vote.voteable.class.to_s == "Comment" %>
+  <% if @vote.vote_value == 1 %>
+    alert("update comment")
+  <% else %>
+
+  <% end %>
+
+<% elsif @vote.voteable.class.to_s == "Edit" %>
+  <% if @vote.vote_value == 1 %>
+    alert("update edit")
+  <% else %>
+
+  <% end %>
+
+<% end %>  

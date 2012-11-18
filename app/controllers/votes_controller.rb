@@ -1,8 +1,11 @@
 class VotesController < ApplicationController
-  before_filter :load_voteable
+  before_filter :get_voteable
 
   def create
-    @vote= @voteable.votes.new
+    @vote= @voteable.votes.find_by_user_id(current_user.id)
+    unless @vote
+      @vote= @voteable.votes.new
+    end
     @vote.vote_value = params[:vote][:vote_value]
     @vote.user= current_user
     if @vote.save
@@ -13,7 +16,7 @@ class VotesController < ApplicationController
       end  
     else
       respond_to do |f|
-        f.html
+        f.html { redirect_to root_path, flash: { error: "asdf" } }
       end
     end
   end
@@ -41,8 +44,16 @@ class VotesController < ApplicationController
 
   private
 
-    def load_voteable
-      klass = [Idiom, Comment, Edit].detect { |c| params["#{c.name.underscore}_id"]}
-      @voteable = klass.find(params["#{klass.name.underscore}_id"])
+    # def load_voteable
+    #   klass = [Idiom, Comment, Edit].detect { |c| params["#{c.name.underscore}_id"]}
+    #   @voteable = klass.find(params["#{klass.name.underscore}_id"])
+    # end
+
+    def get_voteable
+      @voteable = params[:voteable].classify.constantize.find(voteable_id)
+    end
+
+    def voteable_id
+      params[(params[:voteable].singularize + "_id").to_sym]
     end
 end

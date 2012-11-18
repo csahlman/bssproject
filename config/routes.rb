@@ -16,12 +16,12 @@ BssProject::Application.routes.draw do
 
   resources :idioms do
     resources :comments do
-      resources :votes
+      resources :votes, defaults: { voteable: 'comment' }
     end
     resources :edits do
-      resources :votes
+      resources :votes, defaults: { voteable: 'edit' }
     end  
-    resources :votes
+    resources :votes, defaults: { voteable: 'idiom'}
   end  
 
   get 'tags/:tag', to: 'idioms#index', as: :tag

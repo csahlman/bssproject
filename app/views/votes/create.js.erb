@@ -1,7 +1,26 @@
-<% if @vote.vote_value == 1 %>
-  $('#upvote').addClass('btn-success')
-<% else %>
-  $('#downvote').addClass('btn-success')
-<% end %>
-$('#votes_count').replaceWith('<%= j @vote.voteable.total_score %>')
+<% if @vote.voteable.class.to_s == "Idiom" %>
+  <% if @vote.vote_value == 1 %>
+    $('#downvote').removeClass('btn-success')
+    $('#upvote').replaceWith('<%= j render "idioms/upvote", vote: @vote %>')
+    $('#upvote').addClass('btn-success')
+  <% else %>
+    $('#downvote').addClass('btn-success')
+    $('#upvote').removeClass('btn-success')
+  <% end %>
+  $('#votes_count').html('<%= @vote.voteable.total_score.to_s %>')
+<% elsif @vote.voteable.class.to_s == "Comment" %>
+  <% if @vote.vote_value == 1 %>
+    $('#comment_upvote').replaceWith('<%= j render "comments/upvote", 
+        vote: @vote %>')
+  <% else %>
 
+  <% end %>
+
+<% elsif @vote.voteable.class.to_s == "Edit" %>
+  <% if @vote.vote_value == 1 %>
+    alert("FUCK ME")
+  <% else %>
+
+  <% end %>
+
+<% end %>  

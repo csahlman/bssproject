@@ -1,3 +1,24 @@
+<% @comment_vote= comment.votes.find_or_initialize_by_user_id(current_user.id) %>
+<%#= needed to load each comment vote individually, apologize for the variables in view %>
 <li>
-  <p><%= comment.message %></p>
+  <p><%= comment.message %> 
+    <%#= link_to "(+)", [@idiom, comment, @comment_vote], 
+      { params: {vote_value: 1} }, method: :post, action: :create,
+       remote: true %>
+    <%#= link_to "(-)", [@idiom, comment, @comment_vote], 
+      { params: {vote_value: -1} }, method: :post, action: :create,
+       remote: true %>
+
+ <%= simple_form_for [@idiom, comment, @comment_vote], 
+    html: { id: "comment_upvote"}, remote: true do |f| %>
+   <%= f.hidden_field :vote_value, value: 1 %>
+   <%= f.button :submit, '+', id: "comment_upvote_button" %>
+ <% end %>  
+
+ <%= simple_form_for [@idiom, comment, @comment_vote], 
+    html: { id: "comment_downvote"}, remote: true do |f| %>
+   <%= f.hidden_field :vote_value, value: -1 %>
+   <%= f.button :submit, '-', id: "comment_downvote_button" %>
+ <% end %>    
+     </p>
 </li>

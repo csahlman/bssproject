@@ -1,0 +1,6 @@
+<%= simple_form_for [vote.voteable.idiom, vote.voteable, vote], 
+  html: { id: "comment_upvote", class: "active_upvote"}, 
+  remote: true do |f| %>
+ <%= f.hidden_field :vote_value, value: 1 %>
+ <%= f.button :submit, '+', id: "comment_upvote", class: "btn-success" %>
+<% end %>   

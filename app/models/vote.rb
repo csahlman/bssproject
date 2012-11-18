@@ -17,14 +17,14 @@ class Vote < ActiveRecord::Base
 
   validates :vote_value, numericality: true, inclusion: { in: [-1, 1]}
 
-  def parse_commit(commit)
-    case commit
-    when "Upvote", "+"
-      1
-    when "Downvote", "-"  
-      -1
-    else
-      0  
-    end  
-  end
+  # def parse_commit(commit)
+  #   case commit
+  #   when "Upvote", "+"
+  #     1
+  #   when "Downvote", "-"  
+  #     -1
+  #   else
+  #     0  
+  #   end  
+  # end
 end
