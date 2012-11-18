@@ -1,2 +1,8 @@
-<h1>Edits#show</h1>
-<p>Find me in app/views/edits/show.html.erb</p>
+<h3>Edit of <%= @idiom.title %> at 
+  <%= @edit.edited_at.strftime("%Y-%m-%d %H:%M") %>
+</h3>
+<h6>Current Description</h6>
+<p><%= @idiom.description %></p>
+
+<h6>Old Description</h6>
+<p><%= @edit.description %></p>

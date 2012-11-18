@@ -1,6 +1,7 @@
 <%= content_for(:title) { @idiom.title} %>
 
-<h1><%= @idiom.title %></h1><br>
+<h1><%= @idiom.title %></h1>
+<%= link_to "Edits history", idiom_edits_path(@idiom) %><br>
 <p><%= @idiom.description %></p>
 
 <span>Tags: <%= render @idiom.tags %></span><br>

@@ -12,9 +12,11 @@
 
 class Edit < ActiveRecord::Base
 
-  
+
   validates :description, presence: true, length: { maximum: 10000 }
 
   belongs_to :user
   belongs_to :idiom
+
+  default_scope order('created_at DESC')
 end

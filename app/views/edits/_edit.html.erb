@@ -1,5 +1,6 @@
 <li>
   <p><%= edit.description %></p>
   <span>Edited by <%= link_to edit.user.name, edit.user %> at </span>
-  <span class="time"><%= edit.created_at %></span>
+  <span class="time">
+    <%= link_to edit.edited_at.strftime("%Y-%m-%d %H:%M"), [object, edit] %></span>
 </li>

@@ -12,6 +12,7 @@ class IdiomsController < ApplicationController
     @idiom.tag_list=(params[:idiom][:tag_list]) if params[:idiom][:tag_list]
 
     if @idiom.save
+      make_edit(@idiom)
       redirect_to @idiom, flash: { notice: "#{@idiom.title} created"}
     else
       render 'new'
@@ -24,10 +25,7 @@ class IdiomsController < ApplicationController
 
   def update
     @idiom= Idiom.find(params[:id])
-    @edit= @idiom.edits.new
-    @edit.user= current_user
-    @edit.description= @idiom.description
-    @edit.save!
+    make_edit(@idiom)
     @idiom.title= params[:idiom][:title]
     @idiom.description= params[:idiom][:description]
 
@@ -62,4 +60,14 @@ class IdiomsController < ApplicationController
       f.json { render json: @idioms }
     end
   end
+
+  private
+
+    def make_edit(idiom)
+      @edit= idiom.edits.new
+      @edit.edited_at= idiom.updated_at
+      @edit.user= current_user
+      @edit.description= idiom.description
+      @edit.save!      
+    end
 end
