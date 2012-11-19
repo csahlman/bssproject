@@ -2,9 +2,12 @@
   <% if @vote.vote_value == 1 %>
     $('#downvote').removeClass('btn-success')
     $('#upvote').replaceWith('<%= j render "idioms/upvote", vote: @vote %>')
+    $('#downvote').replaceWith('<%= j render "idioms/downvote", vote: @vote %>')        
     $('#upvote').addClass('btn-success')
   <% else %>
     $('#downvote').addClass('btn-success')
+    $('#downvote').replaceWith('<%= j render "idioms/downvote", vote: @vote %>') 
+    $('#upvote').replaceWith('<%= j render "idioms/upvote", vote: @vote %>')       
     $('#upvote').removeClass('btn-success')
   <% end %>
   $('#votes_count').html('<%= @vote.voteable.total_score.to_s %>')
