@@ -3,21 +3,26 @@
 <h1>Edits history for <%= link_to @idiom.title, @idiom %></h1>
 
 <%= content_for(:sidebar) do %>
-  <h4>Current Description: </h4>
-  <p><%= @idiom.description %> </p>
-  <span class="time">
-    posted at <%= link_to @idiom.updated_at.strftime("%Y-%m-%d %H:%M") %> 
-  </span>
+  <h4>Contributors: </h4>
+  <ul>
+    <% @contributors.each do |edit| %>
+      <li><%= link_to edit.user.name, edit.user %>
+        <%= pluralize edit.edited_by, "edit" %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
 
 <div class="well well-large">
   <h3>Current Description 
-    <small>posted at <%= link_to @idiom.updated_at.strftime("%Y-%m-%d %H:%M") %></small>
+    <small>
+      posted at <%= link_to @idiom.updated_at.strftime("%Y-%m-%d %H:%M") %>
+    </small>
   </h3>
   <%= @idiom.description %>
 </div>
 
-
+<h3>Full List of Edits</h3>
 <ul class="edits">
   <%= render @edits, object: @idiom %>
 </ul>

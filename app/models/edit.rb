@@ -21,4 +21,8 @@ class Edit < ActiveRecord::Base
   has_many :votes, as: :voteable
 
   default_scope order('created_at DESC')
+
+  def edited_by
+    Edit.where("user_id= ? AND id=?", user.id, self.id).count
+  end
 end

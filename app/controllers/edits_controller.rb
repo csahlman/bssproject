@@ -2,7 +2,7 @@ class EditsController < ApplicationController
   def index
     @idiom= Idiom.find(params[:idiom_id])
     @edits= @idiom.edits
-
+    @contributors= @edits.uniq(&:user_id)
     respond_to do |f|
       f.html
       f.json { render json: @edits }
