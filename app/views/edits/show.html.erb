@@ -1,6 +1,10 @@
 <h3>Edit of <%= @idiom.title %> at 
   <%= @edit.edited_at.strftime("%Y-%m-%d %H:%M") %>
 </h3>
+<div class="hero-unit">
+  <h6>Current Descripiton</h6>
+  <p><%= @idiom.description %></p>
+</div>
 <h6>Current Description</h6>
 <p><%= @idiom.description %></p>
 

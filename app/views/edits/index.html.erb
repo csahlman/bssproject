@@ -10,6 +10,13 @@
   </span>
 <% end %>
 
+<div class="well well-large">
+  <h3>Current Description 
+    <small>posted at <%= link_to @idiom.updated_at.strftime("%Y-%m-%d %H:%M") %></small>
+  </h3>
+  <%= @idiom.description %>
+</div>
+
 
 <ul class="edits">
   <%= render @edits, object: @idiom %>
