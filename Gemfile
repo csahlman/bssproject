@@ -27,7 +27,7 @@ group :test, :development do
   gem 'annotate'
   gem 'factory_girl_rails'
   gem 'faker'
-  # gem 'mongrel', '>= 1.2.0.pre2'
+  gem 'mongrel', '>= 1.2.0.pre2'
   gem 'spork'
   #gem #'linecache19'#,       '>= 0.5.13'
   #gem #'ruby-debug-base19'#, '>= 0.11.26'
