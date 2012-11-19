@@ -1,24 +1,26 @@
 <% @comment_vote= comment.votes.find_or_initialize_by_user_id(current_user.id) %>
 <%#= needed to load each comment vote individually, apologize for the variables in view %>
-<li>
-  <p><%= comment.message %> 
+<li class="comment">
+ <%= simple_form_for [@idiom, comment, @comment_vote], 
+    html: { id: "comment_upvote_#{comment.id}"}, remote: true do |f| %>
+   <%= f.hidden_field :vote_value, value: 1 %>
+   <%= f.button :submit, '+', id: "comment_upvote_button_#{comment.id}", 
+       class: @comment_vote.vote_value == 1 ? 'btn-success' : "" %>
+ <% end %>  
+
+ <%= simple_form_for [@idiom, comment, @comment_vote], 
+    html: { id: "comment_downvote_#{comment.id}"}, remote: true do |f| %>
+   <%= f.hidden_field :vote_value, value: -1 %>
+   <%= f.button :submit, '-', id: "comment_downvote_button_#{comment.id}",
+      class: @comment_vote.vote_value == -1 ? 'btn-success' : "" %>
+ <% end %>
+ <span class="comment_body"><%= comment.message %></span>
+ Score: <span id="score_<%= comment.id %>"><%= comment.total_score %></span>
+
     <%#= link_to "(+)", [@idiom, comment, @comment_vote], 
       { params: {vote_value: 1} }, method: :post, action: :create,
        remote: true %>
     <%#= link_to "(-)", [@idiom, comment, @comment_vote], 
       { params: {vote_value: -1} }, method: :post, action: :create,
        remote: true %>
-
- <%= simple_form_for [@idiom, comment, @comment_vote], 
-    html: { id: "comment_upvote"}, remote: true do |f| %>
-   <%= f.hidden_field :vote_value, value: 1 %>
-   <%= f.button :submit, '+', id: "comment_upvote_button" %>
- <% end %>  
-
- <%= simple_form_for [@idiom, comment, @comment_vote], 
-    html: { id: "comment_downvote"}, remote: true do |f| %>
-   <%= f.hidden_field :vote_value, value: -1 %>
-   <%= f.button :submit, '-', id: "comment_downvote_button" %>
- <% end %>    
-     </p>
-</li>
+</li><br>

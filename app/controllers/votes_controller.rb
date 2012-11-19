@@ -2,10 +2,7 @@ class VotesController < ApplicationController
   before_filter :get_voteable
 
   def create
-    @vote= @voteable.votes.find_by_user_id(current_user.id)
-    unless @vote
-      @vote= @voteable.votes.new
-    end
+    @vote= @voteable.votes.new
     @vote.vote_value = params[:vote][:vote_value]
     @vote.user= current_user
     if @vote.save

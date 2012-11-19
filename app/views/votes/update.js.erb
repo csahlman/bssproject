@@ -9,11 +9,13 @@
   $('#votes_count').html('<%= @vote.voteable.total_score.to_s %>')
 <% elsif @vote.voteable.class.to_s == "Comment" %>
   <% if @vote.vote_value == 1 %>
-    alert("update comment")
+    $('#comment_downvote_button_<%= @vote.voteable.id %>').removeClass('btn-success')
+    $('#comment_upvote_button_<%= @vote.voteable.id %>').addClass('btn-success')
   <% else %>
-
+    $('#comment_upvote_button_<%= @vote.voteable.id %>').removeClass('btn-success')
+    $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success')
   <% end %>
-
+  $('#score_<%= @vote.voteable.id %>').html('<%= @vote.voteable.total_score %>')
 <% elsif @vote.voteable.class.to_s == "Edit" %>
   <% if @vote.vote_value == 1 %>
     alert("update edit")
