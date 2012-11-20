@@ -1,0 +1,6 @@
+<h1>Send a new message to <%= @receiver.name %></h1>
+
+<%= simple_form_for [@receiver, @message] do |f| %>
+  <%= f.input :body %>
+  <%= f.button :submit, "Send Message" %>
+<% end %>

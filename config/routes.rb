@@ -32,7 +32,8 @@ BssProject::Application.routes.draw do
   root :to => 'pages#home'
 
   resources :users do
-    
+    resources :messages, only: [ :new, :create, :show ]
+    resources :conversations
   end  
   # The priority is based upon order of creation:
   # first created -> highest priority.

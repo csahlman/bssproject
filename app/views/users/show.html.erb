@@ -12,6 +12,8 @@
   <dd><%= @user.about_me %></dd>
 </dl>
 
+<%= link_to "Send #{@user.name} a message.", new_user_message_path(@user) %>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               users_path, :class => 'btn'  %>
