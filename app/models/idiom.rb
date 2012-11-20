@@ -60,4 +60,8 @@ class Idiom < ActiveRecord::Base
       # gets saved in the controller
     end  
   end
+
+  def random_tag
+    self.tags.sample
+  end
 end

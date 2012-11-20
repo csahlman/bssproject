@@ -22,8 +22,23 @@
   Total Score: <span id="votes_count"><%= @idiom.total_score %></span><br>
 
   <h4>You tell us. Is <%= @idiom.title %>...</h4>
-  <% @random_tag = @idiom.tags.sample %>
-  <p> <%= @random_tag.name %>?
+  <% @tag_for_voting = @idiom.random_tag %>
+  <p> <%= @tag_for_voting.name %>?
+    <% @tag_vote= @tag_for_voting.votes.find_or_initialize_by_user_id(current_user.id) %>
+ <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
+    html: { id: "tag_upvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
+   <%= f.hidden_field :vote_value, value: 1 %>
+   <%= f.button :submit, '+', id: "tag_upvote_button_#{@tag_for_voting.id}", 
+       class: @tag_vote.vote_value == 1 ? 'btn-success' : "" %>
+ <% end %>  
+
+ <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
+    html: { id: "tag_downvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
+   <%= f.hidden_field :vote_value, value: -1 %>
+   <%= f.button :submit, '-', id: "tag_downvote_button_#{@tag_for_voting.id}",
+      class: @tag_vote.vote_value == -1 ? 'btn-success' : "" %>
+ <% end %>
+
   </p>
 
 <% end %>

@@ -15,6 +15,9 @@ BssProject::Application.routes.draw do
 
 
   resources :idioms do
+    resources :tags do
+      resources :votes, defaults: { voteable: 'tag' }
+    end
     resources :comments do
       resources :votes, defaults: { voteable: 'comment' }
     end
