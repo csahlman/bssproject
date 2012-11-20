@@ -1,28 +1,28 @@
 <% if @vote.voteable.class.to_s == "Idiom" %>
   <% if @vote.vote_value == 1 %>
-    $('#downvote').removeClass('btn-success')
+    $('#downvote').removeClass('btn-danger')
     $('#upvote').addClass('btn-success')
   <% else %>
-    $('#downvote').addClass('btn-success')
+    $('#downvote').addClass('btn-danger')
     $('#upvote').removeClass('btn-success')
   <% end %>
   $('#votes_count').html('<%= proper_score @vote %>')
 <% elsif @vote.voteable.class.to_s == "Comment" %>
   <% if @vote.vote_value == 1 %>
-    $('#comment_downvote_button_<%= @vote.voteable.id %>').removeClass('btn-success')
+    $('#comment_downvote_button_<%= @vote.voteable.id %>').removeClass('btn-danger')
     $('#comment_upvote_button_<%= @vote.voteable.id %>').addClass('btn-success')
   <% else %>
     $('#comment_upvote_button_<%= @vote.voteable.id %>').removeClass('btn-success')
-    $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success')
+    $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-danger')
   <% end %>
   $('#score_<%= @vote.voteable.id %>').html('<%= proper_score @vote %>')
 <% elsif @vote.voteable.class.to_s == "Tag" %>
   <% if @vote.vote_value == 1 %>
-    $('#tag_downvote_button_<%= @vote.voteable.id.to_s %>').removeClass('btn-success')
+    $('#tag_downvote_button_<%= @vote.voteable.id.to_s %>').removeClass('btn-danger')
     $('#tag_upvote_button_<%= @vote.voteable.id.to_s %>').addClass('btn-success')
   <% else %>
     $('#tag_upvote_button_<%= @vote.voteable.id.to_s %>').removeClass('btn-success')
-    $('#tag_downvote_button_<%= @vote.voteable.id.to_s %>').addClass('btn-success')     
+    $('#tag_downvote_button_<%= @vote.voteable.id.to_s %>').addClass('btn-danger')     
   <% end %>  
 <% elsif @vote.voteable.class.to_s == "Edit" %>
   <% if @vote.vote_value == 1 %>

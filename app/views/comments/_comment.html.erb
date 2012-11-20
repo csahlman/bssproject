@@ -12,10 +12,10 @@
     html: { id: "comment_downvote_#{comment.id}"}, remote: true do |f| %>
    <%= f.hidden_field :vote_value, value: -1 %>
    <%= f.button :submit, '-', id: "comment_downvote_button_#{comment.id}",
-      class: @comment_vote.vote_value == -1 ? 'btn-success' : "" %>
+      class: @comment_vote.vote_value == -1 ? 'btn-danger' : "" %>
  <% end %>
  <span class="comment_body"><%= comment.message %></span>
-   Score: <span id="score_<%= comment.id %>" 
+   <span id="score_<%= comment.id %>" 
     class= "<%= comment.total_score >= 0 ? 'positive' : 'negative' %>">
   <%= comment.total_score %>
   </span><br>

@@ -1,11 +1,11 @@
 <% if @vote.voteable.class.to_s == "Idiom" %>
   <% if @vote.vote_value == 1 %>
-    $('#downvote').removeClass('btn-success')
+    $('#downvote').removeClass('btn-danger')
     $('#upvote').replaceWith('<%= j render "idioms/upvote", vote: @vote %>')
     $('#downvote').replaceWith('<%= j render "idioms/downvote", vote: @vote %>')        
     $('#upvote').addClass('btn-success')
   <% else %>
-    $('#downvote').addClass('btn-success')
+    $('#downvote').addClass('btn-danger')
     $('#downvote').replaceWith('<%= j render "idioms/downvote", vote: @vote %>') 
     $('#upvote').replaceWith('<%= j render "idioms/upvote", vote: @vote %>')         
     $('#upvote').removeClass('btn-success')
@@ -23,7 +23,7 @@
       replaceWith('<%= j render "comments/upvote", vote: @vote %>')
     $('#comment_downvote_<%= @vote.voteable.id %>').
       replaceWith('<%= j render "comments/downvote", vote: @vote %>') 
-    $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success') 
+    $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-danger') 
   <% end %>         
   $('#score_<%= @vote.voteable.id %>').html('<%= proper_score @vote %>')
 <% elsif @vote.voteable.class.to_s == "Tag" %>
@@ -38,7 +38,7 @@
       replaceWith('<%= j render "tags/upvote", vote: @vote %>')
     $('#tag_downvote_<%= @vote.voteable.id %>').
       replaceWith('<%= j render "tags/downvote", vote: @vote %>') 
-    $('#tag_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success')        
+    $('#tag_downvote_button_<%= @vote.voteable.id %>').addClass('btn-danger')        
   <% end %>
 <% elsif @vote.voteable.class.to_s == "Edit" %>
   <% if @vote.vote_value == 1 %>
