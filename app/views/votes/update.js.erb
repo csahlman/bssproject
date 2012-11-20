@@ -6,7 +6,7 @@
     $('#downvote').addClass('btn-success')
     $('#upvote').removeClass('btn-success')
   <% end %>
-  $('#votes_count').html('<%= @vote.voteable.total_score.to_s %>')
+  $('#votes_count').html('<%= proper_score @vote %>')
 <% elsif @vote.voteable.class.to_s == "Comment" %>
   <% if @vote.vote_value == 1 %>
     $('#comment_downvote_button_<%= @vote.voteable.id %>').removeClass('btn-success')
@@ -15,7 +15,7 @@
     $('#comment_upvote_button_<%= @vote.voteable.id %>').removeClass('btn-success')
     $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success')
   <% end %>
-  $('#score_<%= @vote.voteable.id %>').html('<%= @vote.voteable.total_score %>')
+  $('#score_<%= @vote.voteable.id %>').html('<%= proper_score @vote %>')
 <% elsif @vote.voteable.class.to_s == "Tag" %>
   <% if @vote.vote_value == 1 %>
     $('#tag_downvote_button_<%= @vote.voteable.id.to_s %>').removeClass('btn-success')
