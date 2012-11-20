@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120003131) do
+ActiveRecord::Schema.define(:version => 20121120193945) do
 
   create_table "comments", :force => true do |t|
     t.text     "message"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(:version => 20121120003131) do
     t.integer  "idiom_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "conversations", :force => true do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "edits", :force => true do |t|
@@ -36,6 +43,16 @@ ActiveRecord::Schema.define(:version => 20121120003131) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "user_id"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.datetime "read_at"
+    t.text     "body"
+    t.integer  "conversation_id"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "tag_associations", :force => true do |t|

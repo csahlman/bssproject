@@ -30,6 +30,9 @@ class User < ActiveRecord::Base
 
   has_many :edits
 
+  has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
+  has_many :received_messages, class_name: "Message", foreign_key: "receiver_id"
+
   before_create :create_remember_token
 
   after_destroy :ensure_an_admin_remains   #make sure you can't delete last user
