@@ -22,6 +22,16 @@ class Idiom < ActiveRecord::Base
 
   has_many :votes, as: :voteable
 
+  def contributors_with_counts
+    my_array = []
+    uniq_edits = self.edits.uniq_by { |edit| edit.user_id }
+    uniq_edits.each do |edit| 
+      my_array << { user: edit.user, count: edit.edited_by }
+    end
+    my_array
+    # returns array of hashes of users and respective counts
+  end
+
   def total_score
     votes.sum(:vote_value)
   end

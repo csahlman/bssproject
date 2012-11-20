@@ -5,9 +5,9 @@
 <%= content_for(:sidebar) do %>
   <h4>Contributors: </h4>
   <ul>
-    <% @contributors.each do |edit| %>
-      <li><%= link_to edit.user.name, edit.user %>
-        <%= pluralize edit.edited_by, "edit" %>
+    <% @contributors.each do |hash| %>
+      <li><%= link_to hash[:user].name, hash[:user] %> 
+        <%= pluralize(hash[:count], "edit") %>.
       </li>
     <% end %>
   </ul>

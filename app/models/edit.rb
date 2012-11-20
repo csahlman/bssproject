@@ -23,6 +23,6 @@ class Edit < ActiveRecord::Base
   default_scope order('created_at DESC')
 
   def edited_by
-    Edit.where("user_id= ? AND id=?", user.id, self.id).count
+    Edit.where("user_id= ? AND idiom_id=?", user.id, idiom.id).count
   end
 end
