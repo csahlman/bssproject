@@ -16,6 +16,14 @@
     $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success')
   <% end %>
   $('#score_<%= @vote.voteable.id %>').html('<%= @vote.voteable.total_score %>')
+<% elsif @vote.voteable.class.to_s == "Tag" %>
+  <% if @vote.vote_value == 1 %>
+    $('#tag_downvote_button_<%= @vote.voteable.id.to_s %>').removeClass('btn-success')
+    $('#tag_upvote_button_<%= @vote.voteable.id.to_s %>').addClass('btn-success')
+  <% else %>
+    $('#tag_upvote_button_<%= @vote.voteable.id.to_s %>').removeClass('btn-success')
+    $('#tag_downvote_button_<%= @vote.voteable.id.to_s %>').addClass('btn-success')     
+  <% end %>  
 <% elsif @vote.voteable.class.to_s == "Edit" %>
   <% if @vote.vote_value == 1 %>
     alert("update edit")

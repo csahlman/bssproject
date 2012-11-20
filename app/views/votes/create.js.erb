@@ -23,21 +23,22 @@
       replaceWith('<%= j render "comments/upvote", vote: @vote %>')
     $('#comment_downvote_<%= @vote.voteable.id %>').
       replaceWith('<%= j render "comments/downvote", vote: @vote %>') 
-    $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success')        
+    $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success') 
+  <% end %>         
   $('#score_<%= @vote.voteable.id %>').html('<%= @vote.voteable.total_score %>')
 <% elsif @vote.voteable.class.to_s == "Tag" %>
   <% if @vote.vote_value == 1 %>
-    $('#comment_upvote_<%= @vote.voteable.id.to_s %>').
+    $('#tag_upvote_<%= @vote.voteable.id.to_s %>').
       replaceWith('<%= j render "tags/upvote", vote: @vote %>')
-    $('#comment_downvote_<%= @vote.voteable.id %>').
+    $('#tag_downvote_<%= @vote.voteable.id %>').
       replaceWith('<%= j render "tags/downvote", vote: @vote %>') 
-    $('#comment_upvote_button_<%= @vote.voteable.id %>').addClass('btn-success') 
+    $('#tag_upvote_button_<%= @vote.voteable.id %>').addClass('btn-success') 
   <% else %>
-    $('#comment_upvote_<%= @vote.voteable.id.to_s %>').
+    $('#tag_upvote_<%= @vote.voteable.id.to_s %>').
       replaceWith('<%= j render "tags/upvote", vote: @vote %>')
-    $('#comment_downvote_<%= @vote.voteable.id %>').
+    $('#tag_downvote_<%= @vote.voteable.id %>').
       replaceWith('<%= j render "tags/downvote", vote: @vote %>') 
-    $('#comment_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success')        
+    $('#tag_downvote_button_<%= @vote.voteable.id %>').addClass('btn-success')        
   <% end %>
 <% elsif @vote.voteable.class.to_s == "Edit" %>
   <% if @vote.vote_value == 1 %>
