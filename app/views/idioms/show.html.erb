@@ -19,7 +19,13 @@
     <%= f.button :submit, "Downvote" %>
   <% end %><br><br>
 
-  Total Score: <span id="votes_count"><%= @idiom.total_score %></span>
+  Total Score: <span id="votes_count"><%= @idiom.total_score %></span><br>
+
+  <h4>You tell us. Is <%= @idiom.title %>...</h4>
+  <% @random_tag = @idiom.tags.sample %>
+  <p> <%= @random_tag.name %>?
+  </p>
+
 <% end %>
 
 <h1><%= @idiom.title %></h1> 

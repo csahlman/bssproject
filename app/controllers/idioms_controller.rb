@@ -10,6 +10,7 @@ class IdiomsController < ApplicationController
     @idiom.title= params[:idiom][:title]
     @idiom.description= params[:idiom][:description]
     @idiom.tag_list=(params[:idiom][:tag_list]) if params[:idiom][:tag_list]
+    @idiom.user = current_user
 
     if @idiom.save
       make_edit(@idiom)

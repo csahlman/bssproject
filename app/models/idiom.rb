@@ -7,6 +7,7 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :integer
 #
 
 class Idiom < ActiveRecord::Base
@@ -14,6 +15,8 @@ class Idiom < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 1000 },
     uniqueness: { case_sensitive: false }
   validates :description, presence: true, length: { maximum: 10000 }
+
+  belongs_to :user
   
   has_many :comments, dependent: :destroy 
   has_many :tags, through: :tag_associations

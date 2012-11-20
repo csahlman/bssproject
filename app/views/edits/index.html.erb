@@ -3,6 +3,8 @@
 <h1>Edits history for <%= link_to @idiom.title, @idiom %></h1>
 
 <%= content_for(:sidebar) do %>
+  <h4>Originally posted by: </h4>
+  <span><%= link_to @idiom.user.name, @idiom.user %> at <%= @idiom.created_at.strftime("%Y-%m-%d %H:%M") %> </span>
   <h4>Contributors: </h4>
   <ul>
     <% @contributors.each do |hash| %>
