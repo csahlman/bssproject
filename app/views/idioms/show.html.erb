@@ -5,42 +5,38 @@
   <h4>Please give us your feedback</h4>  
   <p>Upvote for a good description.  You can see more possibilities
    in the edits history</p>
-  
-  <%= simple_form_for [@idiom, @vote], html: { id: "upvote", 
-    class: ( @vote.vote_value == 1 ) ? 'btn btn-small btn-success' : 
-    'btn btn-small' }, remote: true do |f| %>
-    <%= f.hidden_field :vote_value, value: 1 %>
-    <%= f.button :submit, "Upvote" %>
-  <% end %>
+    <%= simple_form_for [@idiom, @vote], html: { id: "upvote", 
+      class: ( @vote.vote_value == 1 ) ? 'btn btn-small btn-success' : 
+      'btn btn-small' }, remote: true do |f| %>
+      <%= f.hidden_field :vote_value, value: 1 %>
+      <%= f.button :submit, "Upvote" %>
+    <% end %>
 
-  <%= simple_form_for [@idiom, @vote], html: { id: "downvote", 
-    class: ( @vote.vote_value == -1 ) ? 'btn btn-small btn-success' : 
-    'btn btn-small'  }, remote: true do |f| %>
-    <%= f.hidden_field :vote_value, value: -1 %>
-    <%= f.button :submit, "Downvote" %>
-  <% end %><br><br>
-
+    <%= simple_form_for [@idiom, @vote], html: { id: "downvote", 
+      class: ( @vote.vote_value == -1 ) ? 'btn btn-small btn-success' : 
+      'btn btn-small'  }, remote: true do |f| %>
+      <%= f.hidden_field :vote_value, value: -1 %>
+      <%= f.button :submit, "Downvote" %>
+    <% end %><br><br>
   Total Score: <span id="votes_count"><%= @idiom.total_score %></span><br>
 
   <h4>You tell us. Is <%= @idiom.title %>...</h4>
-  <% @tag_for_voting = @idiom.random_tag %>
-  <p> <%= @tag_for_voting.name %>?
-    <% @tag_vote= @tag_for_voting.votes.find_or_initialize_by_user_id(current_user.id) %>
- <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
-    html: { id: "tag_upvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
-   <%= f.hidden_field :vote_value, value: 1 %>
-   <%= f.button :submit, '+', id: "tag_upvote_button_#{@tag_for_voting.id}", 
-       class: @tag_vote.vote_value == 1 ? 'btn-success' : "" %>
- <% end %>  
+  <p> <%= @tag_for_voting.name %>? </p>
+  <span class="tag">
+   <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
+      html: { id: "tag_upvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
+     <%= f.hidden_field :vote_value, value: 1 %>
+     <%= f.button :submit, '+', id: "tag_upvote_button_#{@tag_for_voting.id}", 
+         class: @tag_vote.vote_value == 1 ? 'btn-success' : "" %>
+   <% end %>  
 
- <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
-    html: { id: "tag_downvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
-   <%= f.hidden_field :vote_value, value: -1 %>
-   <%= f.button :submit, '-', id: "tag_downvote_button_#{@tag_for_voting.id}",
-      class: @tag_vote.vote_value == -1 ? 'btn-success' : "" %>
- <% end %>
-
-  </p>
+   <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
+      html: { id: "tag_downvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
+     <%= f.hidden_field :vote_value, value: -1 %>
+     <%= f.button :submit, '-', id: "tag_downvote_button_#{@tag_for_voting.id}",
+        class: @tag_vote.vote_value == -1 ? 'btn-success' : "" %>
+   <% end %>
+  </span>
 
 <% end %>
 

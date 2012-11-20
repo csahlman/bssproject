@@ -15,7 +15,7 @@ textarea {
 .m { font-size: 1.2em; }
 .l { font-size: 1.8em; }
 
-.comment {
+.comment, .tag {
   form {
     margin: 0;
     padding: 0;
@@ -27,3 +27,4 @@ textarea {
   }
   display: inline;
 }
+

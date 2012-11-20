@@ -1,4 +1,4 @@
- <%= simple_form_for [vote.voteable, vote], 
+ <%= simple_form_for [vote.voteable.idiom, vote.voteable, vote], 
     html: { id: "tag_downvote_#{vote.id}"}, remote: true do |f| %>
    <%= f.hidden_field :vote_value, value: -1 %>
    <%= f.button :submit, '-', id: "tag_downvote_button_#{vote.id}", 
