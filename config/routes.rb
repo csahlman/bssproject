@@ -29,7 +29,7 @@ BssProject::Application.routes.draw do
 
   get 'tags/:tag', to: 'idioms#index', as: :tag
 
-  # match '/auth/:provider/callback', to: 'sessions#create'
+  match '/auth/:provider/callback', to: 'sessions#create'
 
   root :to => 'pages#home'
 
