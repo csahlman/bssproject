@@ -18,6 +18,7 @@
           <li><%= link_to "Dashboard", '#'  %></li>
           <li><%= link_to "Sign out", logout_path, method: :delete  %></li>
           <% else %>
+          <li><%= link_to "Sign in with Facebook", '/auth/facebook' %></li>
           <li><%= link_to "Sign up", new_user_path  %></li>
           <li><%= link_to "Sign In", sign_in_path  %></li>
           <% end %>

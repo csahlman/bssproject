@@ -44,6 +44,9 @@ gem 'less-rails'
 gem 'therubyracer', :platforms => :ruby
 gem 'simple_form'
 
+# gem 'omniauth-openid'
+gem 'omniauth-facebook'
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
