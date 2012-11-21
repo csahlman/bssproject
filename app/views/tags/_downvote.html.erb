@@ -1,6 +1,6 @@
- <%= simple_form_for [vote.voteable.idiom, vote.voteable, vote], 
-    html: { id: "tag_downvote_#{vote.id}"}, remote: true do |f| %>
+ <%= simple_form_for [vote.voteable.idioms.find(params[:idiom_id]), vote.voteable, vote], 
+    html: { id: "tag_downvote_#{vote.voteable.id}"}, remote: true do |f| %>
    <%= f.hidden_field :vote_value, value: -1 %>
-   <%= f.button :submit, '-', id: "tag_downvote_button_#{vote.id}", 
-       class: vote.vote_value == -1 ? 'btn-success' : "" %>
+   <%= f.button :submit, '-', id: "tag_downvote_button_#{vote.voteable.id}", 
+       class: vote.vote_value == -1 ? 'btn-danger' : "" %>
  <% end %>  
