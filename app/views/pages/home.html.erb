@@ -12,7 +12,17 @@
 <div class="hero-unit">
   <h1>Learn to Program!</h1>
   <p>This is a site to help with bringing together information about how to
-    effectively self-teach programming languages</p>
+    effectively self-teach programming languages</p>    
 </div>
+<% unless signed_in? %>
+<div class="logins">
+  <span id="facebook">
+    <%= link_to (image_tag 'fb-connect-large.png'), 'auth/facebook' %>
+  </span>
+  <span id="twitter_login">
+    <%= link_to (image_tag 'sign_in_with_twitter.jpg', id: "twitter"), '/auth/twitter' %>
+  </span>
+</div>
+<% end %>
 
 <span>PLACEHOLDER FOR RECENTLY EDITED SHIT</span>

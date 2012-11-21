@@ -39,21 +39,25 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     where(auth.slice('provider', 'uid')).first || create_or_deny_from_omniauth(auth)
+    #pulls out the first provider/uid combo that matches a user, or creates a new one
   end
 
   def self.create_or_deny_from_omniauth(auth)
-    if User.find_by_email auth["info"]["email"]
-      raise "There is already an account with that email registered"
-    else
+    if auth["provider"] == "twitter" || "facebook"
       new_user = User.new do |user|
         user.uid = auth["uid"]
         user.provider = auth["provider"]
         user.name = auth["info"]["name"]
-        user.email = auth["info"]["email"]
       end
-      new_user.save(validate: false) #skip validation of password on facebook login
-      new_user #return the actual user and don't keep forgetting to return stuff
+      if auth['provider'] == 'facebook'
+        new_user.email= auth["info"]["email"]
+        if User.find_by_email auth["info"]["email"]
+          raise "There is already an account with that email registered"  
+        end
+      end
     end
+    new_user.save(validate: false) #skip validation of password on facebook/twitter login
+    new_user #return the actual user and don't keep forgetting to return stuff    
   end
 
   private 

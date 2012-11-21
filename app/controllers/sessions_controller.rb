@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
   def create
     # raise env['omniauth.auth'].to_yaml
     if env['omniauth.auth']
-      user = User.from_omniauth(env['omniauth.auth'])
+      begin
+        user = User.from_omniauth(env['omniauth.auth'])
+      rescue  
+        redirect_to root_path, flash: { error: "Email already exists, please login normally." }
+      end
       sign_in(user)
       redirect_back_or root_url, flash: { notice: "Welcome #{user.name}." }
     elsif User.find_by_email(params[:email])

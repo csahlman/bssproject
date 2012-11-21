@@ -40,3 +40,18 @@ textarea {
   font-weight: italic;
   font-size: 75%;
 }
+
+#twitter {
+  width: 100px;
+  height: 100px;
+}
+
+.login_forms {
+  display: inline;
+  float: left;
+  .logins {
+    float: right;
+  }
+}
+
+
