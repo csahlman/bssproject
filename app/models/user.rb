@@ -51,8 +51,8 @@ class User < ActiveRecord::Base
         user.name = auth["info"]["name"]
         user.email = auth["info"]["email"]
       end
-      new_user.save(validate: false) #skip validation of password 
-      new_user
+      new_user.save(validate: false) #skip validation of password on facebook login
+      new_user #return the actual user and don't keep forgetting to return stuff
     end
   end
 
