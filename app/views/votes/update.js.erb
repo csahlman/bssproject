@@ -26,9 +26,9 @@
   <% end %>  
 <% elsif @vote.voteable.class.to_s == "Edit" %>
   <% if @vote.vote_value == 1 %>
-    alert("update edit")
+
   <% else %>
 
   <% end %>
-
+  $('#edit_<%= @vote.voteable.id %>_score').html('<%= proper_score @vote %>')
 <% end %>  

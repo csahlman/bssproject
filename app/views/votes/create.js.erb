@@ -43,8 +43,18 @@
 <% elsif @vote.voteable.class.to_s == "Edit" %>
   <% if @vote.vote_value == 1 %>
     alert('edit 1')
+    $('#edit_upvote_<%= @vote.voteable.id %>').replaceWith("<%= j render 'edits/upvote', 
+        vote: @vote %>")
+    $('#edit_downvote_<%= @vote.voteable.id %>').replaceWith("<%= j render 'edits/downvote', 
+        vote: @vote %>")   
   <% else %>
     alert('edit -1')
+    $('#edit_downvote_<%= @vote.voteable.id %>').replaceWith("<%= j render 'edits/downvote', 
+        vote: @vote %>")    
+    $('#edit_upvote_<%= @vote.voteable.id %>').replaceWith("<%= j render 'edits/upvote', 
+        vote: @vote %>")       
   <% end %>
-
+  $('#edit_<%= @vote.voteable.id %>_score').html('<%= proper_score @vote %>')
+<% else %>  
+  alert("not working bra")
 <% end %>  

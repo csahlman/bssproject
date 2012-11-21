@@ -1,0 +1,3 @@
+<%= link_to "(-)", idiom_edit_vote_path(vote.voteable.idioms.find(params[:idiom_id]), 
+	vote.voteable, vote, vote: { vote_value: -1 }), method: :put, action: :update,
+	id: "edit_downvote_#{edit.id}", remote: true %>

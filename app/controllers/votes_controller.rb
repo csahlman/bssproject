@@ -7,7 +7,7 @@ class VotesController < ApplicationController
     @vote.user= current_user
     if @vote.save
       respond_to do |f|
-        f.html { redirect_to @vote.voteable }
+        # f.html { redirect_to @vote.voteable }
         f.js { }
         f.json { render json: @vote }
       end  

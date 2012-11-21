@@ -1,8 +1,18 @@
+<% vote= edit.new_or_find_vote(current_user.id) %>
 <li>
   <p><%= edit.description %>
     <small><%= link_to edit.user.name, edit.user %>
     <span class="time">
       <%= link_to "#{time_ago_in_words edit.edited_at} ago.", [object, edit] %>
+      <%= link_to "(+)", correct_path(object, edit, vote, vote: { vote_value: 1}), 
+      	method: vote.new_record? ? :post : :put, 
+      	id: "edit_upvote_#{edit.id}", remote: true %>
+      <%= link_to "(-)", correct_path(object, edit, vote, vote: { vote_value: -1}), 
+      	method: vote.new_record? ? :post : :put, 
+      	id: "edit_downvote_#{edit.id}", remote: true %>
+      <span id="edit_<%= edit.id %>_score" class=<%= edit.total_score >= 0 ? "positive" : "negative" %>>
+      	<%= edit.total_score %>
+      </span>	     	
       </small>
     </span>
   </p>

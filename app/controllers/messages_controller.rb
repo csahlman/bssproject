@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
+  before_filter :must_not_send_message_to_self
   def new
-    @receiver= User.find(params[:user_id])
     @message= current_user.sent_messages.new
   end
 
@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
     @conversation= Conversation.find_or_new(current_user.id, params[:user_id])
     @message= current_user.sent_messages.new
     @message.body = params[:message][:body]
-    @message.receiver = User.find(params[:user_id])
+    @message.receiver = @receiver
     if @message.save
       @conversation.messages << @message
       @conversation.save
@@ -18,4 +18,12 @@ class MessagesController < ApplicationController
     end
 
   end
+
+  private
+
+    def must_not_send_message_to_self
+      @receiver= User.find(params[:user_id])
+      redirect_to root_path, flash: 
+        { error: "You can't message yourself" } if current_user == @receiver 
+    end
 end
