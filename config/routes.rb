@@ -1,6 +1,14 @@
 BssProject::Application.routes.draw do
 
 
+  get "users/index"
+
+  get "users/show"
+
+  get "users/destroy"
+
+  get "dashboard/index"
+
   get "inboxes/show"
 
   get "pages/home"
@@ -40,6 +48,13 @@ BssProject::Application.routes.draw do
     resources :conversations
     resources :inboxes, only: [ :show ]
   end  
+
+  namespace :admin do
+    get '', to: 'dashboard#index', as: '/'
+    resources :users
+    resources :tags
+    resources :idioms
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
