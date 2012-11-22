@@ -12,6 +12,7 @@
 #  remember_token  :string(255)
 #  uid             :integer
 #  provider        :string(255)
+#  admin           :boolean          default(FALSE)
 #
 
 require 'spec_helper'
