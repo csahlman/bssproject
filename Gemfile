@@ -47,6 +47,8 @@ gem 'simple_form'
 # gem 'omniauth-openid'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'gravatar_image_tag'
+
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

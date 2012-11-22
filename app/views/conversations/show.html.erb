@@ -5,3 +5,9 @@
 <ul id="conversation">
   <%= render @conversation.messages %>
 </ul>
+
+<%= simple_form_for [@other_user, current_user.sent_messages.new], 
+  remote: true do |f| %>
+  <%= f.input :body %>
+  <%= f.button :submit, "Send Message" %>
+<% end %>

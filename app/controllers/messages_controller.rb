@@ -14,7 +14,10 @@ class MessagesController < ApplicationController
       @conversation.save
       current_user.inbox.add_conversation(@conversation, true)
       @receiver.inbox.add_conversation(@conversation)
-      redirect_to [current_user, current_user.inbox]
+      respond_to do |f|
+        f.html { redirect_to [current_user, current_user.inbox] }
+        f.js
+      end
     else
       render 'new'
     end
