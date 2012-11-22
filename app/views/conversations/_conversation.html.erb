@@ -1,0 +1,12 @@
+<li>
+  <span class="conversation">
+    <% if conversation.has_unread_messages? %>
+    <strong><%= link_to (truncate conversation.messages.last.body, length: 100), 
+      [current_user, conversation] %></strong>
+    <% else %>
+      <%= link_to (truncate conversation.messages.last.body, length: 100), 
+        [current_user, conversation] %>      
+    <% end %>
+    <small><%= time_ago_in_words conversation.messages.last.created_at %></small>
+  </span>
+</li>

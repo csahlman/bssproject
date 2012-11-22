@@ -1,2 +1,7 @@
-<h1>Conversations#show</h1>
-<p>Find me in app/views/conversations/show.html.erb</p>
+<p class="profile">
+  <h3>Conversation with <%= @other_user.name %></h3><br>
+</p>
+
+<ul id="conversation">
+  <%= render @conversation.messages %>
+</ul>

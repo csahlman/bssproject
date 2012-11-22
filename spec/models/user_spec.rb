@@ -10,6 +10,8 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  remember_token  :string(255)
+#  uid             :integer
+#  provider        :string(255)
 #
 
 require 'spec_helper'

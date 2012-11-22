@@ -1,0 +1,8 @@
+<li class="messages">
+  <small>
+    <%= link_to message.sender.name, message.sender %>
+     <%= message.sender == current_user ? "Sent " : "Received " %> at 
+     <%= time_ago_in_words message.created_at %> ago.
+  </small>
+  <p><%= message.body %></p>
+</li>

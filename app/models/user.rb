@@ -10,6 +10,8 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  remember_token  :string(255)
+#  uid             :integer
+#  provider        :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -33,7 +35,11 @@ class User < ActiveRecord::Base
   has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
   has_many :received_messages, class_name: "Message", foreign_key: "receiver_id"
 
+  has_one :inbox, dependent: :destroy
+
   before_create :create_remember_token
+
+  after_create :create_inbox
 
   after_destroy :ensure_an_admin_remains   #make sure you can't delete last user
 
@@ -61,6 +67,11 @@ class User < ActiveRecord::Base
   end
 
   private 
+
+    def create_inbox
+      self.create_inbox!
+    end
+
     def create_remember_token
       self.remember_token= SecureRandom.urlsafe_base64
     end

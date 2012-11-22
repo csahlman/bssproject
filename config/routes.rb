@@ -1,6 +1,8 @@
 BssProject::Application.routes.draw do
 
 
+  get "inboxes/show"
+
   get "pages/home"
 
   get "pages/about"
@@ -36,6 +38,7 @@ BssProject::Application.routes.draw do
   resources :users do
     resources :messages, only: [ :new, :create, :show ]
     resources :conversations
+    resources :inboxes, only: [ :show ]
   end  
   # The priority is based upon order of creation:
   # first created -> highest priority.

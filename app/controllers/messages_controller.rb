@@ -5,14 +5,16 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @conversation= Conversation.find_or_new(current_user.id, params[:user_id])
-    @message= current_user.sent_messages.new
+    @conversation = Conversation.find_or_new(current_user.id, params[:user_id])
+    @message = current_user.sent_messages.new
     @message.body = params[:message][:body]
     @message.receiver = @receiver
     if @message.save
       @conversation.messages << @message
       @conversation.save
-      redirect_to @message.receiver
+      current_user.inbox.add_conversation(@conversation, true)
+      @receiver.inbox.add_conversation(@conversation)
+      redirect_to [current_user, current_user.inbox]
     else
       render 'new'
     end

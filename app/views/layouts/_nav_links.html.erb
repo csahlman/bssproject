@@ -16,6 +16,8 @@
         <ul class="nav pull-right">
           <% if signed_in? %>
           <li><%= link_to "Dashboard", '#'  %></li>
+          <li><%= link_to "Inbox (#{current_user.inbox.unread_count})", 
+            [current_user, current_user.inbox] %></li>
           <li><%= link_to "Sign out", logout_path, method: :delete  %></li>
           <% else %>
           <li><%= link_to "Sign in with Facebook", '/auth/facebook' %></li>
