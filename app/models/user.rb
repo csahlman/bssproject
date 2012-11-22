@@ -13,6 +13,8 @@
 #  uid             :integer
 #  provider        :string(255)
 #  admin           :boolean          default(FALSE)
+#  deleted_at      :datetime
+#  banned          :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
@@ -66,6 +68,7 @@ class User < ActiveRecord::Base
     new_user.save(validate: false) #skip validation of password on facebook/twitter login
     new_user #return the actual user and don't keep forgetting to return stuff    
   end
+
 
   private 
 

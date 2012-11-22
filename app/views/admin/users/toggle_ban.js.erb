@@ -1,0 +1,5 @@
+<% if @user.banned? %>
+  $('#toggle_user_<%= @user.id %>').replaceWith('<%= j render "unban" %>')
+<% else %>
+  $('#toggle_user_<%= @user.id %>').replaceWith('<%= j render "ban" %>')
+<% end %>  

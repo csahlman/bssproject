@@ -13,6 +13,8 @@
 #  uid             :integer
 #  provider        :string(255)
 #  admin           :boolean          default(FALSE)
+#  deleted_at      :datetime
+#  banned          :boolean          default(FALSE)
 #
 
 require 'spec_helper'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122185130) do
+ActiveRecord::Schema.define(:version => 20121122232750) do
 
   create_table "comments", :force => true do |t|
     t.text     "message"
@@ -85,6 +85,8 @@ ActiveRecord::Schema.define(:version => 20121122185130) do
     t.integer  "uid"
     t.string   "provider"
     t.boolean  "admin",           :default => false
+    t.datetime "deleted_at"
+    t.boolean  "banned",          :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

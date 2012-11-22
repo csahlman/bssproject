@@ -1,2 +1,30 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%= @user.name %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt></dt>
+  <dd><%= gravatar_image_tag @user.email, gravatar: { default: :monsterid} %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @user.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:about_me) %>:</strong></dt>
+  <dd><%= @user.about_me %></dd>
+</dl>
+
+<%= link_to "Send #{@user.name} a message.", new_user_message_path(@user),
+  id: "new_message", remote: true unless @user == current_user  %>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              users_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_user_path(@user), :class => 'btn' %>
+  <% if @user.banned? %>            
+  <%= link_to "Unbanhammer", toggle_ban_admin_user_path(@user), id: "toggle_user_#{@user.id}", 
+     class: "btn btn-danger", remote: true %>    
+  <% else %>
+  <%= link_to "Banhammer", toggle_ban_admin_user_path(@user), id: "toggle_user_#{@user.id}",
+     class: "btn btn-danger", remote: true %>
+  <% end %>            
+</div>

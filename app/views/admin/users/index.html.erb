@@ -19,7 +19,7 @@
       <tr id="admin_user_<%= user.id %>">
         <td><%= gravatar_image_tag user.email, gravatar: 
               { default: :monsterid } %></td>
-        <td><%= link_to user.name, user %></td>
+        <td><%= link_to user.name, admin_user_path(user) %></td>
         <td><%= user.email %></td>
         <td><%= user.about_me %></td>
         <td>
