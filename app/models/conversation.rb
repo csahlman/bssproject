@@ -35,9 +35,9 @@ class Conversation < ActiveRecord::Base
     end
   end
 
-  def has_unread_messages?
+  def has_unread_messages?(current_user)
     self.messages.each do |message|
-      if message.read_at.nil?
+      if message.read_at.nil? && message.receiver_id == current_user
         return true
       end
     end

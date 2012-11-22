@@ -24,29 +24,8 @@ class Inbox < ActiveRecord::Base
     end  
   end  
 
-  # def self.unread_count(conversations)
-  #   count = 0
-  #   conversations.each do |convo|
-  #     if convo.has_unread_messages?
-  #       count+=1
-  #     end
-  #   end
-  #   count
-  # end
-
   def unread_count
-    count = 0
-    initiated_conversations.each do |convo|
-      if convo.has_unread_messages?
-        count+=1
-      end
-    end
-    received_conversations.each do |convo|
-      if convo.has_unread_messages?
-        count+=1
-      end
-    end
-    count
+    self.user.received_messages.where(read_at: nil).count
   end
 
 end

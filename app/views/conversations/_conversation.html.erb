@@ -1,6 +1,6 @@
 <li>
   <span class="conversation">
-    <% if conversation.has_unread_messages? %>
+    <% if conversation.has_unread_messages?(current_user) %>
     <strong><%= link_to (truncate conversation.messages.last.body, length: 100), 
       [current_user, conversation] %></strong>
     <% else %>
