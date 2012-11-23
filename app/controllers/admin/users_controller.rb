@@ -9,9 +9,9 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def destroy
+  def soft_delete
     @user = User.find(params[:id])
-    @user.destroy
+    @user.soft_delete
     respond_to do |f|
       f.js
     end

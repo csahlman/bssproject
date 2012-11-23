@@ -46,6 +46,7 @@ BssProject::Application.routes.draw do
     get '', to: 'dashboard#index', as: '/'
     resources :users do
       get 'toggle_ban', on: :member
+      put 'soft_delete', on: :member
     end
     resources :tags
     resources :idioms
