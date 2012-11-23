@@ -47,16 +47,13 @@
 <span>Tags: <%= render @idiom.tags %></span><br>
 
 
-<% if @idiom.comments.any? %>
 <h2>Comments</h2>
 <div class="comments">
   <ul>
     <%= render @idiom.comments %>
   </ul>
 </div>
-<% else %>
-<h2>Be the first one to comment</h2>
-<% end %>
+
 
 <h3 id="create_new_comment">(+) Add a comment</h3>
 <% if signed_in? %>
