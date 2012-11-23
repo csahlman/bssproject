@@ -18,8 +18,13 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               users_path, :class => 'btn'  %>
-  <% if signed_in? && current_user == @user %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_user_path(@user), :class => 'btn' %>
+  <% if @user.banned? %>            
+  <%= link_to "Unbanhammer", toggle_ban_admin_user_path(@user), id: "toggle_user_#{@user.id}", 
+     class: "btn btn-danger", remote: true %>    
+  <% else %>
+  <%= link_to "Banhammer", toggle_ban_admin_user_path(@user), id: "toggle_user_#{@user.id}",
+     class: "btn btn-danger", remote: true %>
   <% end %>            
 </div>

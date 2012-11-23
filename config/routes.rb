@@ -1,5 +1,6 @@
 BssProject::Application.routes.draw do
 
+  get "dashboard/index"
 
   get "announcements/hide"
 
@@ -44,6 +45,16 @@ BssProject::Application.routes.draw do
     resources :conversations
     resources :inboxes, only: [ :show ]
   end  
+
+  namespace :admin do
+    get '', to: 'dashboard#index', as: '/'
+    resources :users do
+      get 'toggle_ban', on: :member
+      put 'soft_delete', on: :member
+    end
+    resources :tags
+    resources :idioms
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

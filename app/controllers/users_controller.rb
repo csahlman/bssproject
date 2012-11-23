@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :authenticate, only: [ :new, :create, :show, :index ]
-  before_filter :must_be_own_profile, only: [ :edit, :update, :destroy ]
+  before_filter :must_be_own_profile_or_admin, only: [ :edit, :update, :destroy ]
   respond_to :html, :js, :json
 
   def new
@@ -62,9 +62,9 @@ class UsersController < ApplicationController
   end
 
   private
-    def must_be_own_profile
+    def must_be_own_profile_or_admin
       @user= User.find(params[:id])
       redirect_to root_path, flash: { error: "You don't have access to that" } unless
-        @user== current_user
+        @user== current_user || current_user.admin?
     end
 end

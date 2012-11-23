@@ -46,6 +46,8 @@ class User < ActiveRecord::Base
 
   after_destroy :ensure_an_admin_remains   #make sure you can't delete last user
 
+  default_scope where(deleted_at: nil)
+
   def self.from_omniauth(auth)
     where(auth.slice('provider', 'uid')).first || create_or_deny_from_omniauth(auth)
     #pulls out the first provider/uid combo that matches a user, or creates a new one
@@ -68,6 +70,15 @@ class User < ActiveRecord::Base
     new_user.save(validate: false) #skip validation of password on facebook/twitter login
     new_user #return the actual user and don't keep forgetting to return stuff    
   end
+
+  def soft_delete
+    self.name = nil
+    self.email = nil
+    self.about_me = nil
+    self.deleted_at = Time.now
+    save(validate: false)
+  end
+
 
   private 
 

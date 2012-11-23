@@ -11,6 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20121123134151) do
 
   create_table "announcements", :force => true do |t|
@@ -21,6 +22,9 @@ ActiveRecord::Schema.define(:version => 20121123134151) do
     t.datetime "updated_at",        :null => false
     t.string   "announcement_type"
   end
+=======
+ActiveRecord::Schema.define(:version => 20121122232750) do
+>>>>>>> Dashboard
 
   create_table "comments", :force => true do |t|
     t.text     "message"
