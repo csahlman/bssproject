@@ -1,6 +1,8 @@
 BssProject::Application.routes.draw do
 
 
+  get "announcements/hide"
+
   get "inboxes/show"
 
   get "pages/home"
@@ -32,6 +34,8 @@ BssProject::Application.routes.draw do
   get 'tags/:tag', to: 'idioms#index', as: :tag
 
   match '/auth/:provider/callback', to: 'sessions#create'
+  
+  match '/announcements/:id/hide', to: 'announcements#hide', as: 'hide_announcement'
 
   root :to => 'pages#home'
 
