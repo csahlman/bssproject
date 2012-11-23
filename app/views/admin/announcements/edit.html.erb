@@ -1,0 +1,13 @@
+<%= content_for(:title) { "Edit Announcement" } %>
+
+<h1>Edit Announcement</h1>
+
+<%= simple_form_for [:admin, @announcement] do |f| %>
+  <%= f.input :message %>
+  <%= f.label :starts_at_text, "Enter a valid date, e.g. (March 30, 2013 6PM)" %>
+  <%= f.input :starts_at_text %>
+  <%= f.input :ends_at_text %>
+  <%= f.input :announcement_type, collection: %w[notice error info success],
+    default: "notice" %>
+  <%= f.button :submit %>
+<% end %>

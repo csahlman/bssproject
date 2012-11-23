@@ -1,5 +1,13 @@
 BssProject::Application.routes.draw do
 
+  get "announcements/create"
+
+  get "announcements/edit"
+
+  get "announcements/update"
+
+  get "announcements/destroy"
+
   get "dashboard/index"
 
   get "announcements/hide"
@@ -52,6 +60,7 @@ BssProject::Application.routes.draw do
       get 'toggle_ban', on: :member
       put 'soft_delete', on: :member
     end
+    resources :announcements
     resources :tags
     resources :idioms
   end

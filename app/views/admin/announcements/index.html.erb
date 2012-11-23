@@ -1,0 +1,51 @@
+<h1>Manage Announcements</h1>
+
+<h3>Current: </h3>
+<ul id="current_announcements">
+<% @current_announcements.each do |announcement| %>
+  <li id="announcement_<%= announcement.id %>">
+    <small>
+      Starts at: <%= announcement.starts_at %>,  
+      Ends At: <%= announcement.ends_at %>
+    </small> 
+    <p><%= link_to announcement.message, admin_announcement_path(announcement) %>
+      <%= link_to "Edit", edit_admin_announcement_path(announcement), 
+        class: "btn btn-small" %>
+      <%= link_to "Destroy", admin_announcement_path(announcement), 
+        class: "btn btn-small btn-danger", method: :delete, 
+          confirm: "Are you sure?", remote: true %>
+    </p>
+  </li>    
+<% end %>
+</ul>
+
+<h3>Future: </h3>
+<ul id="future_announcements">
+<% @future_announcements.each do |announcement| %>
+  <li id="announcement_<%= announcement.id %>">
+    <small>
+      Starts at: <%= announcement.starts_at %>,  
+      Ends At: <%= announcement.ends_at %>
+    </small> 
+    <p><%= link_to announcement.message, admin_announcement_path(announcement) %>
+      <%= link_to "Edit", edit_admin_announcement_path(announcement), 
+        class: "btn btn-small" %>
+      <%= link_to "Destroy", admin_announcement_path(announcement), 
+        class: "btn btn-small btn-danger", method: :delete, 
+          confirm: "Are you sure?", remote: true %>
+    </p>    
+  </li>
+<% end %>
+</ul>
+
+<h1>Create a new announcement</h1>
+
+<%= simple_form_for [:admin, Announcement.new] do |f| %>
+  <%= f.input :message %>
+  <%= f.label :starts_at_text, "Enter a valid date, e.g. (March 30, 2013 6PM)" %>
+  <%= f.input :starts_at_text %>
+  <%= f.input :ends_at_text %>
+  <%= f.input :announcement_type, collection: %w[notice error info success],
+    default: "notice" %>
+  <%= f.button :submit %>
+<% end %>
