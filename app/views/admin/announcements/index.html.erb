@@ -38,6 +38,25 @@
 <% end %>
 </ul>
 
+<%= link_to "View all other announcements", '#', id: "old_announcements" %>
+<ul id="previous">
+<% @previous_announcements.each do |announcement| %>
+  <li id="announcement_<%= announcement.id %>">
+    <small>
+      Starts at: <%= announcement.starts_at %>,  
+      Ends At: <%= announcement.ends_at %>
+    </small> 
+    <p><%= link_to announcement.message, admin_announcement_path(announcement) %>
+      <%= link_to "Edit", edit_admin_announcement_path(announcement), 
+        class: "btn btn-small" %>
+      <%= link_to "Destroy", admin_announcement_path(announcement), 
+        class: "btn btn-small btn-danger", method: :delete, 
+          confirm: "Are you sure?", remote: true %>
+    </p>    
+  </li>
+<% end %>
+</ul>
+
 <h1>Create a new announcement</h1>
 
 <%= simple_form_for [:admin, Announcement.new] do |f| %>

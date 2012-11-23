@@ -44,6 +44,7 @@ class Admin::AnnouncementsController < ApplicationController
   def index
     @current_announcements = Announcement.current
     @future_announcements = Announcement.future
+    @previous_announcements = Announcement.past
   end
 
   private
