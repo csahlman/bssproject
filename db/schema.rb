@@ -11,20 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20121123134151) do
+ActiveRecord::Schema.define(:version => 20121125074305) do
 
   create_table "announcements", :force => true do |t|
     t.text     "message"
     t.datetime "starts_at"
     t.datetime "ends_at"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "announcement_type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
-=======
-ActiveRecord::Schema.define(:version => 20121122232750) do
->>>>>>> Dashboard
 
   create_table "comments", :force => true do |t|
     t.text     "message"
@@ -73,6 +68,22 @@ ActiveRecord::Schema.define(:version => 20121122232750) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  create_table "redactor_assets", :force => true do |t|
+    t.string   "data_file_name",                  :null => false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    :limit => 30
+    t.string   "type",              :limit => 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "redactor_assets", ["assetable_type", "assetable_id"], :name => "idx_redactor_assetable"
+  add_index "redactor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_redactor_assetable_type"
 
   create_table "tag_associations", :force => true do |t|
     t.integer  "tag_id"

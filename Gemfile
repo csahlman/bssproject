@@ -51,6 +51,8 @@ gem 'gravatar_image_tag'
 gem 'redactor-rails'
 gem "carrierwave"
 gem "mini_magick"
+gem "fog", "~> 1.3.1"
+
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
