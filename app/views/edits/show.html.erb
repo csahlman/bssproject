@@ -3,10 +3,10 @@
 </h3>
 <div class="hero-unit">
   <h6>Current Descripiton</h6>
-  <p><%= raw @idiom.description %></p>
+  <p><%= sanitize raw @idiom.description %></p>
 </div>
 <h6>Current Description</h6>
-<p><%= raw @edit.description %></p>
+<p><%= sanitize raw @edit.description %></p>
 
 <h6>Old Description</h6>
-<p><%= raw @edit.description %></p>
+<p><%= sanitize raw @edit.description %></p>

@@ -27,8 +27,8 @@ class IdiomsController < ApplicationController
   def update
     @idiom= Idiom.find(params[:id])
     make_edit(@idiom)
-    @idiom.title= params[:idiom][:title]
-    @idiom.description= params[:idiom][:description]
+    @idiom.title = params[:idiom][:title]
+    @idiom.description = params[:idiom][:description]
 
     if @idiom.save
       redirect_to @idiom, flash: { notice: "#{@idiom.title} updated"}
@@ -44,8 +44,10 @@ class IdiomsController < ApplicationController
   def show
     @idiom= Idiom.find(params[:id])
     @vote= @idiom.votes.find_or_initialize_by_user_id(current_user.id)
-    @tag_for_voting = @idiom.random_tag
-    @tag_vote = @tag_for_voting.votes.find_or_initialize_by_user_id(current_user.id)
+    if @idiom.tags.any?
+      @tag_for_voting = @idiom.random_tag
+      @tag_vote = @tag_for_voting.votes.find_or_initialize_by_user_id(current_user.id)
+    end
     respond_to do |f|
       f.html
       f.json { render json: @idiom}

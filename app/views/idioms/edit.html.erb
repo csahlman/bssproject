@@ -1,6 +1,6 @@
 <%= content_for(:title) { "Edit #{@idiom.title}"} %>
 
-<h1>Edit the language</h1>
+<h1>Edit <%= @idiom.title %></h1>
 
 <h3>Your edits will be logged</h3>
 
@@ -9,7 +9,7 @@
 <%= simple_form_for @idiom do |f| %>
   <%= f.hidden_field :title, value: @idiom.title %>
 <textarea class="text required redactor" id="edit_idiom" name="idiom[description]" rows="20">
-  <%= @idiom.description %>
+  <%= sanitize raw @idiom.description %>
 </textarea>
   <%= f.button :submit %>
 <% end %>

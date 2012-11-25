@@ -20,29 +20,30 @@
     <% end %><br><br>
   Total Score: <span id="votes_count"><%= @idiom.total_score %></span><br>
 
-  <h4>You tell us. Is <%= @idiom.title %>...</h4>
-  <p> <%= @tag_for_voting.name %>? </p>
-  <span class="tag">
-   <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
-      html: { id: "tag_upvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
-     <%= f.hidden_field :vote_value, value: 1 %>
-     <%= f.button :submit, '+', id: "tag_upvote_button_#{@tag_for_voting.id}", 
-         class: @tag_vote.vote_value == 1 ? 'btn-success' : "" %>
-   <% end %>  
+  <% if @idiom.tags.any? %>
+    <h4>You tell us. Is <%= @idiom.title %>...</h4>
+    <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
+    <span class="tag">
+     <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
+        html: { id: "tag_upvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
+       <%= f.hidden_field :vote_value, value: 1 %>
+       <%= f.button :submit, '+', id: "tag_upvote_button_#{@tag_for_voting.id}", 
+           class: @tag_vote.vote_value == 1 ? 'btn-success' : "" %>
+     <% end %>  
 
-   <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
-      html: { id: "tag_downvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
-     <%= f.hidden_field :vote_value, value: -1 %>
-     <%= f.button :submit, '-', id: "tag_downvote_button_#{@tag_for_voting.id}",
-        class: @tag_vote.vote_value == -1 ? 'btn-danger' : "" %>
-   <% end %>
-  </span>
-
+     <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
+        html: { id: "tag_downvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
+       <%= f.hidden_field :vote_value, value: -1 %>
+       <%= f.button :submit, '-', id: "tag_downvote_button_#{@tag_for_voting.id}",
+          class: @tag_vote.vote_value == -1 ? 'btn-danger' : "" %>
+     <% end %>
+    </span>
+  <% end %>  
 <% end %>
 
 <h1><%= @idiom.title %></h1> 
 <%= link_to "Edits history", idiom_edits_path(@idiom) %><br>
-<p><%= raw @idiom.description %></p>
+<p><%= sanitize raw @idiom.description %></p>
 
 <span>Tags: <%= render @idiom.tags %></span><br>
 

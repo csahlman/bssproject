@@ -1,6 +1,6 @@
 <% vote= edit.new_or_find_vote(current_user.id) %>
 <li>
-  <p><%= truncate raw(edit.description), length: 500 %>
+  <p><%= truncate sanitize(raw(edit.description)), length: 500 %>
     <small><%= link_to edit.user.name, edit.user %>
     <span class="time">
       <%= link_to "#{time_ago_in_words edit.edited_at} ago.", [object, edit] %>

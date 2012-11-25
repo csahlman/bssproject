@@ -22,7 +22,7 @@
       posted at <%= link_to @idiom.updated_at.strftime("%Y-%m-%d %H:%M") %>
     </small>
   </h3>
-  <%= raw @idiom.description %>
+  <%= sanitize raw @idiom.description %>
 </div>
 
 <h3>Full List of Edits</h3>
