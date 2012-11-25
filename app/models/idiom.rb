@@ -23,6 +23,7 @@ class Idiom < ActiveRecord::Base
   has_many :tag_associations, dependent: :destroy
   has_many :edits, dependent: :destroy
 
+  has_many :reports, as: :reportable
   has_many :votes, as: :voteable
 
   def contributors_with_counts

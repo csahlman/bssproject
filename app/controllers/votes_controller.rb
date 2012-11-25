@@ -2,9 +2,9 @@ class VotesController < ApplicationController
   before_filter :get_voteable
 
   def create
-    @vote= @voteable.votes.new
+    @vote = @voteable.votes.new
     @vote.vote_value = params[:vote][:vote_value]
-    @vote.user= current_user
+    @vote.user = current_user
     if @vote.save
       respond_to do |f|
         # f.html { redirect_to @vote.voteable }
@@ -26,8 +26,8 @@ class VotesController < ApplicationController
   end
 
   def update
-    @vote= @voteable.votes.find_by_user_id(current_user.id)
-    @vote.vote_value= params[:vote][:vote_value]
+    @vote = @voteable.votes.find_by_user_id(current_user.id)
+    @vote.vote_value = params[:vote][:vote_value]
     if @vote.save
       respond_to do |f|
         f.html

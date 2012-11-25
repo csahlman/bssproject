@@ -1,0 +1,5 @@
+<%= simple_form_for @report, id: "report_form", remote: true do |f| %>
+  <%= f.label :message, "Please briefly describe the problem." %>
+  <%= f.input :message %>
+  <%= f.button :submit, "Report" %>
+<% end %>

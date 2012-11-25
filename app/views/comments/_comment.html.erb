@@ -17,8 +17,11 @@
  <span class="comment_body"><%= comment.message %></span>
    <span id="score_<%= comment.id %>" 
     class= "<%= comment.total_score >= 0 ? 'positive' : 'negative' %>">
-  <%= comment.total_score %>
-  </span><br>
+    <%= comment.total_score %>
+    </span>
+    <small><%= link_to "report", [@idiom, comment, comment.reports.new], method: :post, 
+              id: "report_comment_#{comment.id}", remote: true %>
+    </small><br>
  <span id="name">
   posted by <%= link_to comment.user.name, comment.user %> at 
     <%= time_ago_in_words(comment.created_at) %> ago.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125074305) do
+ActiveRecord::Schema.define(:version => 20121125182039) do
 
   create_table "announcements", :force => true do |t|
     t.text     "message"
@@ -84,6 +84,18 @@ ActiveRecord::Schema.define(:version => 20121125074305) do
 
   add_index "redactor_assets", ["assetable_type", "assetable_id"], :name => "idx_redactor_assetable"
   add_index "redactor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_redactor_assetable_type"
+
+  create_table "reports", :force => true do |t|
+    t.string   "reportable_type"
+    t.integer  "reportable_id"
+    t.integer  "user_id"
+    t.text     "message"
+    t.boolean  "resolved",        :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "reports", ["reportable_id", "reportable_type"], :name => "index_reports_on_reportable_id_and_reportable_type"
 
   create_table "tag_associations", :force => true do |t|
     t.integer  "tag_id"

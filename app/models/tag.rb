@@ -13,6 +13,8 @@ class Tag < ActiveRecord::Base
   has_many :tag_associations, dependent: :destroy
 
   has_many :votes, as: :voteable
+  has_many :reports, as: :reportable
+
 
   validates :name, presence: true, length: { maximum: 50 },
     uniqueness: { case_sensitive: false }

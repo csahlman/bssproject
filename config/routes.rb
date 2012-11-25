@@ -1,14 +1,6 @@
 BssProject::Application.routes.draw do
-
+  
   mount RedactorRails::Engine => '/redactor_rails'
-
-  get "announcements/create"
-
-  get "announcements/edit"
-
-  get "announcements/update"
-
-  get "announcements/destroy"
 
   get "dashboard/index"
 
@@ -17,9 +9,7 @@ BssProject::Application.routes.draw do
   get "inboxes/show"
 
   get "pages/home"
-
   get "pages/about"
-
   get "pages/contact"
 
   controller :sessions do
@@ -35,11 +25,14 @@ BssProject::Application.routes.draw do
     end
     resources :comments do
       resources :votes, defaults: { voteable: 'comment' }
+      resources :reports, defaults: { reportable: 'comment' }
     end
     resources :edits do
+      resources :reports, defaults: { reportable: 'edit' }
       resources :votes, defaults: { voteable: 'edit' }
     end  
-    resources :votes, defaults: { voteable: 'idiom'}
+    resources :votes, defaults: { voteable: 'idiom' }
+    resources :reports, defaults: { reportable: 'idiom' }
   end  
 
   get 'tags/:tag', to: 'idioms#index', as: :tag
@@ -65,6 +58,7 @@ BssProject::Application.routes.draw do
     resources :announcements
     resources :tags
     resources :idioms
+    resources :reports
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

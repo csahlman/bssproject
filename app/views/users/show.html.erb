@@ -5,11 +5,13 @@
 
 <dl class="dl-horizontal">
   <dt></dt>
-  <dd><%= gravatar_image_tag @user.email, gravatar: { default: :monsterid} %></dd>
+  <dd><%= gravatar_image_tag @user.email, gravatar: { default: :monsterid } %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @user.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:about_me) %>:</strong></dt>
   <dd><%= @user.about_me %></dd>
+  <dt><strong>Total Edits:</strong></dt>
+  <dd><%= @edits_count %></dd>
 </dl>
 
 <%= link_to "Send #{@user.name} a message.", new_user_message_path(@user),

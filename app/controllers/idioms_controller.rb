@@ -7,9 +7,9 @@ class IdiomsController < ApplicationController
 
   def create
     @idiom= Idiom.new
-    @idiom.title= params[:idiom][:title]
-    @idiom.description= params[:idiom][:description]
-    @idiom.tag_list=(params[:idiom][:tag_list]) if params[:idiom][:tag_list]
+    @idiom.title = params[:idiom][:title]
+    @idiom.description = params[:idiom][:description]
+    @idiom.tag_list = params[:idiom][:tag_list] if params[:idiom][:tag_list]
     @idiom.user = current_user
 
     if @idiom.save
@@ -21,11 +21,11 @@ class IdiomsController < ApplicationController
   end
 
   def destroy
-    @idiom= Idiom.find(params[:id])
+    @idiom = Idiom.find(params[:id])
   end
 
   def update
-    @idiom= Idiom.find(params[:id])
+    @idiom = Idiom.find(params[:id])
     make_edit(@idiom)
     @idiom.title = params[:idiom][:title]
     @idiom.description = params[:idiom][:description]
@@ -42,8 +42,9 @@ class IdiomsController < ApplicationController
   end
 
   def show
-    @idiom= Idiom.find(params[:id])
-    @vote= @idiom.votes.find_or_initialize_by_user_id(current_user.id)
+    @idiom = Idiom.find(params[:id])
+    @vote = @idiom.votes.find_or_initialize_by_user_id(current_user.id)
+    @report = @idiom.reports.new
     if @idiom.tags.any?
       @tag_for_voting = @idiom.random_tag
       @tag_vote = @tag_for_voting.votes.find_or_initialize_by_user_id(current_user.id)

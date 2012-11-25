@@ -1,0 +1,9 @@
+<% case @reportable.class.to_s %>
+<% when "Idiom" %>
+  $('<h5>Thank you for reporting abuse</h5>').insertBefore('#abuse')
+  $('#abuse').remove()
+<% when "Edit" %>
+  
+<% when "Comment" %>
+  $('#report_comment_<%= @reportable.id %>').remove()
+<% end %>

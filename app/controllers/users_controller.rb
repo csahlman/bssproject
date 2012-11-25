@@ -34,6 +34,7 @@ class UsersController < ApplicationController
 
   def show
     @user= User.find(params[:id])
+    @edits_count = Edit.where(user_id: @user).count
   end
 
   def destroy
