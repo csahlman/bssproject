@@ -48,7 +48,9 @@ gem 'simple_form'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'gravatar_image_tag'
-
+gem 'redactor-rails'
+gem "carrierwave"
+gem "mini_magick"
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

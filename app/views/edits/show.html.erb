@@ -3,10 +3,10 @@
 </h3>
 <div class="hero-unit">
   <h6>Current Descripiton</h6>
-  <p><%= @idiom.description %></p>
+  <p><%= raw @idiom.description %></p>
 </div>
 <h6>Current Description</h6>
-<p><%= @idiom.description %></p>
+<p><%= raw @edit.description %></p>
 
 <h6>Old Description</h6>
-<p><%= @edit.description %></p>
+<p><%= raw @edit.description %></p>

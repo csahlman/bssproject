@@ -8,6 +8,8 @@
 
 <%= simple_form_for @idiom do |f| %>
   <%= f.hidden_field :title, value: @idiom.title %>
-  <%= f.input :description %>
+<textarea class="text required redactor" id="edit_idiom" name="idiom[description]" rows="20">
+  <%= @idiom.description %>
+</textarea>
   <%= f.button :submit %>
 <% end %>

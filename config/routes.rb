@@ -1,5 +1,7 @@
 BssProject::Application.routes.draw do
 
+  mount RedactorRails::Engine => '/redactor_rails'
+
   get "announcements/create"
 
   get "announcements/edit"
