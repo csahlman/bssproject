@@ -43,9 +43,11 @@ class IdiomsController < ApplicationController
 
   def show
     @idiom = Idiom.find(params[:id])
-    @vote = @idiom.votes.find_or_initialize_by_user_id(current_user.id)
+    if signed_in?
+      @vote = @idiom.votes.find_or_initialize_by_user_id(current_user.id)
+    end
     @report = @idiom.reports.new
-    if @idiom.tags.any?
+    if @idiom.tags.any? && signed_in?
       @tag_for_voting = @idiom.random_tag
       @tag_vote = @tag_for_voting.votes.find_or_initialize_by_user_id(current_user.id)
     end

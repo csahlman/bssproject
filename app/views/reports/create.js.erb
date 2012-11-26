@@ -2,8 +2,11 @@
 <% when "Idiom" %>
   $('<h5>Thank you for reporting abuse</h5>').insertBefore('#abuse')
   $('#abuse').remove()
+  $('<h5>Thank you for reporting abuse</h5>').insertBefore('#report_idiom')
+  $('#report_idiom').remove()
 <% when "Edit" %>
-  
+  $('<span>Reported</span>').insertBefore('#report_edit_<%= @reportable.id %>')
+  $('#report_edit_<%= @reportable.id %>').remove()
 <% when "Comment" %>
   $('#report_comment_<%= @reportable.id %>').remove()
 <% end %>

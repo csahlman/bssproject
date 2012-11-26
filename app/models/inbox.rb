@@ -18,10 +18,10 @@ class Inbox < ActiveRecord::Base
   def add_conversation(conversation, sender = nil)
     if sender  
       self.initiated_conversations << conversation
-      save!      
     else
       self.received_conversations << conversation
     end  
+    save!
   end  
 
   def unread_count

@@ -17,9 +17,11 @@
 <% end %>
 
 <div class="well well-large">
-  <h3>Current Description 
+  <h3>Current Description: 
     <small>
-      posted at <%= link_to @idiom.updated_at.strftime("%Y-%m-%d %H:%M") %>
+      posted at <%= link_to @idiom.updated_at.strftime("%Y-%m-%d %H:%M") %> | 
+    <%= link_to "Report Abuse", [@idiom, @idiom.reports.new], id: "report_idiom",
+      method: :post, remote: true %>
     </small>
   </h3>
   <%= sanitize raw @idiom.description %>

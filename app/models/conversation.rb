@@ -27,9 +27,9 @@ class Conversation < ActiveRecord::Base
     end
   end
 
-  def mark_as_read
+  def mark_as_read(reader)
     messages.each do |message|
-      if message.read_at.nil?
+      if message.read_at.nil? && message.receiver == reader
         message.update_attribute(:read_at, Time.now)
       end
     end

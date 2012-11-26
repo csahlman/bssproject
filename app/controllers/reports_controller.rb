@@ -3,8 +3,9 @@ class ReportsController < ApplicationController
 
   def create
     @report = @reportable.reports.new
-    @reportable.class.to_s != "Comment" ? @report.message = params[:report][:message] : 
-      @report.message = nil
+    if params[:report]
+      @report.message = params[:report][:message]
+    end
     @report.user = current_user
     if @report.save
       respond_to do |f|

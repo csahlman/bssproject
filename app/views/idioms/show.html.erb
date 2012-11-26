@@ -1,56 +1,65 @@
 <%#= Sorry for anyone that has to read this fuckfest %>
 <%= content_for(:title) { @idiom.title} %>
 
-<%= content_for :sidebar do %>
-  <h4>Please give us your feedback</h4>  
-  <p>Upvote for a good description.  You can see more possibilities
-   in the edits history</p>
-    <%= simple_form_for [@idiom, @vote], html: { id: "upvote", 
-      class: ( @vote.vote_value == 1 ) ? 'btn btn-small btn-success' : 
-      'btn btn-small' }, remote: true do |f| %>
-      <%= f.hidden_field :vote_value, value: 1 %>
-      <%= f.button :submit, "Upvote" %>
-    <% end %>
+<%= content_for :right_frame do %>
+<h1>HEY BRO</h1>
 
-    <%= simple_form_for [@idiom, @vote], html: { id: "downvote", 
-      class: ( @vote.vote_value == -1 ) ? 'btn btn-small btn-danger' : 
-      'btn btn-small'  }, remote: true do |f| %>
-      <%= f.hidden_field :vote_value, value: -1 %>
-      <%= f.button :submit, "Downvote" %>
-    <% end %><br><br>
-  Total Score: <span id="votes_count"><%= @idiom.total_score %></span><br>
-
-  <% if @idiom.tags.any? %>
-    <h4>You tell us. Is <%= @idiom.title %>...</h4>
-    <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
-    <span class="tag">
-     <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
-        html: { id: "tag_upvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
-       <%= f.hidden_field :vote_value, value: 1 %>
-       <%= f.button :submit, '+', id: "tag_upvote_button_#{@tag_for_voting.id}", 
-           class: @tag_vote.vote_value == 1 ? 'btn-success' : "" %>
-     <% end %>  
-
-     <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
-        html: { id: "tag_downvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
-       <%= f.hidden_field :vote_value, value: -1 %>
-       <%= f.button :submit, '-', id: "tag_downvote_button_#{@tag_for_voting.id}",
-          class: @tag_vote.vote_value == -1 ? 'btn-danger' : "" %>
-     <% end %>
-    </span>
-  <% end %>  
-  
-  <div id="abuse">
-    Do you see any abuse? <%= link_to "REPORT IT", '#', id: "report_abuse" %>
-  <% if signed_in? %>
-    <%= simple_form_for [@idiom, @report], id: "report_form", remote: true do |f| %>
-      <%= f.label :message, "Please briefly describe the problem." %>
-      <%= f.input :message %>
-      <%= f.button :submit, "Report" %>
-    <% end %>
-  <% end %>
-  </div>
 <% end %>
+
+<% if signed_in? %>
+  <%= content_for :sidebar do %>
+    <h4>Please give us your feedback</h4>  
+    <p>Upvote for a good description.  You can see more possibilities
+     in the edits history</p>
+      <%= simple_form_for [@idiom, @vote], html: { id: "upvote", 
+        class: ( @vote.vote_value == 1 ) ? 'btn btn-small btn-success' : 
+        'btn btn-small' }, remote: true do |f| %>
+        <%= f.hidden_field :vote_value, value: 1 %>
+        <%= f.button :submit, "Upvote" %>
+      <% end %>
+
+      <%= simple_form_for [@idiom, @vote], html: { id: "downvote", 
+        class: ( @vote.vote_value == -1 ) ? 'btn btn-small btn-danger' : 
+        'btn btn-small'  }, remote: true do |f| %>
+        <%= f.hidden_field :vote_value, value: -1 %>
+        <%= f.button :submit, "Downvote" %>
+      <% end %><br><br>
+    Total Score: <span id="votes_count"><%= @idiom.total_score %></span><br>
+
+    <% if @idiom.tags.any? %>
+      <h4>You tell us. Is <%= @idiom.title %>...</h4>
+      <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
+      <span class="tag">
+       <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
+          html: { id: "tag_upvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
+         <%= f.hidden_field :vote_value, value: 1 %>
+         <%= f.button :submit, '+', id: "tag_upvote_button_#{@tag_for_voting.id}", 
+             class: @tag_vote.vote_value == 1 ? 'btn-success' : "" %>
+       <% end %>  
+
+       <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
+          html: { id: "tag_downvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
+         <%= f.hidden_field :vote_value, value: -1 %>
+         <%= f.button :submit, '-', id: "tag_downvote_button_#{@tag_for_voting.id}",
+            class: @tag_vote.vote_value == -1 ? 'btn-danger' : "" %>
+       <% end %>
+      </span>
+    <% end %>  
+    
+    <div id="abuse">
+      Do you see any abuse? <%= link_to "REPORT IT", '#', id: "report_abuse" %>
+    <% if signed_in? %>
+      <%= simple_form_for [@idiom, @report], id: "report_form", remote: true do |f| %>
+        <%= f.label :message, "Please briefly describe the problem." %>
+        <%= f.input :message %>
+        <%= f.button :submit, "Report" %>
+      <% end %>
+    <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= content_for(:left_frame) do %>
 
 <h1><%= @idiom.title %></h1> 
 <%= link_to "Edits history", idiom_edits_path(@idiom) %><br>
@@ -58,6 +67,9 @@
 
 <span>Tags: <%= render @idiom.tags %></span><br>
 
+<% end %>
+
+<%= content_for :bottom_frame do %>
 
 <h2>Comments</h2>
 <div class="comments">
@@ -86,3 +98,5 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
+<% end %>

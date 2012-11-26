@@ -11,9 +11,24 @@
       <%= render 'shared/display_flash' %>
         <div class="row">
           <div class="span9">
-             <%= yield %>
+            <%= yield %>
           </div>
+          <% if content_for?(:left_frame) %>
+          <div class="span5">
+            <%= yield(:left_frame) %>
+          </div>
+          <% end %>          
+          <% if content_for?(:right_frame) %>
+          <div class="span4">
+            <%= yield(:right_frame)%>
+          </div>
+          <% end %>
           <%= render 'layouts/sidebar' if content_for?(:sidebar) %>
+          <% if content_for?(:bottom_frame) %>
+          <div class="span9">
+            <%= yield(:bottom_frame) %>
+          </div>
+          <% end %>
         </div><!--/row-->
 
       <footer>

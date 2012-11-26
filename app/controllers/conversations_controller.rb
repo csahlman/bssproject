@@ -3,7 +3,7 @@ class ConversationsController < ApplicationController
   before_filter :must_be_own_inbox, only: [ :index ]
 
   def show
-    @conversation.mark_as_read
+    @conversation.mark_as_read(current_user)
     @other_user = @conversation.other_user(current_user)
   end
 
