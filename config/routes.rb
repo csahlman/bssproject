@@ -18,16 +18,20 @@ BssProject::Application.routes.draw do
     delete 'logout' => :destroy
   end  
 
+  resources :downvotes, only: [ :create ]
+  resources :upvotes, only: [ :create ]
+
 
   resources :idioms do
-    resources :tags do
+    resources :tags, shallow: true do # CONTROLLER=tags rake routes
+      # will show the difference of shallow: true
       resources :votes, defaults: { voteable: 'tag' }
     end
-    resources :comments do
+    resources :comments, shallow: true do
       resources :votes, defaults: { voteable: 'comment' }
       resources :reports, defaults: { reportable: 'comment' }
     end
-    resources :edits do
+    resources :edits, shallow: true do
       resources :reports, defaults: { reportable: 'edit' }
       resources :votes, defaults: { voteable: 'edit' }
     end  

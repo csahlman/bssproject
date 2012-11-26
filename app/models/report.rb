@@ -18,6 +18,8 @@ class Report < ActiveRecord::Base
   belongs_to :reportable, polymorphic: true
   belongs_to :user
 
+  scope :unresolved, where(resolved: false)
+
   def proper_content
     case reportable.class.to_s
     when "Comment"

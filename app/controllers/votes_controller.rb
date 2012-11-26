@@ -39,6 +39,26 @@ class VotesController < ApplicationController
     end
   end
 
+  def upvote
+    @vote = @voteable.votes.find_or_initialize_by_user_id(current_user.id)
+    @vote.save_upvote
+
+    respond_to do |f|
+      f.html
+      f.js
+    end
+  end
+
+  def downvote
+    @vote = @voteable.votes.find_or_initialize_by_user_id(current_user.id)
+    @vote.save_downvote
+
+    respond_to do |f|
+      f.html
+      f.js
+    end    
+  end
+
   private
 
     # def load_voteable

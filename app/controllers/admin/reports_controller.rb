@@ -5,7 +5,7 @@ class Admin::ReportsController < ApplicationController
   end
 
   def index
-    @reports = Report.where(resolved: false).all
+    @reports = Report.unresolved
   end
 
   def update

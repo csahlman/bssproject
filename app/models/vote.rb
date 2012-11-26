@@ -17,4 +17,14 @@ class Vote < ActiveRecord::Base
 
   validates :vote_value, numericality: true, inclusion: { in: [-1, 1] }
 
+  def upvote
+    self.vote_value = 1
+    save!
+  end
+
+  def downvote
+    self.vote_value = -1
+    save!
+  end
+
 end
