@@ -1,15 +1,36 @@
 <%= content_for(:title) { "Edit #{@idiom.title}"} %>
 
-<h1>Edit <%= @idiom.title %></h1>
 
-<h3>Your edits will be logged</h3>
+<% if params[:frame] == "right" %>
+  <h1>Edit <%= link_to @idiom.title, @idiom %>: Right Frame</h1>
 
-<%= link_to "Edits History", idiom_edits_path(@idiom) %>
+  <h3>Your edits will be logged</h3>
 
-<%= simple_form_for @idiom do |f| %>
-  <%= f.hidden_field :title, value: @idiom.title %>
-<textarea class="text required redactor" id="edit_idiom" name="idiom[description]" rows="20">
-  <%= sanitize raw @idiom.description %>
-</textarea>
-  <%= f.button :submit %>
-<% end %>
+  <%= link_to "Edits History", idiom_edits_path(@idiom) %>
+
+  <%= simple_form_for @idiom do |f| %>
+    <%= f.hidden_field :title, value: @idiom.title %>
+    <%= f.hidden_field :description, value: @idiom.description %>
+  <textarea class="text required redactor" id="edit_idiom" name="idiom[description_right]" rows="20">
+    <%= sanitize raw @idiom.description_right %>
+  </textarea>
+    <%= f.button :submit %>
+  <% end %>
+
+<% else %>
+  <h1>Edit <%= link_to @idiom.title, @idiom %>: Left Frame</h1>
+
+  <h3>Your edits will be logged</h3>
+
+  <%= link_to "Edits History", idiom_edits_path(@idiom) %>
+
+  <%= simple_form_for @idiom do |f| %>
+    <%= f.hidden_field :title, value: @idiom.title %>
+    <%= f.hidden_field :description, value: @idiom.description_right %>
+  <textarea class="text required redactor" id="edit_idiom" name="idiom[description]" rows="20">
+    <%= sanitize raw @idiom.description %>
+  </textarea>
+    <%= f.button :submit %>
+  <% end %>
+
+<% end %>  

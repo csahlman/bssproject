@@ -2,12 +2,13 @@
 #
 # Table name: announcements
 #
-#  id         :integer          not null, primary key
-#  message    :text
-#  starts_at  :datetime
-#  ends_at    :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :integer          not null, primary key
+#  message           :text
+#  starts_at         :datetime
+#  ends_at           :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  announcement_type :string(255)      default("notice")
 #
 
 class Announcement < ActiveRecord::Base

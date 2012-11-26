@@ -2,8 +2,8 @@
 <%= content_for(:title) { @idiom.title} %>
 
 <%= content_for :right_frame do %>
-<h1>HEY BRO</h1>
-
+  <p><%= @idiom.description_right %></p>
+<small><%= link_to "Edit this frame", edit_idiom_path(frame: "right") %></small>
 <% end %>
 
 <% if signed_in? %>
@@ -67,6 +67,7 @@
 
 <span>Tags: <%= render @idiom.tags %></span><br>
 
+<small><%= link_to "Edit this frame", edit_idiom_path(frame: "left") %></small>
 <% end %>
 
 <%= content_for :bottom_frame do %>

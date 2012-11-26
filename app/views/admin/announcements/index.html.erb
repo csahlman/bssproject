@@ -61,9 +61,9 @@
 
 <%= simple_form_for [:admin, Announcement.new] do |f| %>
   <%= f.input :message %>
-  <%= f.label :starts_at_text, "Enter a valid date, e.g. (March 30, 2013 6PM)" %>
-  <%= f.input :starts_at_text %>
-  <%= f.input :ends_at_text %>
+  <%= f.input :starts_at_text, label: "Starts at time",
+    hint: "Enter a valid date, e.g. March 30, 2013 6PM" %>
+  <%= f.input :ends_at_text, label: "Ends at time" %>
   <%= f.input :announcement_type, collection: %w[notice error info success],
     default: "notice" %>
   <%= f.button :submit %>

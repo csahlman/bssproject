@@ -20,11 +20,11 @@
 
 <%= content_for(:right_frame) do %>
   <div id="reported_content">
-    <% if @reports.first.message %>
+    <% if @reports.first && @reports.first.message %>
       <p id="report_message"><strong>Report Message: <%= @reports.first.message %>
       </strong></p>
+      <%= sanitize raw @reports.first.proper_content %>
     <% end %>
-    <%= sanitize raw @reports.first.proper_content %>
   </div>
 <% end %>
 

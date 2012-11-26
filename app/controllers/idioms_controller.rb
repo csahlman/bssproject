@@ -9,6 +9,7 @@ class IdiomsController < ApplicationController
     @idiom= Idiom.new
     @idiom.title = params[:idiom][:title]
     @idiom.description = params[:idiom][:description]
+    @idiom.description_right = params[:idiom][:description_right]
     @idiom.tag_list = params[:idiom][:tag_list] if params[:idiom][:tag_list]
     @idiom.user = current_user
 
@@ -29,7 +30,7 @@ class IdiomsController < ApplicationController
     make_edit(@idiom)
     @idiom.title = params[:idiom][:title]
     @idiom.description = params[:idiom][:description]
-
+    @idiom.description_right = params[:idiom][:description_right]
     if @idiom.save
       redirect_to @idiom, flash: { notice: "#{@idiom.title} updated"}
     else
