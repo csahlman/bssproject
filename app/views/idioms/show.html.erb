@@ -1,8 +1,10 @@
 <%#= Sorry for anyone that has to read this fuckfest %>
 <%= content_for(:title) { @idiom.title} %>
 
+<%= link_to "Home Page" %> | <%= link_to "Languages", idioms_path %>
+
 <%= content_for :right_frame do %>
-  <p><%= @idiom.description_right %></p>
+  <p><%= sanitize raw @idiom.description_right %></p>
 <small><%= link_to "Edit this frame", edit_idiom_path(frame: "right") %></small>
 <% end %>
 
@@ -61,6 +63,7 @@
 
 <%= content_for(:left_frame) do %>
 
+
 <h1><%= @idiom.title %></h1> 
 <%= link_to "Edits history", idiom_edits_path(@idiom) %><br>
 <p><%= sanitize raw @idiom.description %></p>
@@ -91,13 +94,6 @@
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               idioms_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_idiom_path(@idiom), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              idiom_path(@idiom),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
 </div>
 
 <% end %>
