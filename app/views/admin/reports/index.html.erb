@@ -1,2 +1,31 @@
-<h1>Admin::Reports#index</h1>
-<p>Find me in app/views/admin/reports/index.html.erb</p>
+<%= content_for(:title) { "Admin/Reports" } %>
+
+<h1>Reported Objects</h1>
+<%= link_to "Dashboard", admin_path %>
+
+<%= content_for(:left_frame) do %>
+<ul id="unresolved_reports">
+  <% @reports.each do |report| %>
+  <li>
+    <span>
+      <%= link_to report.reportable.class.to_s, '#', id: "report_#{report.id}",
+         remote: true %> | 
+      <%= report.message %>   
+    </span>
+
+  </li>
+  <% end %>
+</ul>
+<% end %>
+
+<%= content_for(:right_frame) do %>
+  <div id="reported_content">
+    <% if @reports.first.message %>
+      <p id="report_message"><strong>Report Message: <%= @reports.first.message %>
+      </strong></p>
+    <% end %>
+    <%= sanitize raw @reports.first.proper_content %>
+  </div>
+<% end %>
+
+

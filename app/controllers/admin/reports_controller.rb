@@ -1,11 +1,11 @@
 class Admin::ReportsController < ApplicationController
-  before_filter :must_be_admin, only: [ :show, :update, :destroy, :index ]
-
+  before_filter :must_be_admin
 
   def show
   end
 
   def index
+    @reports = Report.where(resolved: false).all
   end
 
   def update
