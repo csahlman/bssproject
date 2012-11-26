@@ -1,3 +1,6 @@
+<%= link_to @idiom.title, @idiom %> | 
+<%= link_to "#{@idiom.title} Edits" , idiom_edits_path(@idiom) %>
+
 <h3>Edit of <%= @idiom.title %> at 
   <%= @edit.edited_at.strftime("%Y-%m-%d %H:%M") %>
 </h3>

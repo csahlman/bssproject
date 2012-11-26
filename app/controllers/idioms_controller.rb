@@ -28,6 +28,7 @@ class IdiomsController < ApplicationController
   def update
     @idiom = Idiom.find(params[:id])
     make_edit(@idiom)
+    EditMailer.idiom_edit_mailer(current_user, @idiom, @edit).deliver
     @idiom.title = params[:idiom][:title]
     @idiom.description = params[:idiom][:description]
     @idiom.description_right = params[:idiom][:description_right]
