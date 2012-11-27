@@ -27,11 +27,11 @@ BssProject::Application.routes.draw do
       # will show the difference of shallow: true
       resources :votes, defaults: { voteable: 'tag' }
     end
-    resources :comments, shallow: true do
+    resources :comments do
       resources :votes, defaults: { voteable: 'comment' }
       resources :reports, defaults: { reportable: 'comment' }
     end
-    resources :edits, shallow: true do
+    resources :edits do
       resources :reports, defaults: { reportable: 'edit' }
       resources :votes, defaults: { voteable: 'edit' }
     end  

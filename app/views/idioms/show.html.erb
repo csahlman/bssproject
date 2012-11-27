@@ -14,40 +14,21 @@
     <p>Upvote for a good description.  You can see more possibilities
      in the edits history</p>
 
-  <%= button_to "+", upvotes_path(voteable_id: @idiom.id) %>   
+  <%= button_to "+", upvotes_path(@vote, voteable_id: @vote.id), 
+    id: "idiom_upvote_#{@idiom.id}", class: "upvote", remote: true %>   
+  <%= button_to "-", downvotes_path(@vote, voteable_id: @vote.id), 
+    id: "idiom_downvote_#{@idiom.id}", class: "downvote", remote: true %>   
 
-    <%= simple_form_for [@idiom, @vote], html: { id: "upvote", 
-      class: ( @vote.vote_value == 1 ) ? 'btn btn-small btn-success' : 
-      'btn btn-small' }, remote: true do |f| %>
-      <%= f.hidden_field :vote_value, value: 1 %>
-      <%= f.button :submit, "Upvote" %>
-    <% end %>
-
-    <%= simple_form_for [@idiom, @vote], html: { id: "downvote", 
-      class: ( @vote.vote_value == -1 ) ? 'btn btn-small btn-danger' : 
-      'btn btn-small'  }, remote: true do |f| %>
-      <%= f.hidden_field :vote_value, value: -1 %>
-      <%= f.button :submit, "Downvote" %>
-    <% end %><br><br>
     Total Score: <span id="votes_count"><%= @idiom.total_score %></span><br>
 
     <% if @idiom.tags.any? %>
       <h4>You tell us. Is <%= @idiom.title %>...</h4>
       <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
       <span class="tag">
-       <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
-          html: { id: "tag_upvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
-         <%= f.hidden_field :vote_value, value: 1 %>
-         <%= f.button :submit, '+', id: "tag_upvote_button_#{@tag_for_voting.id}", 
-             class: @tag_vote.vote_value == 1 ? 'btn-success' : "" %>
-       <% end %>  
-
-       <%= simple_form_for [@idiom, @tag_for_voting, @tag_vote], 
-          html: { id: "tag_downvote_#{@tag_for_voting.id}"}, remote: true do |f| %>
-         <%= f.hidden_field :vote_value, value: -1 %>
-         <%= f.button :submit, '-', id: "tag_downvote_button_#{@tag_for_voting.id}",
-            class: @tag_vote.vote_value == -1 ? 'btn-danger' : "" %>
-       <% end %>
+      <%= button_to '+', upvotes_path(@tag_vote, voteable_id: @tag_vote.id), 
+        id: "tag_upvote_button_#{@tag_for_voting.id}", class: "upvote", remote: true %>
+      <%= button_to '-', downvotes_path(@tag_vote, voteable_id: @tag_vote.id),
+        id: "tag_upvote_button_#{@tag_for_voting.id}", class: "downvote", remote: true %>
       </span>
     <% end %>  
     

@@ -1,19 +1,10 @@
-<% @comment_vote= comment.votes.find_or_initialize_by_user_id(current_user.id) %>
+<% @comment_vote = comment.votes.find_or_initialize_by_user_id(current_user.id) %>
 <%#= needed to load each comment vote individually, apologize for the variables in view %>
 <li class="comment">
- <%= simple_form_for [@idiom, comment, @comment_vote], 
-    html: { id: "comment_upvote_#{comment.id}"}, remote: true do |f| %>
-   <%= f.hidden_field :vote_value, value: 1 %>
-   <%= f.button :submit, '+', id: "comment_upvote_button_#{comment.id}", 
-       class: @comment_vote.vote_value == 1 ? 'btn-success' : "" %>
- <% end %>  
-
- <%= simple_form_for [@idiom, comment, @comment_vote], 
-    html: { id: "comment_downvote_#{comment.id}"}, remote: true do |f| %>
-   <%= f.hidden_field :vote_value, value: -1 %>
-   <%= f.button :submit, '-', id: "comment_downvote_button_#{comment.id}",
-      class: @comment_vote.vote_value == -1 ? 'btn-danger' : "" %>
- <% end %>
+ <%= button_to "+", upvotes_path(@comment_vote, voteable_id: @comment_vote.id), 
+    class: "upvote", id: "comment_upvote_button_#{comment.id}", remote: true %>
+ <%= button_to "-", downvotes_path(@comment_vote, voteable_id: @comment_vote.id), 
+    class: "downvote", id: "comment_downvote_button_#{comment.id}", remote: true %>    
  <span class="comment_body"><%= comment.message %></span>
    <span id="score_<%= comment.id %>" 
     class= "<%= comment.total_score >= 0 ? 'positive' : 'negative' %>">
