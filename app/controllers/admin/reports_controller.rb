@@ -1,6 +1,10 @@
 class Admin::ReportsController < Admin::BaseController
 
   def show
+    @report = Report.find(params[:id])
+    respond_to do |f|
+      f.js
+    end
   end
 
   def index

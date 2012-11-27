@@ -8,11 +8,10 @@
   <% @reports.each do |report| %>
   <li>
     <span>
-      <%= link_to report.reportable.class.to_s, '#', id: "report_#{report.id}",
-         remote: true %> | 
-      <%= report.message %>   
+      <%= link_to report.reportable.class.to_s, [:admin, report.reportable], 
+        id: "report_#{report.id}", remote: true %> | 
+      <%= report.created_at %>
     </span>
-
   </li>
   <% end %>
 </ul>
@@ -20,11 +19,6 @@
 
 <%= content_for(:right_frame) do %>
   <div id="reported_content">
-    <% if @reports.first && @reports.first.message %>
-      <p id="report_message"><strong>Report Message: <%= @reports.first.message %>
-      </strong></p>
-      <%= sanitize raw @reports.first.proper_content %>
-    <% end %>
   </div>
 <% end %>
 

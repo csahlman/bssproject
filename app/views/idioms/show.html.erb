@@ -62,7 +62,7 @@
 </div>
 
 
-<h3 id="create_new_comment">(+) Add a comment</h3>
+<h3><%= link_to "(+) Add a comment", '#', id: "create_new_comment" %></h3>
 <% if signed_in? %>
   <%= simple_form_for [@idiom, Comment.new], remote: true do |f| %>
     <%= f.input :message %>

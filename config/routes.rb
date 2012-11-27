@@ -2,18 +2,14 @@ BssProject::Application.routes.draw do
   
   mount RedactorRails::Engine => '/redactor_rails'
 
-  get "dashboard/index"
-
-  get "announcements/hide"
-
-  get "inboxes/show"
+  resources :inboxes, only: [ :show ]
 
   get "pages/home"
   get "pages/about"
   get "pages/contact"
 
-  post 'upvotes/create'
-  post 'downvotes/create'
+  resource :upvote, only: [ :create ]
+  resource :downvote, only: [ :create ]
 
   controller :sessions do
     get 'sign_in' => :new
@@ -29,17 +25,10 @@ BssProject::Application.routes.draw do
 
 
   resources :idioms do
-    resources :tags, shallow: true do # CONTROLLER=tags rake routes
+    # resources :tags # CONTROLLER=tags rake routes
       # will show the difference of shallow: true
-      resources :votes, defaults: { voteable: 'tag' }
-    end
-    resources :comments do
-      resources :reports, defaults: { reportable: 'comment' }
-    end
-    resources :edits do
-      resources :reports, defaults: { reportable: 'edit' }
-    end  
-    resources :reports, defaults: { reportable: 'idiom' }
+    resources :comments 
+    resources :edits
   end  
 
   get 'tags/:tag', to: 'idioms#index', as: :tag
@@ -66,6 +55,8 @@ BssProject::Application.routes.draw do
     resources :tags
     resources :idioms
     resources :reports
+    resources :comments
+    resources :edits
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.
