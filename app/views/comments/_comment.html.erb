@@ -1,6 +1,6 @@
 <li class="comment">
-  <%= upvote_button comment %>
-  <%= downvote_button comment %> 
+  <%= upvote_button comment, comment.upvoted_by_user?(current_user) %>
+  <%= downvote_button comment, comment.downvoted_by_user?(current_user) %> 
   <span class="comment_body"><%= comment.message %></span>
   <small>
     <%= link_to "report", [@idiom, comment, comment.reports.new], 

@@ -11,16 +11,20 @@ module IdiomsHelper
   #tags= Idiom.tag_counts
   # classes= s, m, l string array
   
-  def upvote_button(voteable, css_class = nil)
-    button_to '+', upvote_path(voteable_type: voteable.class.to_s, voteable_id: voteable.id),
+  def upvote_button(voteable, upvoted)
+    css_class = ""
+    upvoted ? css_class = "badge badge-success" : css_class = ""
+    link_to '+', upvote_path(voteable_type: voteable.class.to_s, voteable_id: voteable.id),
       id: "#{voteable.class.to_s.downcase}_upvote_#{voteable.id}", 
-      class: "#{css_class} upvote", remote: true
+      class: (css_class + " upvote badge"), remote: true
   end
 
-  def downvote_button(voteable, css_class = nil)
-    button_to '-', downvote_path(voteable_type: voteable.class.to_s, voteable_id: voteable.id),
+  def downvote_button(voteable, downvoted)
+    css_class = ""
+    downvoted ? css_class = "badge badge-warning" : css_class = ""
+    link_to '-', downvote_path(voteable_type: voteable.class.to_s, voteable_id: voteable.id),
       id: "#{voteable.class.to_s.downcase}_downvote_#{voteable.id}", 
-      class: "#{css_class} downvote", remote: true
+      class: (css_class + " downvote badge"), remote: true
   end
 
   def score(voteable)

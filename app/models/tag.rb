@@ -23,5 +23,15 @@ class Tag < ActiveRecord::Base
     votes.sum(:vote_value)
   end
 
+  def upvoted_by_user?(user)
+    votes.where(user_id: user.id).any? && 
+      votes.where(user_id: user.id).first.vote_value == 1
+  end
+
+  def downvoted_by_user?(user)
+    votes.where(user_id: user.id).any? && 
+      votes.where(user_id: user.id).first.vote_value == -1
+  end
+
 
 end

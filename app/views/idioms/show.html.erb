@@ -14,16 +14,18 @@
     <p>Upvote for a good description.  You can see more possibilities
      in the edits history</p>
 
-  <%= upvote_button @idiom %>
-  <%= downvote_button @idiom %>   
+  <%= upvote_button(@idiom, @idiom.upvoted_by_user?(current_user)) %>
+  <%= downvote_button(@idiom, @idiom.downvoted_by_user?(current_user)) %>   
   Total Score: <%= score @idiom %><br>
 
   <% if @idiom.tags.any? %>
     <h4>You tell us. Is <%= @idiom.title %>...</h4>
     <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
     <span class="tag">
-    <%= upvote_button @tag_for_voting %>
-    <%= downvote_button @tag_for_voting %>
+    <%= upvote_button @tag_for_voting, @tag_for_voting.
+      upvoted_by_user?(current_user) %>
+    <%= downvote_button @tag_for_voting, @tag_for_voting.
+      downvoted_by_user?(current_user) %>
     </span>
   <% end %>  
     
