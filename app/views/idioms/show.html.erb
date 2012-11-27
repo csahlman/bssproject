@@ -14,23 +14,18 @@
     <p>Upvote for a good description.  You can see more possibilities
      in the edits history</p>
 
-  <%= button_to "+", upvotes_path(@vote, voteable_id: @vote.id), 
-    id: "idiom_upvote_#{@idiom.id}", class: "upvote", remote: true %>   
-  <%= button_to "-", downvotes_path(@vote, voteable_id: @vote.id), 
-    id: "idiom_downvote_#{@idiom.id}", class: "downvote", remote: true %>   
+  <%= upvote_button @idiom %>
+  <%= downvote_button @idiom %>   
+  Total Score: <%= score @idiom %><br>
 
-    Total Score: <span id="votes_count"><%= @idiom.total_score %></span><br>
-
-    <% if @idiom.tags.any? %>
-      <h4>You tell us. Is <%= @idiom.title %>...</h4>
-      <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
-      <span class="tag">
-      <%= button_to '+', upvotes_path(@tag_vote, voteable_id: @tag_vote.id), 
-        id: "tag_upvote_button_#{@tag_for_voting.id}", class: "upvote", remote: true %>
-      <%= button_to '-', downvotes_path(@tag_vote, voteable_id: @tag_vote.id),
-        id: "tag_upvote_button_#{@tag_for_voting.id}", class: "downvote", remote: true %>
-      </span>
-    <% end %>  
+  <% if @idiom.tags.any? %>
+    <h4>You tell us. Is <%= @idiom.title %>...</h4>
+    <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
+    <span class="tag">
+    <%= upvote_button @tag_for_voting %>
+    <%= downvote_button @tag_for_voting %>
+    </span>
+  <% end %>  
     
     <div id="abuse">
       Do you see any abuse? <%= link_to "REPORT IT", '#', id: "report_abuse" %>

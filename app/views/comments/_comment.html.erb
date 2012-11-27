@@ -1,20 +1,14 @@
-<% @comment_vote = comment.votes.find_or_initialize_by_user_id(current_user.id) %>
-<%#= needed to load each comment vote individually, apologize for the variables in view %>
 <li class="comment">
- <%= button_to "+", upvotes_path(@comment_vote, voteable_id: @comment_vote.id), 
-    class: "upvote", id: "comment_upvote_button_#{comment.id}", remote: true %>
- <%= button_to "-", downvotes_path(@comment_vote, voteable_id: @comment_vote.id), 
-    class: "downvote", id: "comment_downvote_button_#{comment.id}", remote: true %>    
- <span class="comment_body"><%= comment.message %></span>
-   <span id="score_<%= comment.id %>" 
-    class= "<%= comment.total_score >= 0 ? 'positive' : 'negative' %>">
-    <%= comment.total_score %>
-    </span>
-    <small><%= link_to "report", [@idiom, comment, comment.reports.new], method: :post, 
-              id: "report_comment_#{comment.id}", remote: true %>
-    </small><br>
- <span id="name">
-  posted by <%= link_to comment.user.name, comment.user %> at 
+  <%= upvote_button comment %>
+  <%= downvote_button comment %> 
+  <span class="comment_body"><%= comment.message %></span>
+  <small>
+    <%= link_to "report", [@idiom, comment, comment.reports.new], 
+      method: :post, id: "report_comment_#{comment.id}", remote: true %>
+  </small><br>
+  <%= score comment %>
+  <span id="name">
+   posted by <%= link_to comment.user.name, comment.user %> at 
     <%= time_ago_in_words(comment.created_at) %> ago.
- </span>
+   </span>
 </li><br>

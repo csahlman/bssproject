@@ -12,14 +12,20 @@ BssProject::Application.routes.draw do
   get "pages/about"
   get "pages/contact"
 
+  post 'upvotes/create'
+  post 'downvotes/create'
+
   controller :sessions do
     get 'sign_in' => :new
     post 'sign_in' => :create
     delete 'logout' => :destroy
   end  
 
-  resources :downvotes, only: [ :create ]
-  resources :upvotes, only: [ :create ]
+
+  # /:taggable_type/taggable_id/upvote maybe
+
+  match '/:voteable_type/:voteable_id/upvote', to: 'upvotes#create', as: 'upvote'
+  match '/:voteable_type/:voteable_id/downvote', to: 'downvotes#create', as: 'downvote'
 
 
   resources :idioms do
@@ -28,14 +34,11 @@ BssProject::Application.routes.draw do
       resources :votes, defaults: { voteable: 'tag' }
     end
     resources :comments do
-      resources :votes, defaults: { voteable: 'comment' }
       resources :reports, defaults: { reportable: 'comment' }
     end
     resources :edits do
       resources :reports, defaults: { reportable: 'edit' }
-      resources :votes, defaults: { voteable: 'edit' }
     end  
-    resources :votes, defaults: { voteable: 'idiom' }
     resources :reports, defaults: { reportable: 'idiom' }
   end  
 

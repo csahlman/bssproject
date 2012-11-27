@@ -1,0 +1,4 @@
+$('#<%= @voteable.class.to_s.downcase %>_downvote_<%= @voteable.id %>').
+  addClass('btn-success')
+$('#<%= @voteable.class.to_s.downcase %>_upvote_<%= @voteable.id %>').
+  removeClass('btn-success')

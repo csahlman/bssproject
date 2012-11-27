@@ -1,5 +1,4 @@
-class Admin::AnnouncementsController < ApplicationController
-  before_filter :redirect_unless_admin
+class Admin::AnnouncementsController < Admin::BaseController
 
   def create
     @announcement = Announcement.new
@@ -47,10 +46,4 @@ class Admin::AnnouncementsController < ApplicationController
     @previous_announcements = Announcement.past
   end
 
-  private
-
-    def redirect_unless_admin
-      redirect_to root_path, flash: { error: "Error, you don't have access" } unless
-        current_user.admin?
-    end  
 end

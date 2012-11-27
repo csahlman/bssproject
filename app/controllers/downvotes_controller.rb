@@ -1,7 +1,9 @@
 class DownvotesController < ApplicationController
 
   def create
-    @vote = Vote.find(params[:voteable_id])
+    @voteable_class = params[:voteable_type]
+    @voteable = @voteable_class.classify.constantize.find(params[:voteable_id])
+    @vote = @voteable.votes.find_or_initialize_by_user_id(current_user.id)
     @vote.user = current_user
     @vote.downvote
 

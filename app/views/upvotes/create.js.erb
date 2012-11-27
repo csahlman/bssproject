@@ -1,0 +1,6 @@
+$('#<%= @voteable.class.to_s.downcase %>_upvote_<%= @voteable.id %>').
+  addClass('btn-success')
+$('#<%= @voteable.class.to_s.downcase %>_downvote_<%= @voteable.id %>').
+  removeClass('btn-success')
+$('#<%= @voteable.class.to_s.downcase %>_score_<%= @voteable.id %>').
+  html('<%= @voteable.total_score %>')  

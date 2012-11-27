@@ -1,4 +1,4 @@
-class Admin::IdiomsController < ApplicationController
+class Admin::IdiomsController < Admin::BaseController
   def show
     @idiom = Idiom.find(params[:id])
     @vote = @idiom.votes.find_or_initialize_by_user_id(current_user.id)
@@ -17,10 +17,4 @@ class Admin::IdiomsController < ApplicationController
   def edit
   end
 
-  private
-
-    def redirect_unless_admin
-      redirect_to root_path, flash: { error: "Error, you don't have access" } unless
-        current_user.admin?
-    end  
 end
