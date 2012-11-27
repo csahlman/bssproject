@@ -22,10 +22,10 @@ BssProject::Application.routes.draw do
   end  
 
 
-  # /:taggable_type/taggable_id/upvote maybe
+  post '/:voteable_type/:voteable_id/upvote', to: 'upvotes#create', as: 'upvote'
+  post '/:voteable_type/:voteable_id/downvote', to: 'downvotes#create', as: 'downvote'
 
-  match '/:voteable_type/:voteable_id/upvote', to: 'upvotes#create', as: 'upvote'
-  match '/:voteable_type/:voteable_id/downvote', to: 'downvotes#create', as: 'downvote'
+  post '/:reportable_type/:reportable_id/report', to: 'reports#create', as: 'report'
 
 
   resources :idioms do

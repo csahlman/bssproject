@@ -1,11 +1,8 @@
 class ReportsController < ApplicationController
-  before_filter :get_reportable
 
   def create
-    @report = @reportable.reports.new
-    if params[:report]
-      @report.message = params[:report][:message]
-    end
+    @reportable = params[:reportable_type].classify.constantize.find(params[:reportable_id])
+    @report = @reportable.reports.find_or_initialize_by_user_id(current_user.id)
     @report.user = current_user
     if @report.save
       respond_to do |f|
@@ -18,13 +15,4 @@ class ReportsController < ApplicationController
     end
   end
 
-  private
-
-    def get_reportable
-      @reportable = params[:reportable].classify.constantize.find(reportable_id)
-    end
-
-    def reportable_id
-      params[(params[:reportable].singularize + "_id").to_sym]
-    end
 end

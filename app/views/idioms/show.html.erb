@@ -1,11 +1,14 @@
 <%#= Sorry for anyone that has to read this fuckfest %>
 <%= content_for(:title) { @idiom.title} %>
 
-<%= link_to "Home Page" %> | <%= link_to "Languages", idioms_path %>
+<ul class="breadcrumb">
+  <li><%= link_to "Home Page", root_path %> <span class="divider">/</span></li>
+  <li class="active"><%= link_to "Languages", idioms_path %> </li>
+</ul>
 
 <%= content_for :right_frame do %>
   <p><%= sanitize raw @idiom.description_right %></p>
-<small><%= link_to "Edit this frame", edit_idiom_path(frame: "right") %></small>
+  <small><%= link_to "Edit this frame", edit_idiom_path(frame: "right") %></small>
 <% end %>
 
 <% if signed_in? %>
@@ -14,29 +17,24 @@
     <p>Upvote for a good description.  You can see more possibilities
      in the edits history</p>
 
-  <%= upvote_button(@idiom, @idiom.upvoted_by_user?(current_user)) %>
-  <%= downvote_button(@idiom, @idiom.downvoted_by_user?(current_user)) %>   
-  Total Score: <%= score @idiom %><br>
+    <%= upvote_button(@idiom, @idiom.upvoted_by_user?(current_user)) %>
+    <%= downvote_button(@idiom, @idiom.downvoted_by_user?(current_user)) %>   
+    Total Score: <%= score @idiom %><br>
 
-  <% if @idiom.tags.any? %>
-    <h4>You tell us. Is <%= @idiom.title %>...</h4>
-    <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
-    <span class="tag">
-    <%= upvote_button @tag_for_voting, @tag_for_voting.
-      upvoted_by_user?(current_user) %>
-    <%= downvote_button @tag_for_voting, @tag_for_voting.
-      downvoted_by_user?(current_user) %>
-    </span>
-  <% end %>  
+    <% if @idiom.tags.any? %>
+      <h4>You tell us. Is <%= @idiom.title %>...</h4>
+      <p> <%= @tag_for_voting.name if @tag_for_voting %>? </p>
+      <span class="tag">
+      <%= upvote_button @tag_for_voting, @tag_for_voting.
+        upvoted_by_user?(current_user) %>
+      <%= downvote_button @tag_for_voting, @tag_for_voting.
+        downvoted_by_user?(current_user) %>
+      </span>
+    <% end %>  
     
     <div id="abuse">
-      Do you see any abuse? <%= link_to "REPORT IT", '#', id: "report_abuse" %>
     <% if signed_in? %>
-      <%= simple_form_for [@idiom, @report], id: "report_form", remote: true do |f| %>
-        <%= f.label :message, "Please briefly describe the problem." %>
-        <%= f.input :message %>
-        <%= f.button :submit, "Report" %>
-      <% end %>
+      <%= report_button @idiom %>
     <% end %>
     </div>
   <% end %>
