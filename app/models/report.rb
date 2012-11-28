@@ -20,12 +20,22 @@ class Report < ActiveRecord::Base
 
   scope :unresolved, where(resolved: false)
 
-  def proper_content
-    case reportable.class.to_s
-    when "Comment"
-      reportable.message
-    else 
-      reportable.description
+  # def proper_content
+  #   case reportable.class.to_s
+  #   when "Comment"
+  #     reportable.message
+  #   else 
+  #     reportable.description
+  #   end
+  # end
+
+  def unresolved_for_report
+    reportable.reports.where(resolved: false)
+  end
+
+  def self.resolve_each(reports)
+    reports.each do |report|
+      report.update_column(:resolved, true)
     end
   end
 

@@ -1,21 +1,11 @@
-<%#= Sorry for anyone that has to read this fuckfest %>
 <%= content_for(:title) { "Admin: #{@idiom.title}" }%>
 
 
 
 <h1><%= @idiom.title %></h1> 
 <%= link_to "Edits history", idiom_edits_path(@idiom) %><br>
-<p><%= @idiom.description %></p>
+<p><%= sanitize raw @idiom.description %></p>
 
-<span>Tags: <%#= render @idiom.tags %></span><br>
-
-
-<h2>Comments</h2>
-<div class="comments">
-  <ul>
-    <%#= render @idiom.comments %>
-  </ul>
-</div>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

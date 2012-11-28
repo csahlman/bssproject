@@ -1,16 +1,18 @@
 <%= content_for(:title) { "Admin/Reports" } %>
 
 <h1>Reported Objects</h1>
+
 <%= link_to "Dashboard", admin_path %>
 
 <%= content_for(:left_frame) do %>
 <ul id="unresolved_reports">
   <% @reports.each do |report| %>
-  <li>
+  <li id="<%= report.reportable.class.to_s.downcase %>_<%= report.reportable.id %>">
     <span>
       <%= link_to report.reportable.class.to_s, [:admin, report.reportable], 
         id: "report_#{report.id}", remote: true %> | 
-      <%= report.created_at %>
+      <%= time_ago_in_words report.created_at %> ago. |
+      submitted by: <%= link_to report.user.name, [:admin, report.user] %>
     </span>
   </li>
   <% end %>
@@ -22,4 +24,9 @@
   </div>
 <% end %>
 
+<%= content_for :sidebar do %>
+  <h3>Action Center</h3>
+  <div id="report_info">
 
+  </div>
+<% end %>

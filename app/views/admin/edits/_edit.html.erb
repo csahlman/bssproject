@@ -1,0 +1,3 @@
+Description: <%= sanitize raw edit.description %><br> 
+<%= link_to "Ban #{edit.user.name}", toggle_ban_admin_user_path(edit.user),
+  id: "ban_user_#{edit.user.id}", remote: true %>

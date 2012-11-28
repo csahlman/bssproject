@@ -1,0 +1,2 @@
+$('#report_info').html('<h5>Report Resolved</h5>')
+$('li#<%= @report.reportable.class.to_s.downcase %>_<%= @report.reportable.id %>').fadeOut('fast')

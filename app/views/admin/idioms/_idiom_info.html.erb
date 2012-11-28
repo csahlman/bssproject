@@ -1,0 +1,6 @@
+<%= link_to "Ban #{@idiom.user.name}", toggle_ban_admin_user_path(@idiom.user),
+  id: "ban_user_#{@idiom.user.id}", remote: true %><br>
+<%= link_to "Delete Idiom", admin_idiom_path(@idiom), method: :delete %><br>  
+<%= link_to "Edit Idiom", edit_admin_idiom_path(@idiom) %><br>
+<%= link_to "Mark as resolved", admin_report_path(@idiom.reports.first, resolved: "resolved"), 
+  method: :put, id: "resolve_report", confirm: "Are you sure?", remote: true  %>

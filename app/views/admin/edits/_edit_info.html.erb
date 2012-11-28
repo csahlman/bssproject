@@ -1,0 +1,6 @@
+<%= link_to "Ban #{@edit.user.name}", toggle_ban_admin_user_path(@edit.user),
+  id: "ban_user_#{@edit.user.id}", remote: true %><br>
+<%= link_to "Delete Edit", admin_edit_path(@edit), method: :delete %><br>  
+<%= link_to "Edit Edit", edit_admin_edit_path(@edit) %><br>
+<%= link_to "Mark as resolved", admin_report_path(@edit.reports.first, resolved: "resolved"), 
+  method: :put, id: "resolve_report", confirm: "Are you sure?", remote: true  %>
