@@ -1,5 +1,5 @@
 <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
-  <%= div_for announcement, class: "alert #{announcement.announcement_type}" do %>
+  <%= div_for announcement, class: "alert alert-#{announcement.announcement_type}" do %>
   <%# div_for automatically creates class-"announcement" and id="announcement_3" %>
     <%= announcement.message %>
     <%= link_to raw('&#215;'), hide_announcement_path(announcement), 

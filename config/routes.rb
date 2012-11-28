@@ -24,7 +24,7 @@ BssProject::Application.routes.draw do
   post '/:reportable_type/:reportable_id/report', to: 'reports#create', as: 'report'
 
 
-  resources :idioms do
+  resources :idioms, except: [ :destroy ] do
     # resources :tags # CONTROLLER=tags rake routes
       # will show the difference of shallow: true
     resources :comments 

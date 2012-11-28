@@ -9,13 +9,16 @@
 #  updated_at        :datetime         not null
 #  user_id           :integer
 #  description_right :string(255)
+#  summary           :string(255)
 #
 
 class Idiom < ActiveRecord::Base
+  attr_accessible :title, :description, :description_right, :summary
 
   validates :title, presence: true, length: { maximum: 1000 },
     uniqueness: { case_sensitive: false }
   validates :description, presence: true, length: { maximum: 10000 }
+  validates :summary, presence: true, length: { within: 10..140 }
 
   belongs_to :user
   
@@ -26,6 +29,16 @@ class Idiom < ActiveRecord::Base
 
   has_many :reports, as: :reportable
   has_many :votes, as: :voteable
+
+  def create_new_edit(edit_user)
+    edit = edits.new
+    edit.edited_at = self.updated_at
+    edit.user = edit_user
+    edit.description = self.description
+    edit.description_right = self.description_right
+    edit.summary = self.summary
+    save!
+  end
 
   def upvoted_by_user?(user)
     votes.where(user_id: user.id).any? && 

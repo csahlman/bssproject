@@ -1,4 +1,6 @@
-<%= content_for(:title) { "All languages" } %>
+<%= content_for(:title) { params[:tag] ? "Tagged With #{params[:tag]}" : "All Languages" } %>
+
+
 
 <h1>Languages</h1>
 
@@ -6,10 +8,17 @@
   <% tag_cloud Idiom.tag_counts, %w[s m l] do |tag, css_class| %>
     <%= link_to tag.name, tag_path(tag.name), class: css_class %>
   <% end %>
+  <%= link_to "all", idioms_path, class: 'l' %>
 </div>
 
 <%= link_to "Create a new idiom", new_idiom_path, 
     class: "btn btn-small btn-success" %><br />
+
+<% if params[:tag] %>
+  <h2>All Languages tagged with <%= params[:tag] %></h2>
+<% else %>
+  <h2>All Languages</h2>
+<% end %>
 
 <ul id="idioms">
   <%= render @idioms %>

@@ -15,6 +15,7 @@
 #  admin           :boolean          default(FALSE)
 #  deleted_at      :datetime
 #  banned          :boolean          default(FALSE)
+#  receive_emails  :boolean
 #
 
 require 'spec_helper'

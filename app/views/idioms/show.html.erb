@@ -42,7 +42,6 @@
 
 <%= content_for(:left_frame) do %>
 
-
   <h1><%= @idiom.title %></h1> 
   <%= link_to "Edits history", idiom_edits_path(@idiom) %><br>
   <p><%= sanitize raw @idiom.description %></p>

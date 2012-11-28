@@ -1,4 +1,8 @@
 <li>
-  <%= link_to idiom.title, idiom %><br>
-  <%= raw idiom.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
-</li><br>
+  <%= link_to idiom.title, idiom, class: "idiom_link" %><br>
+  <p id="idiom_summary"><%= idiom.summary %></p>
+  <span id="tags">
+    <%= raw idiom.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
+    <hr>
+  </span>
+</li>

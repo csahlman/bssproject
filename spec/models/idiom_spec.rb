@@ -9,6 +9,7 @@
 #  updated_at        :datetime         not null
 #  user_id           :integer
 #  description_right :string(255)
+#  summary           :string(255)
 #
 
 require 'spec_helper'

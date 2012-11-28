@@ -5,6 +5,7 @@ class Admin::AnnouncementsController < Admin::BaseController
     @announcement.message = params[:announcement][:message]
     @announcement.starts_at_text= params[:announcement][:starts_at_text]
     @announcement.ends_at_text = params[:announcement][:ends_at_text]
+    @announcement.announcement_type = params[:announcement][:announcement_type]
     if @announcement.save
       respond_to do |f|
         f.html { redirect_to admin_announcements_path }
@@ -23,6 +24,7 @@ class Admin::AnnouncementsController < Admin::BaseController
     @announcement.message = params[:announcement][:message]   
     @announcement.starts_at_text = params[:announcement][:starts_at_text]
     @announcement.ends_at_text = params[:announcement][:ends_at_text]
+    @announcement.announcement_type = params[:announcement][:announcement_type]
     if @announcement.save
       respond_to do |f|
         f.html { redirect_to admin_announcements_path }

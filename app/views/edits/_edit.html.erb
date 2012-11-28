@@ -1,19 +1,12 @@
-<% vote = edit.new_or_find_vote(current_user.id) %>
 <li>
   <p><%= truncate sanitize(raw(edit.description)), length: 500 %>
     <small><%= link_to edit.user.name, edit.user %>
-    <span class="time">
-      <%= link_to "#{time_ago_in_words edit.edited_at} ago.", [object, edit] %>
-      <%= link_to "(+)", correct_path(object, edit, vote, vote: { vote_value: 1}), 
-      	method: vote.new_record? ? :post : :put, 
-      	id: "edit_upvote_#{edit.id}", remote: true %>
-      <%= link_to "(-)", correct_path(object, edit, vote, vote: { vote_value: -1}), 
-      	method: vote.new_record? ? :post : :put, 
-      	id: "edit_downvote_#{edit.id}", remote: true %>
-      <span id="edit_<%= edit.id %>_score" class=<%= edit.total_score >= 0 ? "positive" : "negative" %>>
-      	<%= edit.total_score %> | 
-        <%= link_to "Report Abuse", [object, edit, edit.reports.new], method: :post,
-          id: "report_edit_#{edit.id}", remote: true %>
+      <span class="time">
+        <%= link_to "#{time_ago_in_words edit.edited_at} ago.", [object, edit] %>
+        <%= upvote_button edit, edit.upvoted_by_user?(current_user) %>
+        <%= downvote_button edit, edit.downvoted_by_user?(current_user) %>
+      	<%= score(edit) %> | 
+        <%= report_button edit %>
       </span>	     	
       </small>
     </span>

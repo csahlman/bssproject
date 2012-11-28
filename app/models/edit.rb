@@ -2,13 +2,15 @@
 #
 # Table name: edits
 #
-#  id          :integer          not null, primary key
-#  idiom_id    :integer
-#  description :text
-#  user_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  edited_at   :datetime
+#  id                :integer          not null, primary key
+#  idiom_id          :integer
+#  description       :text
+#  user_id           :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  edited_at         :datetime
+#  description_right :text
+#  summary           :string(255)
 #
 
 class Edit < ActiveRecord::Base
@@ -23,6 +25,16 @@ class Edit < ActiveRecord::Base
 
   default_scope order('created_at DESC')
 
+  def upvoted_by_user?(user)
+    votes.where(user_id: user.id).any? && 
+      votes.where(user_id: user.id).first.vote_value == 1
+  end
+
+  def downvoted_by_user?(user)
+    votes.where(user_id: user.id).any? &&
+      votes.where(user_id: user.id).first.vote_value == -1
+  end
+  
   def edited_by
     Edit.where("user_id= ? AND idiom_id=?", user.id, idiom.id).count
   end
