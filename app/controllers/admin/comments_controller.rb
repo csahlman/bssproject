@@ -8,4 +8,10 @@ class Admin::CommentsController < Admin::BaseController
     end
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    
+  end
+
 end

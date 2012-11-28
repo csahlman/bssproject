@@ -12,8 +12,8 @@ class Tag < ActiveRecord::Base
   has_many :idioms, through: :tag_associations
   has_many :tag_associations, dependent: :destroy
 
-  has_many :votes, as: :voteable
-  has_many :reports, as: :reportable
+  has_many :votes, as: :voteable, dependent: :destroy
+  has_many :reports, as: :reportable, dependent: :destroy
 
 
   validates :name, presence: true, length: { maximum: 50 },

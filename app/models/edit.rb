@@ -20,8 +20,8 @@ class Edit < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :idiom
-  has_many :votes, as: :voteable
-  has_many :reports, as: :reportable
+  has_many :votes, as: :voteable, dependent: :destroy
+  has_many :reports, as: :reportable, dependent: :destroy
 
   default_scope order('created_at DESC')
 

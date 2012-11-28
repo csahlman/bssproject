@@ -27,8 +27,8 @@ class Idiom < ActiveRecord::Base
   has_many :tag_associations, dependent: :destroy
   has_many :edits, dependent: :destroy
 
-  has_many :reports, as: :reportable
-  has_many :votes, as: :voteable
+  has_many :reports, as: :reportable, dependent: :destroy
+  has_many :votes, as: :voteable, dependent: :destroy
 
   def create_new_edit(edit_user)
     edit = edits.new
