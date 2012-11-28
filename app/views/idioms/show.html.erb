@@ -43,36 +43,31 @@
 <%= content_for(:left_frame) do %>
 
 
-<h1><%= @idiom.title %></h1> 
-<%= link_to "Edits history", idiom_edits_path(@idiom) %><br>
-<p><%= sanitize raw @idiom.description %></p>
+  <h1><%= @idiom.title %></h1> 
+  <%= link_to "Edits history", idiom_edits_path(@idiom) %><br>
+  <p><%= sanitize raw @idiom.description %></p>
 
-<span>Tags: <%= render @idiom.tags %></span><br>
+  <span>Tags: <%= render @idiom.tags %></span><br>
 
-<small><%= link_to "Edit this frame", edit_idiom_path(frame: "left") %></small>
+  <small><%= link_to "Edit this frame", edit_idiom_path(frame: "left") %></small>
 <% end %>
 
 <%= content_for :bottom_frame do %>
 
-<h2>Comments</h2>
-<div class="comments">
-  <ul>
-    <%= render @idiom.comments %>
-  </ul>
-</div>
+  <h2>Comments</h2>
+  <div class="comments">
+    <ul>
+      <%= render @idiom.comments %>
+    </ul>
+  </div>
 
 
-<h3><%= link_to "(+) Add a comment", '#', id: "create_new_comment" %></h3>
-<% if signed_in? %>
-  <%= simple_form_for [@idiom, Comment.new], remote: true do |f| %>
-    <%= f.input :message %>
-    <%= f.button :submit %>
+  <h3><%= link_to "(+) Add a comment", '#', id: "create_new_comment" %></h3>
+  <% if signed_in? %>
+    <%= simple_form_for [@idiom, Comment.new], remote: true do |f| %>
+      <%= f.input :message %>
+      <%= f.button :submit %>
+    <% end %>
   <% end %>
-<% end %>
-
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              idioms_path, :class => 'btn'  %>
-</div>
 
 <% end %>
