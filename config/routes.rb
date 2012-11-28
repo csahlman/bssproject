@@ -27,8 +27,8 @@ BssProject::Application.routes.draw do
   resources :idioms, except: [ :destroy ] do
     # resources :tags # CONTROLLER=tags rake routes
       # will show the difference of shallow: true
-    resources :comments 
-    resources :edits
+    resources :comments, only: [ :create ] 
+    resources :edits, only: [ :create, :show, :update, :index ]
   end  
 
   get 'tags/:tag', to: 'idioms#index', as: :tag
@@ -39,9 +39,9 @@ BssProject::Application.routes.draw do
 
   root :to => 'pages#home'
 
-  resources :users do
+  resources :users, except: [ :destroy ] do
     resources :messages, only: [ :new, :create, :show ]
-    resources :conversations
+    resources :conversations, only: [ :show, :index ]
     resources :inboxes, only: [ :show ]
   end  
 

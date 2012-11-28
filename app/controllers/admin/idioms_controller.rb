@@ -20,4 +20,9 @@ class Admin::IdiomsController < Admin::BaseController
     @idiom.update_column(:resolved, true) if params[:resolved]
   end
 
+  def destroy
+    @idiom = Idiom.find(params[:id])
+    @idiom.destroy
+  end
+
 end

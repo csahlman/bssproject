@@ -37,10 +37,6 @@ class UsersController < ApplicationController
     @edits_count = Edit.where(user_id: @user).count
   end
 
-  def destroy
-    @user.destroy
-  end
-
   def edit
   end
 

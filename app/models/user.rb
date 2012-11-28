@@ -19,15 +19,15 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :password, :password_confirmation
-
   has_secure_password
 
   validates :name, presence: true, length: { within: 2..50 }
   email_regex= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: email_regex },
     uniqueness: { cases_sensitive: false }
-  validates :password, presence: true, length: { within: 6..50 }
+  validates :password, presence: true, confirmation: true, 
+    length: { within: 6..50 }, if: :setting_password?
+  validates :password_confirmation, presence: true, if: :setting_password?
 
     
   has_many :votes
@@ -50,6 +50,16 @@ class User < ActiveRecord::Base
 
   default_scope where(deleted_at: nil)
 
+  def setting_password?
+    self.password.present? || self.password_confirmation.present?
+  end
+
+  def set_user_attributes(user_hash)
+    self.name = user_hash[:name]
+    self.email = user_hash[:email]
+    self.about_me = user_hash[:about_me]
+  end
+
   def self.from_omniauth(auth)
     where(auth.slice('provider', 'uid')).first || create_or_deny_from_omniauth(auth)
     #pulls out the first provider/uid combo that matches a user, or creates a new one
@@ -63,7 +73,7 @@ class User < ActiveRecord::Base
         user.name = auth["info"]["name"]
       end
       if auth['provider'] == 'facebook'
-        new_user.email= auth["info"]["email"]
+        new_user.email = auth["info"]["email"]
         if User.find_by_email auth["info"]["email"]
           raise "There is already an account with that email registered"  
         end
@@ -89,7 +99,7 @@ class User < ActiveRecord::Base
     end
 
     def create_remember_token
-      self.remember_token= SecureRandom.urlsafe_base64
+      self.remember_token = SecureRandom.urlsafe_base64
     end
 
     def ensure_an_admin_remains

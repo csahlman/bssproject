@@ -11,15 +11,6 @@ class ConversationsController < ApplicationController
     @conversations = current_user.conversations
   end
 
-  def create
-  end
-
-  def update
-  end
-
-  def destroy
-  end
-
   private
 
     def must_be_part_of_conversation

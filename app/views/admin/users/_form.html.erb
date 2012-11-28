@@ -1,0 +1,10 @@
+<%= simple_form_for [:admin, @user] do |f| %>
+  <%= render 'shared/error_explanation', object: @user if @user.errors.any? %>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.hint "Password optional for edits" %>
+  <%= f.input :password %>
+  <%= f.input :password_confirmation %>
+  <%= f.input :about_me %>
+  <%= f.button :submit %>
+<% end %>

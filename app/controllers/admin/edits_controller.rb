@@ -4,4 +4,9 @@ class Admin::EditsController < Admin::BaseController
     @edit = Edit.find(params[:id])
   end
 
+  def destroy
+    @edit = Edit.find(params[:id])
+    @edit.destroy
+  end
+
 end
