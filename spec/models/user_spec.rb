@@ -16,6 +16,7 @@
 #  deleted_at      :datetime
 #  banned          :boolean          default(FALSE)
 #  receive_emails  :boolean
+#  zip_code        :string(255)
 #
 
 require 'spec_helper'

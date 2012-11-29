@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128165946) do
+ActiveRecord::Schema.define(:version => 20121129005251) do
 
   create_table "announcements", :force => true do |t|
     t.text     "message"
@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20121128165946) do
     t.datetime "deleted_at"
     t.boolean  "banned",          :default => false
     t.boolean  "receive_emails"
+    t.string   "zip_code"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

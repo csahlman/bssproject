@@ -16,18 +16,20 @@
 #  deleted_at      :datetime
 #  banned          :boolean          default(FALSE)
 #  receive_emails  :boolean
+#  zip_code        :string(255)
 #
 
 class User < ActiveRecord::Base
   has_secure_password
-
+  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  zip_regex = /^\d{5}(-\d{4})?$/
   validates :name, presence: true, length: { within: 2..50 }
-  email_regex= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: email_regex },
     uniqueness: { cases_sensitive: false }
   validates :password, presence: true, confirmation: true, 
     length: { within: 6..50 }, if: :setting_password?
   validates :password_confirmation, presence: true, if: :setting_password?
+  validates :zip_code, presence: true, format: { with: zip_regex }
 
     
   has_many :votes
