@@ -13,7 +13,8 @@
 #
 
 class Idiom < ActiveRecord::Base
-  attr_accessible :title, :description, :description_right, :summary
+  attr_accessible :title, :description, :description_right, :summary,
+    :tag_list
 
   validates :title, presence: true, length: { maximum: 1000 },
     uniqueness: { case_sensitive: false }
