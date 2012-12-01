@@ -10,8 +10,7 @@ class MessagesController < ApplicationController
     @message.body = params[:message][:body]
     @message.receiver = @receiver
     if @message.save
-      @conversation.messages << @message
-      @conversation.save
+      @conversation.add_message(@message)
       current_user.inbox.add_conversation(@conversation, true)
       @receiver.inbox.add_conversation(@conversation)
       respond_to do |f|

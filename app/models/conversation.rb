@@ -16,6 +16,11 @@ class Conversation < ActiveRecord::Base
 
   default_scope order("updated_at DESC")
 
+  def add_message(message)
+    self.messages << message
+    self.save!
+  end
+
   def self.find_or_new(sender_id, receiver_id)
     m1 = Message.where('sender_id = ? AND receiver_id = ?', sender_id, receiver_id)
     m2= Message.where('sender_id = ? AND receiver_id = ?', receiver_id, sender_id)
