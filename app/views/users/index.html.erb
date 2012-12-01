@@ -4,6 +4,7 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
+<%= link_to "Edit your account", edit_user_path(current_user) if signed_in? %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -11,6 +12,7 @@
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:about_me) %></th>
+      <th><%= model_class.human_attribute_name(:zip_code) %></th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +23,7 @@
         <td><%= link_to user.name, user %></td>
         <td><%= user.email %></td>
         <td><%= user.about_me %></td>
+        <td><%= user.zip_code %></td>
       </tr>
     <% end %>
   </tbody>

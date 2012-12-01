@@ -55,6 +55,8 @@ gem "carrierwave"
 gem "mini_magick"
 gem "fog", "~> 1.3.1"
 
+gem 'mediawiki-gateway'
+
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

@@ -9,11 +9,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new
-    @user.email = params[:user][:email]
-    @user.name = params[:user][:name]
-    @user.password = params[:user][:password]
-    @user.password_confirmation = params[:user][:password_confirmation]
-    @user.about_me = params[:user][:about_me]
+    @user.set_user_attributes(params[:user])
     if @user.save
       sign_in(@user)
       respond_with @user do |f|
@@ -41,11 +37,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.email = params[:user][:email]
-    @user.name = params[:user][:name]
-    @user.password = params[:user][:password]
-    @user.password_confirmation = params[:user][:password_confirmation]
-    @user.about_me = params[:user][:about_me]
+    @user.set_user_attributes(params[:user])
     if @user.save
       respond_with @user do |f|
         f.html { redirect_to @user, flash: { notice: "#{@user.name} successfully updated"} }

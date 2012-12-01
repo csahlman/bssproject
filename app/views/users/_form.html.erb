@@ -1,39 +1,11 @@
-<%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for @user do |f| %>
   <%= render 'shared/error_explanation', object: @user %>
-  <div class="control-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :name, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :email, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :email, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :password, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.password_field :password, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :password_confirmation, "Confirm Password", 
-      :class => 'control-label' %>
-    <div class="controls">
-      <%= f.password_field :password_confirmation, :class => 'text_field' %>
-    </div>
-  </div>  
-  <div class="control-group">
-    <%= f.label :about_me, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :about_me, :class => 'text_area' %>
-    </div>
-  </div>
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                users_path, :class => 'btn' %>
-  </div>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :password, label: "Password: optional for edits" %>
+  <%= f.input :password_confirmation %>  
+  <%= f.input :zip_code, as: :string %>
+  <%= f.input :about_me %>
+  <%= f.input :receive_emails, label: "Receive emails?" %>
+  <%= f.button :submit %>
 <% end %>
