@@ -55,7 +55,7 @@ BssProject::Application.routes.draw do
     resources :tags, only: [ :show, :edit, :update, :destroy, :index, :create ]
     resources :idioms, only: [ :show, :index, :edit, :update, :destroy ]
     resources :reports, only: [ :show, :index, :update, :destroy ]
-    resources :comments, only: [ :show, :destroy ]
+    resources :comments, only: [ :edit, :show, :destroy ]
     resources :edits, only: [ :show, :destroy, :edit, :destroy ] 
   end
   # The priority is based upon order of creation:
