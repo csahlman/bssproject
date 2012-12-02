@@ -31,6 +31,8 @@ class Idiom < ActiveRecord::Base
   has_many :reports, as: :reportable, dependent: :destroy
   has_many :votes, as: :voteable, dependent: :destroy
 
+  has_many :meetups, dependent: :destroy
+
  
 
   def create_new_edit(edit_user)

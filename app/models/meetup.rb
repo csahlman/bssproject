@@ -20,17 +20,10 @@ class Meetup < ActiveRecord::Base
   require 'open-uri'
   require 'json'
 
-  # def api_key=(key)
-    
-  # end
-
-  # def api_key
-  #   self.api_key
-  # end
+  belongs_to :idiom
 
   def self.fetch_results(topic, zip_code)
     topic = parse_topic(topic)
-    # self.api_key = ENV['MEETUP_API']
     api_url = "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{topic}&zip=#{zip_code}&page=20"
     result = JSON.parse(open(api_url).read)
     result   
@@ -38,15 +31,24 @@ class Meetup < ActiveRecord::Base
 
   def self.parse_topic(topic)
     topics = topic.split(' ').map { |n| n.strip }
-    return topics.join(',')
+    topics.join(',')
   end
 
-  def self.self_attributes_from_json(meetup_hash)
-    
+  def self.set_attributes_from_json(meetup_hash, meetup)
+    meetup.name = meetup_hash['results'][0]['name']
+    meetup.group_name = meetup_hash['results'][0]['group']['name']
+    meetup.event_url = meetup_hash['results'][0]['event_url']
+    meetup.description = meetup_hash['results'][0]['description']
+    meetup.meetup_time = Time.at((meetup_hash['results'][0]['time'])/1000)
+    meetup.latitude = meetup_hash['results'][0]['venue']['lat']
+    meetup.longitude = meetup_hash['results'][0]['venue']['lon']
+    meetup.attending = meetup_hash['results'][0]['yes_rsvp_count']
+    meetup.save!
   end
 
   def self.find_or_create_new_meetups(idiom, zip_code)
     meetup_hash = fetch_results(idiom.title, zip_code)
-    set_attributes_from_json(meetup_hash)
+    new_meetup = idiom.meetups.new
+    set_attributes_from_json(meetup_hash, new_meetup) unless meetup_hash['results'].nil?
   end
 end
