@@ -17,7 +17,7 @@
     <li><%= link_to @meetup.event_url, @meetup.event_url %></li>
     <li><p><%= sanitize raw @meetup.description %></p></li>
     <li>When: <%= @meetup.meetup_time %></li>
-    <li>Where: <%= @meetup.latitude %> <%= @meetup.longitude %></li>
+    <li>Where: <%= @meetup.address %> <%= @meetup.city %>, <%= @meetup.state %></li>
     <li>Who: <%= pluralize @meetup.attending, "people" %> attending.</li>
 
   </ul>

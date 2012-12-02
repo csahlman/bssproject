@@ -15,6 +15,9 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  event_id    :integer
+#  address     :string(255)
+#  city        :string(255)
+#  state       :string(255)
 #
 
 class Meetup < ActiveRecord::Base
@@ -52,6 +55,9 @@ class Meetup < ActiveRecord::Base
         #converts time in seconds to date.  was in milliseconds til /1000
         meetup.latitude = result['venue']['lat']
         meetup.longitude = result['venue']['lon']
+        meetup.address = result['venue']['address_1']
+        meetup.state = result['venue']['state']
+        meetup.city = result['venue']['city']
         meetup.attending = result['yes_rsvp_count']
         meetup.save!
         meetups << meetup
@@ -61,12 +67,12 @@ class Meetup < ActiveRecord::Base
   end
 
   def self.find_or_create_new_meetups(idiom, zip_code)
-    if future_event.recent.where(idiom_id: idiom.id).count >= 3 
+    if future_event.recent.where(idiom_id: idiom.id).count >= 1
       future_event.recent.where(idiom_id: idiom.id).limit(3) #find the 3 most recent future events for the given idiom 
       # and return the first 3
     else # if there aren't stored values from the last day, fetch new results
       meetup_hash = fetch_results(idiom.title, zip_code)
-      meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom) + future_event.recent.where(idiom_id: idiom.id).all  : []
+      meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom) : []
       # if there are any results, and there aren't already 3, return the newly set meetup array + the rest of the recent ones
       # just to avoid saving duplicates
     end
