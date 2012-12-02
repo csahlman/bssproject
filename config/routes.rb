@@ -25,6 +25,7 @@ BssProject::Application.routes.draw do
 
 
   resources :idioms, except: [ :destroy ] do
+    resources :meetups, only: [ :show ]
     # resources :tags # CONTROLLER=tags rake routes
       # will show the difference of shallow: true
     resources :comments, only: [ :create ] 

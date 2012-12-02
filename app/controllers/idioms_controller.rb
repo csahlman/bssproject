@@ -40,6 +40,7 @@ class IdiomsController < ApplicationController
   def show
     @idiom = Idiom.includes(:tags, comments: { votes: :user }).find(params[:id])
     if signed_in?
+      Meetup.find_or_create_new_meetups(@idiom, current_user.zip_code)
       @vote = @idiom.votes.find_or_initialize_by_user_id(current_user.id)
     end
     if @idiom.tags.any? && signed_in?

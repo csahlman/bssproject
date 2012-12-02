@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129005251) do
+ActiveRecord::Schema.define(:version => 20121202001103) do
 
   create_table "announcements", :force => true do |t|
     t.text     "message"
@@ -62,6 +62,20 @@ ActiveRecord::Schema.define(:version => 20121129005251) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "meetups", :force => true do |t|
+    t.string   "name"
+    t.string   "group_name"
+    t.string   "event_url"
+    t.text     "description"
+    t.datetime "meetup_time"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "attending"
+    t.integer  "idiom_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "messages", :force => true do |t|
