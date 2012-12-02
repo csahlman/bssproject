@@ -1,5 +1,14 @@
 <%= content_for(:title) { "Meetup show page" } %>
 
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3&sensor=false"></script>
+<script type="text/javascript">
+    var mapOptions = {
+      zoom: 18,
+      center: new google.maps.LatLng(<%= @meetup.latitude %>, <%= @meetup.longitude %>),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+</script>
+
 <h3><%= @meetup.name %></h3>
 
 <div id="meetup_info">
@@ -14,3 +23,4 @@
   </ul>
 
 </div>
+<div id="map_canvas" style="width: 500px; height: 500px"></div>
