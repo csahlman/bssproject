@@ -1,0 +1,16 @@
+<%= content_for(:title) { "Meetup show page" } %>
+
+<h3><%= @meetup.name %></h3>
+
+<div id="meetup_info">
+  <ul id="meetup_list">
+    <li>Group Name: <%= @meetup.group_name %></li>
+    <li><%= link_to @meetup.event_url, @meetup.event_url %></li>
+    <li><p><%= sanitize raw @meetup.description %></p></li>
+    <li>When: <%= @meetup.meetup_time %></li>
+    <li>Where: <%= @meetup.latitude %> <%= @meetup.longitude %></li>
+    <li>Who: <%= pluralize @meetup.attending, "people" %> attending.</li>
+
+  </ul>
+
+</div>

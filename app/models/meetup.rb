@@ -14,6 +14,7 @@
 #  idiom_id    :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  event_id    :integer
 #
 
 class Meetup < ActiveRecord::Base
@@ -22,9 +23,12 @@ class Meetup < ActiveRecord::Base
 
   belongs_to :idiom
 
+  scope :recent, -> { where("created_at >= :yesterday", yesterday: 24.hours.ago) }
+  scope :future_event, -> { where("meetup_time >= :now", now: Time.zone.now) }
+
   def self.fetch_results(topic, zip_code)
     topic = parse_topic(topic)
-    api_url = "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{topic}&zip=#{zip_code}&page=20"
+    api_url = "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{topic}&zip=#{zip_code}&page=3"
     result = JSON.parse(open(api_url).read)
     result   
   end
@@ -34,21 +38,37 @@ class Meetup < ActiveRecord::Base
     topics.join(',')
   end
 
-  def self.set_attributes_from_json(meetup_hash, meetup)
-    meetup.name = meetup_hash['results'][0]['name']
-    meetup.group_name = meetup_hash['results'][0]['group']['name']
-    meetup.event_url = meetup_hash['results'][0]['event_url']
-    meetup.description = meetup_hash['results'][0]['description']
-    meetup.meetup_time = Time.at((meetup_hash['results'][0]['time'])/1000)
-    meetup.latitude = meetup_hash['results'][0]['venue']['lat']
-    meetup.longitude = meetup_hash['results'][0]['venue']['lon']
-    meetup.attending = meetup_hash['results'][0]['yes_rsvp_count']
-    meetup.save!
+  def self.set_attributes_from_json(meetup_hash, idiom)
+    meetups = []
+    meetup_hash['results'].each do |result| # hash['results'] returns any array obviously
+      unless where(event_id: result['id']).any?
+        meetup = idiom.meetups.new
+        meetup.event_id = result['id']
+        meetup.name = result['name']
+        meetup.group_name = result['group']['name']
+        meetup.event_url = result['event_url']
+        meetup.description = result['description']
+        meetup.meetup_time = Time.at((result['time'])/1000) 
+        #converts time in seconds to date.  was in milliseconds til /1000
+        meetup.latitude = result['venue']['lat']
+        meetup.longitude = result['venue']['lon']
+        meetup.attending = result['yes_rsvp_count']
+        meetup.save!
+        meetups << meetup
+      end
+    end
+    meetups
   end
 
   def self.find_or_create_new_meetups(idiom, zip_code)
-    meetup_hash = fetch_results(idiom.title, zip_code)
-    new_meetup = idiom.meetups.new
-    set_attributes_from_json(meetup_hash, new_meetup) unless meetup_hash['results'].nil?
+    if future_event.recent.where(idiom_id: idiom.id).count >= 3 
+      future_event.recent.where(idiom_id: idiom.id).limit(3) #find the 3 most recent future events for the given idiom 
+      # and return the first 3
+    else # if there aren't stored values from the last day, fetch new results
+      meetup_hash = fetch_results(idiom.title, zip_code)
+      meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom) + future_event.recent.where(idiom_id: idiom.id).all  : []
+      # if there are any results, and there aren't already 3, return the newly set meetup array + the rest of the recent ones
+      # just to avoid saving duplicates
+    end
   end
 end

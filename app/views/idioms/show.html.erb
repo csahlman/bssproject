@@ -12,6 +12,13 @@
 
 <% if signed_in? %>
   <%= content_for :sidebar do %>
+    <h4><%= link_to "See all meetups for #{@idiom.title} near #{current_user.zip_code}",
+          '#', id: "display_meetups" %></h4>
+    <ul id="meetups">
+      <% @meetups.each do |meetup| %>
+        <li><%= link_to meetup.name, [@idiom, meetup] %></li>
+      <% end %>
+    </ul>
     <h4>Please give us your feedback</h4>  
     <p>Upvote for a good description.  You can see more possibilities
      in the edits history</p>
