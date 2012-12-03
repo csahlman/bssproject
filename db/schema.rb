@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121202153729) do
+ActiveRecord::Schema.define(:version => 20121203125209) do
 
   create_table "announcements", :force => true do |t|
     t.text     "message"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20121202153729) do
     t.string   "address"
     t.string   "city"
     t.string   "state"
+    t.string   "zip_code"
   end
 
   create_table "messages", :force => true do |t|

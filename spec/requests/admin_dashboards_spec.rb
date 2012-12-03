@@ -2,8 +2,15 @@ require 'spec_helper'
 
 describe "AdminDashboards" do
 
-  let(:user) { create(:user, name: "Asshat") }
+  let(:user) { create(:user, name: "Joe") }
   let(:admin) { create(:user, admin: true) }
+
+  describe "not logged in" do
+    it "should not be able to access the admin dashboard" do
+      visit admin_path
+      response.should have_selector('h1', content: "Sign In")
+    end
+  end
 
   describe "logging into the admin dashboard as a normal user" do
 
@@ -30,7 +37,7 @@ describe "AdminDashboards" do
       response.should have_selector('a', content: "Manage Idioms")
       response.should have_selector('a', content: "Manage Comments")
     end
-
+    
     describe "managing users" do
       
       # it "should visit the path and delete a user" do

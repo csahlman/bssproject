@@ -18,6 +18,7 @@
 #  address     :string(255)
 #  city        :string(255)
 #  state       :string(255)
+#  zip_code    :string(255)
 #
 
 class Meetup < ActiveRecord::Base
@@ -31,7 +32,7 @@ class Meetup < ActiveRecord::Base
 
   def self.fetch_results(topic, zip_code)
     topic = parse_topic(topic)
-    api_url = "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{topic}&zip=#{zip_code}&page=3"
+    api_url = "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{topic}&zip=#{zip_code}&page=5"
     begin
       result = JSON.parse(open(api_url).read)
     rescue OpenURI::HTTPError
@@ -46,11 +47,12 @@ class Meetup < ActiveRecord::Base
     topics.join(',')
   end
 
-  def self.set_attributes_from_json(meetup_hash, idiom)
+  def self.set_attributes_from_json(meetup_hash, idiom, user_zip_code)
     meetups = []
     meetup_hash['results'].each do |result| # hash['results'] returns any array obviously
       unless where(event_id: result['id']).any?
         meetup = idiom.meetups.new
+        meetup.zip_code = user_zip_code
         meetup.event_id = result['id']
         meetup.name = result['name']
         meetup.group_name = result['group']['name']
@@ -73,12 +75,12 @@ class Meetup < ActiveRecord::Base
 
   def self.find_or_create_new_meetups(idiom, zip_code)
     meetups = []
-    if future_event.recent.where(idiom_id: idiom.id).any?
-      future_event.recent.where(idiom_id: idiom.id).limit(3) #find the 3 most recent future events for the given idiom 
-      # and return the first 3
+    if future_event.recent.where(idiom_id: idiom.id).where(zip_code: zip_code).any?
+      future_event.recent.where(idiom_id: idiom.id).where(zip_code: zip_code).limit(5) #find the 3 most recent future events for the given idiom 
+      # and user zip code and return the first 3
     else # if there aren't stored values from the last day, fetch new results
       meetup_hash = fetch_results(idiom.title, zip_code)
-      meetup_hash && meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom) : meetups      
+      meetup_hash && meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom, zip_code) : meetups      
       # if there are any results, and there aren't already 3, return the newly set meetup array + the rest of the recent ones
       # just to avoid saving duplicates
     end

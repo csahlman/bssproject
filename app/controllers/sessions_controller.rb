@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       sign_in(user)
       redirect_back_or root_url, flash: { notice: "Welcome #{user.name}." }
     elsif User.find_by_email(params[:email])
-      user= User.find_by_email(params[:email])
+      user = User.find_by_email(params[:email])
       if user.password_digest && user.authenticate(params[:password])
         sign_in(user)
         redirect_back_or root_url, flash: { notice: "Welcome #{user.name} " }
@@ -23,6 +23,9 @@ class SessionsController < ApplicationController
         flash.now[:error] = "Login using facebook"
         render 'new'
       end
+    else
+      flash.now[:error] = "Invalid Password/Email, please try again"
+      render 'new'
     end
     # user = User.find_by_email(params[:email])
     # if user and user.authenticate(params[:password])
