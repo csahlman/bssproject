@@ -32,7 +32,12 @@ class Meetup < ActiveRecord::Base
   def self.fetch_results(topic, zip_code)
     topic = parse_topic(topic)
     api_url = "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{topic}&zip=#{zip_code}&page=3"
-    result = JSON.parse(open(api_url).read)
+    begin
+      result = JSON.parse(open(api_url).read)
+    rescue OpenURI::HTTPError
+      # rescue from bad request 400 error
+      result = nil
+    end
     result   
   end
 

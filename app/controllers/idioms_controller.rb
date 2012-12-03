@@ -13,7 +13,7 @@ class IdiomsController < ApplicationController
 
     if @idiom.save
       @edit = @idiom.create_new_edit(current_user)
-      redirect_to @idiom, flash: { notice: "#{@idiom.title} created"}
+      redirect_to @idiom, flash: { notice: "#{@idiom.title} created" }
     else
       render 'new'
     end
@@ -27,7 +27,7 @@ class IdiomsController < ApplicationController
     EditMailer.idiom_edit_mailer(current_user, @idiom, @edit).deliver if 
       current_user.receive_emails?
     if @idiom.save
-      redirect_to @idiom, flash: { notice: "#{@idiom.title} updated"}
+      redirect_to @idiom, flash: { notice: "#{@idiom.title} updated" }
     else
       render 'edit'
     end
@@ -41,14 +41,13 @@ class IdiomsController < ApplicationController
     @idiom = Idiom.includes(:tags, comments: { votes: :user }).find(params[:id])
     if signed_in?
       @meetups = Meetup.find_or_create_new_meetups(@idiom, current_user.zip_code)
-      @vote = @idiom.votes.find_or_initialize_by_user_id(current_user.id)
     end
     if @idiom.tags.any? && signed_in?
       @tag_for_voting = @idiom.random_tag
     end
     respond_to do |f|
       f.html
-      f.json { render json: @idiom}
+      f.json { render json: @idiom }
     end  
   end
 
