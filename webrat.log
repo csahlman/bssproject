@@ -380,3 +380,6 @@ REQUESTING PAGE: GET /admin with {} and HTTP headers {}
 REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/admin"}
 REQUESTING PAGE: GET /admin with {} and HTTP headers {}
 REQUESTING PAGE: GET http://www.example.com/sign_in with {} and HTTP headers {"HTTP_REFERER"=>"/admin"}
+REQUESTING PAGE: GET /idioms/1 with {} and HTTP headers {}
+REQUESTING PAGE: GET /idioms/1 with {} and HTTP headers {}
+REQUESTING PAGE: GET /idioms/1 with {} and HTTP headers {}

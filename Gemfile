@@ -22,7 +22,7 @@ group :assets do
 end
 
 group :test, :development do
-  # gem 'sqlite3'
+  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'rspec'
   gem 'capybara'
@@ -58,9 +58,6 @@ gem "carrierwave"
 gem "mini_magick"
 gem "fog", "~> 1.3.1"
 
-# gem 'rMeetup'
-
-# gem 'mediawiki-gateway'
 
 
 # To use Jbuilder templates for JSON

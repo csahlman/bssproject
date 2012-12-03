@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
     self.zip_code = user_hash[:zip_code]
     self.password = user_hash[:password]
     self.password_confirmation = user_hash[:password_confirmation]
+    self.receive_emails = user_hash[:receive_emails]
   end
 
   def self.from_omniauth(auth)
