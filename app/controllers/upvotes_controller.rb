@@ -10,7 +10,7 @@ class UpvotesController < ApplicationController
     respond_to do |f|
       f.html
       f.js
-      f.json
+      f.json { render json: @vote }
     end
   end
 

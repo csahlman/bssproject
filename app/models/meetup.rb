@@ -67,12 +67,13 @@ class Meetup < ActiveRecord::Base
   end
 
   def self.find_or_create_new_meetups(idiom, zip_code)
-    if future_event.recent.where(idiom_id: idiom.id).count >= 1
+    meetups = []
+    if future_event.recent.where(idiom_id: idiom.id).any?
       future_event.recent.where(idiom_id: idiom.id).limit(3) #find the 3 most recent future events for the given idiom 
       # and return the first 3
     else # if there aren't stored values from the last day, fetch new results
       meetup_hash = fetch_results(idiom.title, zip_code)
-      meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom) : []
+      meetup_hash && meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom) : meetups      
       # if there are any results, and there aren't already 3, return the newly set meetup array + the rest of the recent ones
       # just to avoid saving duplicates
     end
