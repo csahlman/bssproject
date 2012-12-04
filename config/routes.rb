@@ -2,8 +2,6 @@ BssProject::Application.routes.draw do
   
   mount RedactorRails::Engine => '/redactor_rails'
 
-  resources :inboxes, only: [ :show ]
-
   get "pages/home"
   get "pages/about"
   get "pages/contact"
@@ -43,7 +41,7 @@ BssProject::Application.routes.draw do
   resources :users, except: [ :destroy ] do
     resources :messages, only: [ :new, :create, :show ]
     resources :conversations, only: [ :show, :index ]
-    resources :inboxes, only: [ :show ]
+    resource :inbox, only: [ :show ]
   end  
 
   namespace :admin do

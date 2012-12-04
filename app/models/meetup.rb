@@ -22,24 +22,27 @@
 #
 
 class Meetup < ActiveRecord::Base
-  require 'open-uri'
-  require 'json'
 
   belongs_to :idiom
 
   scope :recent, -> { where("created_at >= :yesterday", yesterday: 24.hours.ago) }
   scope :future_event, -> { where("meetup_time >= :now", now: Time.zone.now) }
 
-  def self.fetch_results(topic, zip_code)
-    topic = parse_topic(topic)
-    api_url = "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{topic}&zip=#{zip_code}&page=5"
-    begin
-      result = JSON.parse(open(api_url).read)
-    rescue OpenURI::HTTPError
-      # rescue from bad request 400 error
-      result = nil
-    end
-    result   
+  # def self.fetch_results(topic, zip_code)
+  #   topic = parse_topic(topic)
+  #   api_url = "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{topic}&zip=#{zip_code}&page=5"
+  #   begin
+  #     result = JSON.parse(open(api_url).read)
+  #   rescue OpenURI::HTTPError
+  #     # rescue from bad request 400 error
+  #     result = nil
+  #   end
+  #   result   
+  # end
+
+  def self.create_url(topic, zip_code)
+    parsed_topic = parse_topic(topic)
+    return "https://api.meetup.com/2/open_events?key=#{ENV['MEETUP_API']}&sign=true&topic=#{parsed_topic}&zip=#{zip_code}&page=5"
   end
 
   def self.parse_topic(topic)
@@ -74,13 +77,13 @@ class Meetup < ActiveRecord::Base
   end
 
   def self.find_or_create_new_meetups(idiom, user_zip_code)
-    meetups = []
     if future_event.recent.where(idiom_id: idiom.id).where(zip_code: user_zip_code).any?
       future_event.recent.where(idiom_id: idiom.id).where(zip_code: user_zip_code).limit(5) #find the 3 most recent future events for the given idiom 
       # and user zip code and return the first 3
     else # if there aren't stored values from the last day, fetch new results
-      meetup_hash = fetch_results(idiom.title, user_zip_code)
-      meetup_hash && meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom, user_zip_code) : meetups      
+      return_json = ReturnJsonFromUrl.new(create_url(idiom.title, user_zip_code))
+      meetup_hash = return_json.return_json_hash
+      meetup_hash && meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom, user_zip_code) : []      
       # if there are any results, and there aren't already 3, return the newly set meetup array + the rest of the recent ones
       # just to avoid saving duplicates
     end
