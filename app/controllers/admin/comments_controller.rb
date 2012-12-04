@@ -1,17 +1,23 @@
 class Admin::CommentsController < Admin::BaseController
+  before_filter :find_comment
 
   def show
-    @comment = Comment.find(params[:id])
-
-    respond_to do |f|
-      f.js
-    end
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-    
+    @comment.destroy    
   end
 
+  def edit
+  end
+
+  def update
+  end
+
+
+  private
+
+    def find_comment
+      @comment = Comment.find(params[:id])   
+    end
 end

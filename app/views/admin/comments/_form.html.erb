@@ -1,0 +1,6 @@
+<div class="edit_comment_form">
+  <%= simple_form_for [:admin, @comment], remote: true do |f| %>
+    <%= f.input :message, label: false %>
+    <%= f.button :submit %>
+  <% end %>
+</div>
