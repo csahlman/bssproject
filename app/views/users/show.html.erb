@@ -1,3 +1,5 @@
+<%= content_for(:title) { @user.name } %>
+
 <%- model_class = User -%>
 
 
@@ -16,8 +18,12 @@
   <dd><%= @edits_count %></dd>
 </dl>
 
+<% if signed_in? && current_user != @user %>
+
 <%= link_to "Send #{@user.name} a message.", new_user_message_path(@user),
-  id: "new_message", remote: true unless @user == current_user  %>
+  id: "new_message", remote: true %>
+
+<% end %>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

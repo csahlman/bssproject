@@ -73,9 +73,14 @@ class Idiom < ActiveRecord::Base
     Tag.find_by_name!(name).idioms
   end
 
+  # def self.tag_counts
+  #   Tag.select("tags.*, count(tag_associations.tag_id) as count").
+  #       joins(:tag_associations).group("tag_associations.tag_id")
+  # end
+
   def self.tag_counts
-    Tag.select("tags.*, count(tag_associations.tag_id) as count").
-        joins(:tag_associations).group("tag_associations.tag_id")
+    Tag.select("tags.id, tags.name, count(tag_associations.tag_id) as count").
+      joins(:tag_associations).group("tag_associations.tag_id, tags.id, tags.name")
   end
 
   def tag_list
