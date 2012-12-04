@@ -13,8 +13,6 @@
 #
 
 class Idiom < ActiveRecord::Base
-  attr_accessible :title, :description, :description_right, :summary,
-    :tag_list
 
   validates :title, presence: true, length: { maximum: 1000 },
     uniqueness: { case_sensitive: false }
@@ -34,6 +32,12 @@ class Idiom < ActiveRecord::Base
 
   has_many :meetups, dependent: :destroy
 
+  def set_idiom_attributes(idiom_hash)
+    self.description = idiom_hash[:description]
+    self.description_right = idiom_hash[:description_right]
+    self.summary = idiom_hash[:summary]
+    self.title = idiom_hash[:title]
+  end
  
 
   def create_new_edit(edit_user)

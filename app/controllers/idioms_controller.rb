@@ -7,7 +7,7 @@ class IdiomsController < ApplicationController
 
   def create
     @idiom = Idiom.new
-    @idiom.attributes = params[:idiom]
+    @idiom.set_idiom_attributes(params[:idiom])
     @idiom.tag_list = params[:idiom][:tag_list] if params[:idiom][:tag_list]
     @idiom.user = current_user
 
@@ -22,7 +22,7 @@ class IdiomsController < ApplicationController
   def update
     @idiom = Idiom.includes([:tags]).find(params[:id])
     @edit = @idiom.create_new_edit(current_user)
-    @idiom.attributes = params[:idiom]
+    @idiom.set_idiom_attributes(params[:idiom])
     @idiom.tag_list = params[:idiom][:tag_list] if params[:idiom][:tag_list]
     EditMailer.idiom_edit_mailer(current_user, @idiom, @edit).deliver if 
       current_user.receive_emails?
