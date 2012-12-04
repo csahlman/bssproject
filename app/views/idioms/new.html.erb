@@ -3,6 +3,7 @@
 <h1>Create a new language</h1>
 
 <%= simple_form_for @idiom do |f| %>
+  <%= render 'shared/error_explanation', object: @idiom %>
   <%= f.input :title %>
   <%= f.hint "Please give a tweet sized summary" %>
   <%= f.input :summary %>

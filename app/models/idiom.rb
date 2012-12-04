@@ -18,7 +18,8 @@ class Idiom < ActiveRecord::Base
 
   validates :title, presence: true, length: { maximum: 1000 },
     uniqueness: { case_sensitive: false }
-  validates :description, presence: true, length: { maximum: 10000 }
+  validates :description, presence: true, length: { maximum: 30000 }
+  validates :description_right, presence: true, length: { maximum: 10000 }
   validates :summary, presence: true, length: { within: 10..140 }
 
   belongs_to :user
