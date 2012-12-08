@@ -16,9 +16,8 @@ class Tag < ActiveRecord::Base
   has_many :reports, as: :reportable, dependent: :destroy
 
 
-  validates :name, presence: true, length: { maximum: 50 },
-    uniqueness: { case_sensitive: false }
-
+  validates :name, presence: true, length: { maximum: 50 }
+  
   def total_score
     votes.sum(:vote_value)
   end
