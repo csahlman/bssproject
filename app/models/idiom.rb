@@ -44,14 +44,15 @@ class Idiom < ActiveRecord::Base
   end
  
 
-  def create_new_edit(edit_user)
+  def create_new_edit(edit_user, updated_time = nil)
     edit = edits.new
-    edit.edited_at = self.updated_at
+    updated_time ? edit.edited_at = updated_time : edit.edited_at = self.updated_at
     edit.user = edit_user
     edit.description = self.description
     edit.description_right = self.description_right
     edit.summary = self.summary
     save!
+    edit
   end
 
   def upvoted_by_user?(user)
@@ -80,6 +81,12 @@ class Idiom < ActiveRecord::Base
 
   def self.tagged_with(name)
     Tag.find_by_name!(name).idioms
+  end
+
+  def self.deliver_edit_email(user, idiom, edit)
+    if user.receive_emails?
+      EditMailer.delay.idiom_edit_mailer(user.id, idiom.id, edit.id)
+    end
   end
 
   # def self.tag_counts

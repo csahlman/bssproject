@@ -58,6 +58,9 @@ gem "carrierwave"
 gem "mini_magick"
 gem "fog", "~> 1.3.1"
 
+gem 'daemons'
+gem 'delayed_job_active_record'
+
 
 
 # To use Jbuilder templates for JSON

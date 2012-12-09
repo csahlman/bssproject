@@ -21,12 +21,12 @@ class IdiomsController < ApplicationController
 
   def update
     @idiom = Idiom.includes([:tags]).find(params[:id])
-    @edit = @idiom.create_new_edit(current_user)
+    updated_time = @idiom.updated_at
     @idiom.set_idiom_attributes(params[:idiom])
     @idiom.tag_list = params[:idiom][:tag_list] if params[:idiom][:tag_list]
-    EditMailer.idiom_edit_mailer(current_user, @idiom, @edit).deliver if 
-      current_user.receive_emails?
     if @idiom.save
+      @edit = @idiom.create_new_edit(current_user, updated_time)
+      Idiom.deliver_edit_email(current_user, @idiom, @edit) # put onto delayed_jobs queue
       redirect_to @idiom, flash: { notice: "#{@idiom.title} updated" }
     else
       render 'edit'

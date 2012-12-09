@@ -6,11 +6,11 @@ class EditMailer < ActionMailer::Base
   #
   #   en.edit_mailer.idiom_edit_mailer.subject
   #
-  def idiom_edit_mailer(user, idiom, edit)
-    @user = user
-    @idiom = idiom
-    @edit = edit
-
-    mail to: user.email, subject: "A language you're following was updated."
+  def idiom_edit_mailer(user_id, idiom_id, edit_id)
+    @user = User.find(user_id)
+    @idiom = Idiom.find(idiom_id)
+    @edit = Edit.find(edit_id)
+    sleep 10
+    mail to: @user.email, subject: "A language you're following was updated."
   end
 end
