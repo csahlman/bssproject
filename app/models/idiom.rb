@@ -98,7 +98,7 @@ class Idiom < ActiveRecord::Base
 
   def tag_list=(names)
     self.tags = names.split(',').map do |n|
-      Tag.where(name: n.strip.downcase).first_or_create!
+      Tag.where(name: n.strip.downcase.split(' ').join('-')).first_or_create!
       #go through the tags, strip out the commas and whitespace and find it,
       # or create it, and map it on the self.tags array
       # gets saved in the controller
