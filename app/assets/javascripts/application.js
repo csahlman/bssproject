@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require redactor-rails
-//= require_tree .
+
 
 $(document).ready(function () {
   $('#new_comment').hide()
@@ -26,4 +26,6 @@ $(document).ready(function () {
     $('#new_comment').hide();
     $('#create_new_comment').html("(+) Add a comment")
   })
+
+  
 });

@@ -28,7 +28,9 @@ BssProject::Application.routes.draw do
       # will show the difference of shallow: true
     resources :comments, only: [ :create ] 
     resources :edits, only: [ :create, :show, :update, :index ]
-  end  
+  end
+
+  post 'meetups', to: 'meetups#create'  
 
   get 'tags/:tag', to: 'idioms#index', as: :tag
 

@@ -1,4 +1,14 @@
 <%= content_for(:title) { @idiom.title} %>
+<%= content_for(:scripts) do %>
+  <script id="zip_code" type="text/json">
+    <%= raw current_user.zip_code.to_json %>
+  </script>
+
+  <script id="idiom_id" type="text/json">
+    <%= raw @idiom.id.to_json %>
+  </script>
+  <%= javascript_include_tag 'idioms' %>
+<% end %>
 
 <ul class="breadcrumb">
   <li><%= link_to "Home Page", root_path %> <span class="divider">/</span></li>
@@ -12,6 +22,10 @@
 
 <% if signed_in? %>
   <%= content_for :sidebar do %>
+    <div id="ajax-spinner">
+      <h3>Loading meetups near <%= current_user.zip_code %></h3>
+      <%= image_tag 'ajax-loader.gif' %>
+    </div>
     <% if @meetups.any? %>
     <h4><%= link_to "See all meetups for #{@idiom.title} near #{current_user.zip_code}",
           '#', id: "display_meetups" %></h4>

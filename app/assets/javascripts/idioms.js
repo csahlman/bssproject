@@ -1,4 +1,12 @@
 $(document).ready(function() {
+  
+  var zipCodeJson = $('#zip_code').html(); 
+  var zipCode = $.parseJSON(zipCodeJson); 
+
+  var idiomIdJson = $('#idiom_id').html(),
+      idiomId = $.parseJSON(idiomIdJson);
+
+
   $('#new_report').hide();
   $('#meetups').hide();
 
@@ -10,8 +18,20 @@ $(document).ready(function() {
     $('#new_report').fadeOut('fast');
   });
 
-  $('#display_meetups').on("click", function(e) {
-    e.preventDefault();
-    $('#meetups').show();
+
+  var meetupRequest = $.ajax({
+    type: 'POST',
+    url: '/meetups',
+    data: { zip_code: zipCode, 
+            idiom_id: idiomId 
+    },
+    dataType: 'json'
   });
+
+  meetupRequest.done(function(link_urls) {
+    $.each(link_urls, function(index, value) {
+      console.log(index + ":" + value);
+    });
+  }); 
+
 });

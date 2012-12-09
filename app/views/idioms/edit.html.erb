@@ -8,8 +8,9 @@
   <%= link_to "Edits History", idiom_edits_path(@idiom) %>
 
   <%= simple_form_for @idiom do |f| %>
+    <%= render 'shared/error_explanation', object: @idiom %>
     <%= f.hidden_field :title, value: @idiom.title %>
-    <%= f.hidden_field :summary, value: @idiom.summary %>
+    <%= f.input :summary %>
     <% if params[:frame] == "right" %>
       <%= f.hidden_field :description, value: @idiom.description %>
       <%= f.label "Right Frame" %>
