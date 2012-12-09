@@ -16,6 +16,7 @@
 //= require redactor-rails
 
 
+
 $(document).ready(function () {
   $('#new_comment').hide()
 

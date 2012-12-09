@@ -12,6 +12,6 @@ class InboxesController < ApplicationController
 
     def must_be_own_inbox
       @user = User.includes(:inbox).find(params[:user_id])
-      redirect_to root_path unless current_user == @user
+       redirect_to root_path unless current_user == @user
     end
 end

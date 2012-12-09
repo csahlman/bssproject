@@ -29,9 +29,34 @@ $(document).ready(function() {
   });
 
   meetupRequest.done(function(link_urls) {
-    $.each(link_urls, function(index, value) {
-      console.log(index + ":" + value);
-    });
+    if(link_urls.length === 0) {
+      var source = $('#no-meetup-list').html();
+      var template = Handlebars.compile(source);
+      var html = template({
+        zip : zipCode
+      });
+      $(html).insertAfter('#ajax-spinner');
+    } else {
+      console.log(link_urls);
+      var source = $('#meetup-list').html();
+      var template = Handlebars.compile(source);
+      var html = template({
+        zip : zipCode,
+        urls : link_urls
+      });
+      $(html).insertAfter('#ajax-spinner');
+    }
+    $('#ajax-spinner').remove();
   }); 
+
+  Handlebars.registerHelper('list', function(urls, options) {
+    var out = "<ul id='meetups'>";
+
+    for(var i=0, l=urls.length; i<l; i++) {
+      out = out + "<li><a href='" + options.fn(urls[i]) + "'>Link</a></li>";
+    }
+
+    return out + "</ul>";
+  });
 
 });

@@ -14,8 +14,7 @@ class SessionsController < ApplicationController
       end
       sign_in(user)
       redirect_back_or root_url, flash: { notice: "Welcome #{user.name}." }
-    elsif User.find_by_email(params[:email])
-      user = User.find_by_email(params[:email])
+    elsif user = User.find_by_email(params[:email])
       if user.password_digest && user.authenticate(params[:password])
         sign_in(user)
         redirect_back_or root_url, flash: { notice: "Welcome #{user.name} " }

@@ -7,6 +7,7 @@
   <script id="idiom_id" type="text/json">
     <%= raw @idiom.id.to_json %>
   </script>
+  <%= javascript_include_tag 'handlebars-1.0.rc.1' %>
   <%= javascript_include_tag 'idioms' %>
 <% end %>
 
@@ -26,16 +27,17 @@
       <h3>Loading meetups near <%= current_user.zip_code %></h3>
       <%= image_tag 'ajax-loader.gif' %>
     </div>
-    <% if @meetups.any? %>
-    <h4><%= link_to "See all meetups for #{@idiom.title} near #{current_user.zip_code}",
-          '#', id: "display_meetups" %></h4>
-    <ul id="meetups">
-      <% @meetups.each do |meetup| %>
-        <li><%= link_to meetup.name, [@idiom, meetup] %></li>
-      <% end %>
-    <% else %>
-    <h4>No Meetups found for <%= @idiom.title %> near <%= current_user.zip_code %></h4>
-    <% end %>
+    <script id="meetup-list" type='text/x-handlebars-template'>
+      <div id="meetups-div">
+        <h3>Meetups near {{zip}}.</h3>
+        {{#list urls}}{{link_url}}{{/list}}
+      </div>
+    </script>
+    <script id="no-meetup-list" type='text/x-handlebars-template'>
+      <div id="meetups-div">
+        <h3>Found 0 meetups near {{zip}}.</h3>
+      </div>
+    </script>    
     <hr>
     </ul>
     <h4>Please give us your feedback</h4>  

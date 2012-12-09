@@ -5,6 +5,7 @@ class MessagesController < ApplicationController
   end
 
   def create
+    # look into observer
     @conversation = Conversation.find_or_new(current_user.id, params[:user_id])
     @message = current_user.sent_messages.new
     @message.body = params[:message][:body]
