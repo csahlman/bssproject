@@ -80,12 +80,14 @@ class Meetup < ActiveRecord::Base
     if future_event.recent.where(idiom_id: idiom.id).where(zip_code: user_zip_code).any?
       future_event.recent.where(idiom_id: idiom.id).where(zip_code: user_zip_code).limit(5) #find the 3 most recent future events for the given idiom 
       # and user zip code and return the first 5
-    else # if there aren't stored values from the last day, fetch new results
-      return_json = ReturnJsonFromUrl.new(create_url(idiom.title, user_zip_code))
+    elsif user_zip_code # if there aren't stored values from the last day, fetch new results
+      return_json = ReturnJsonFromUrl.new(create_url(idiom.title, user_zip_code)) 
       meetup_hash = return_json.return_json_hash
       meetup_hash && meetup_hash['results'].any? ? set_attributes_from_json(meetup_hash, idiom, user_zip_code) : []      
       # if there are any results, and there aren't already 3, return the newly set meetup array + the rest of the recent ones
       # just to avoid saving duplicates
+    else
+      []
     end
   end
 end
