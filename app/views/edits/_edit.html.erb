@@ -3,8 +3,8 @@
     <small><%= link_to edit.user.name, edit.user %>
       <span class="time">
         <%= link_to "#{time_ago_in_words edit.edited_at} ago.", [object, edit] %>
-        <%= upvote_button edit, edit.upvoted_by_user?(current_user) %>
-        <%= downvote_button edit, edit.downvoted_by_user?(current_user) %>
+        <%= upvote_button edit %>
+        <%= downvote_button edit %>
       	<%= score(edit) %> | 
         <%= report_button edit %>
       </span>	     	
