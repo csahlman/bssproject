@@ -10,10 +10,13 @@
 
   <%= simple_form_for @idiom do |f| %>
     <%= f.hidden_field :title, value: @idiom.title %>
+    <%= f.hidden_field :summary, value: @idiom.summary %>
     <%= f.hidden_field :description, value: @idiom.description %>
   <textarea class="text required redactor" id="edit_idiom" name="idiom[description_right]" rows="20">
     <%= sanitize raw @idiom.description_right %>
   </textarea>
+    <%= f.label :tag_list, "Tags, separated by commas" %>
+    <%= f.input :tag_list, label: false,  as: :string %>
     <%= f.button :submit %>
   <% end %>
 
@@ -26,11 +29,16 @@
 
   <%= simple_form_for @idiom do |f| %>
     <%= f.hidden_field :title, value: @idiom.title %>
-    <%= f.hidden_field :description, value: @idiom.description_right %>
+    <%= f.hidden_field :summary, value: @idiom.summary %>
+    <%= f.hidden_field :description_right, value: @idiom.description_right %>
   <textarea class="text required redactor" id="edit_idiom" name="idiom[description]" rows="20">
     <%= sanitize raw @idiom.description %>
   </textarea>
+    <%= f.label :tag_list, "Tags, separated by commas" %>
+    <%= f.input :tag_list, label: false,  as: :string %>   
     <%= f.button :submit %>
   <% end %>
 
 <% end %>  
+
+

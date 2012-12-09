@@ -42,9 +42,6 @@ class IdiomsController < ApplicationController
     if signed_in?
       @meetups = Meetup.find_or_create_new_meetups(@idiom, current_user.zip_code)
     end
-    if @idiom.tags.any? && signed_in?
-      @tag_for_voting = @idiom.random_tag
-    end
     respond_to do |f|
       f.html
       f.json { render json: @idiom }

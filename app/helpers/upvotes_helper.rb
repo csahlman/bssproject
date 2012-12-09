@@ -1,5 +1,6 @@
 module UpvotesHelper
-  def upvote_button(voteable, upvoted)
+  def upvote_button(voteable)
+    upvoted = voteable.upvoted_by_user?(current_user)
     css_class = ""
     upvoted ? css_class = "badge badge-success" : css_class = ""
     link_to '+', upvote_path(voteable_type: voteable.class.to_s, voteable_id: voteable.id),

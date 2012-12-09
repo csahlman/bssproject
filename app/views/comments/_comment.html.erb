@@ -1,6 +1,6 @@
 <li class="comment">
-  <%= upvote_button comment, comment.upvoted_by_user?(current_user) %>
-  <%= downvote_button comment, comment.downvoted_by_user?(current_user) %> 
+  <%= upvote_button comment %>
+  <%= downvote_button comment %> 
   <span class="comment_body"><%= comment.message %></span>
   <small><%= report_button comment %> </small><br>
   <%= score comment %>
