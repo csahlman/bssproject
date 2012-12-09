@@ -53,7 +53,7 @@ $(document).ready(function() {
     var out = "<ul id='meetups'>";
 
     for(var i=0, l=urls.length; i<l; i++) {
-      out = out + "<li><a href='" + options.fn(urls[i]) + "'>Link</a></li>";
+      out = out + "<li>" + options.fn(urls[i]) + "</li>";
     }
 
     return out + "</ul>";

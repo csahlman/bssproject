@@ -30,7 +30,7 @@
     <script id="meetup-list" type='text/x-handlebars-template'>
       <div id="meetups-div">
         <h3>Meetups near {{zip}}.</h3>
-        {{#list urls}}{{link_url}}{{/list}}
+        {{#list urls}}<a href='{{link_url}}'>{{name}}</a>{{/list}}
       </div>
     </script>
     <script id="no-meetup-list" type='text/x-handlebars-template'>
