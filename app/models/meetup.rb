@@ -90,4 +90,5 @@ class Meetup < ActiveRecord::Base
       []
     end
   end
+
 end
