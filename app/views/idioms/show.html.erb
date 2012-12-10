@@ -1,7 +1,7 @@
 <%= content_for(:title) { @idiom.title} %>
 <%= content_for(:scripts) do %>
   <script id="zip_code" type="text/json">
-    <%= raw current_user.zip_code.to_json %>
+    <%= raw current_user.zip_code.to_json if current_user %>
   </script>
 
   <script id="idiom_id" type="text/json">
