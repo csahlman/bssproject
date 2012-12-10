@@ -25,7 +25,7 @@ class Meetup < ActiveRecord::Base
 
   belongs_to :idiom
 
-  scope :recent, -> { where("created_at >= :yesterday", yesterday: 24.hours.ago) }
+  scope :recent, -> { where("created_at >= :yesterday", yesterday: 48.hours.ago) }
   scope :future_event, -> { where("meetup_time >= :now", now: Time.zone.now) }
 
   # def self.fetch_results(topic, zip_code)
