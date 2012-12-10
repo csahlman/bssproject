@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_filter :must_not_send_message_to_self
+  before_filter :must_not_send_message_to_self, except: [ :index ]
   def new
     @message= current_user.sent_messages.new
   end
@@ -21,7 +21,15 @@ class MessagesController < ApplicationController
     else
       render 'new'
     end
+  end
 
+  def show
+    @conversation = Message.conversation(current_user, @receiver)
+  end
+
+  def index
+    @conversations = Message.all_conversations(current_user)
+    @new_message_count = current_user.unread_count
   end
 
   private

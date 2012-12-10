@@ -52,6 +52,14 @@ class User < ActiveRecord::Base
 
   default_scope where(deleted_at: nil)
 
+  def has_unread_messages?
+    received_messages.where(read_at: nil).any?
+  end
+
+  def unread_count
+    received_messages.where(read_at: nil).count
+  end
+
   def setting_password?
     self.password.present? || self.password_confirmation.present?
   end

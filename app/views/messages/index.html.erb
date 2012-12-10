@@ -1,0 +1,8 @@
+<%= content_for(:title) { "Inbox (#{@new_message_count})" } %>
+<h1>
+  <%= gravatar_image_tag current_user.email, gravatar: { default: :monsterid } %>
+  Inbox (<%= @new_message_count %>)</h1>
+
+<ul id="conversations">
+  <%= render 'messages/conversation', collection: @conversations %>
+</ul>

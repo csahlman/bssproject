@@ -40,8 +40,8 @@
               <li><%= link_to "Sign Out", logout_path, method: :delete %></li>
             </ul>
           </li>
-          <li><%= link_to "Inbox (#{current_user.inbox.unread_count})", 
-            user_inbox_path(current_user) %></li>
+          <li><%= link_to "Inbox (#{current_user.unread_count})", 
+            user_messages_path(current_user) %></li>
           <% else %>
           <li><%= link_to "Sign up", new_user_path  %></li>
           <li><%= link_to "Sign In", sign_in_path  %></li>

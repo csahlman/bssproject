@@ -1,0 +1,15 @@
+<%= content_for(:title) { "Conversation with #{@receiver.name}" } %>
+
+<p class="profile">
+  <h3>Conversation with <%= link_to @receiver.name, @receiver %></h3><br>
+</p>
+
+<ul id="conversation">
+  <%= render @conversation.messages %>
+</ul>
+
+<%= simple_form_for [@receiver, current_user.sent_messages.new], 
+  remote: true do |f| %>
+  <%= f.input :body %>
+  <%= f.button :submit, "Send Message" %>
+<% end %>

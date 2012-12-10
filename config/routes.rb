@@ -41,7 +41,7 @@ BssProject::Application.routes.draw do
   root :to => 'pages#home'
 
   resources :users, except: [ :destroy ] do
-    resources :messages, only: [ :new, :create, :show ]
+    resources :messages, only: [ :new, :create, :show, :index ]
     resources :conversations, only: [ :show, :index ]
     resource :inbox, only: [ :show ]
   end  
