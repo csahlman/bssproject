@@ -1,4 +1,4 @@
 A Project for Boston Startup School Fall 2012
 -created by Charlie Sahlman
 
-Checkout the site at [http://bss-project.herokuapp.com](http://bss-project.herokuapp.com)
+Checkout the site at [http://bss-project.herokuapp.com]
