@@ -21,8 +21,10 @@
 
 class User < ActiveRecord::Base
   has_secure_password
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   zip_regex = /^\d{5}(-\d{4})?$/
+
   validates :name, presence: true, length: { within: 2..50 }
   validates :email, presence: true, format: { with: email_regex },
     uniqueness: { cases_sensitive: false }
@@ -42,11 +44,9 @@ class User < ActiveRecord::Base
   has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
   has_many :received_messages, class_name: "Message", foreign_key: "receiver_id"
 
-  has_one :inbox, dependent: :destroy
 
   before_create :create_remember_token
 
-  after_create :create_inbox
 
   after_destroy :ensure_an_admin_remains   #make sure you can't delete last user
 
@@ -107,10 +107,6 @@ class User < ActiveRecord::Base
 
 
   private 
-
-    def create_inbox
-      self.create_inbox!
-    end
 
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121209123708) do
+ActiveRecord::Schema.define(:version => 20121210211153) do
 
   create_table "announcements", :force => true do |t|
     t.text     "message"
@@ -28,13 +28,6 @@ ActiveRecord::Schema.define(:version => 20121209123708) do
     t.integer  "idiom_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "conversations", :force => true do |t|
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "initiator_id"
-    t.integer  "receiver_id"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -72,12 +65,6 @@ ActiveRecord::Schema.define(:version => 20121209123708) do
     t.integer  "user_id"
     t.text     "description_right", :limit => 255
     t.string   "summary"
-  end
-
-  create_table "inboxes", :force => true do |t|
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "meetups", :force => true do |t|

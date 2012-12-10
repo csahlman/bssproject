@@ -37,7 +37,6 @@ $(document).ready(function() {
       });
       $(html).insertAfter('#ajax-spinner');
     } else {
-      console.log(link_urls);
       var source = $('#meetup-list').html();
       var template = Handlebars.compile(source);
       var html = template({

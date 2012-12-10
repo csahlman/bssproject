@@ -5,7 +5,18 @@
 </p>
 
 <ul id="conversation">
-  <%= render @conversation.messages %>
+  <% @conversation.each do |message| %>
+  <li class="messages">
+    <small>
+      <%= link_to (gravatar_image_tag message.sender.email, gravatar: 
+        { default: :monsterid, size: 30 }), message.sender %>
+      <%= link_to message.sender.name, message.sender %>
+      <%= sent_or_received(message) %> at 
+      <%= time_ago_in_words message.created_at %> ago.
+    </small>
+    <p><%= message.body %></p>
+  </li>
+  <% end %>
 </ul>
 
 <%= simple_form_for [@receiver, current_user.sent_messages.new], 

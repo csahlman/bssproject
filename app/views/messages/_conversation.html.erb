@@ -1,14 +1,9 @@
 <% collection.each do |conversation| %>
   <li>
     <span class="conversation">
-      <% if conversation.has_unread_messages?(current_user) %>
-      <strong><%= link_to (truncate conversation.messages.last.body, length: 100), 
-        [current_user, conversation] %></strong>
-      <% else %>
-        <%= link_to (truncate conversation.messages.last.body, length: 100), 
-          [current_user, conversation] %>      
-      <% end %>
-      <small><%= time_ago_in_words conversation.messages.last.created_at %></small>
+      <%= link_to (truncate conversation.last.body, length: 100), 
+        [current_user, conversation.last] %>      
+      <small><%= time_ago_in_words conversation.last.created_at %></small>
     </span>
   </li>
 <% end %>

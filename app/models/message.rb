@@ -13,35 +13,40 @@
 #
 
 class Message < ActiveRecord::Base
-  belongs_to :conversation
   
   belongs_to :sender, class_name: "User", foreign_key: "sender_id"
   belongs_to :receiver, class_name: "User", foreign_key: "receiver_id"
 
-  default_scope order('created_at ASC')
+  default_scope order('created_at DESC')
 
   def self.conversation(current_user_id, receiver_id)
     conversation = where('sender_id = ? AND receiver_id = ?', current_user_id, receiver_id).all +
       where('receiver_id = ? AND sender_id = ?', current_user_id, receiver_id).all
-    mark_as_read(current_user_id, conversation)  
+    mark_as_read(current_user_id, conversation)
+    conversation.sort_by(&:created_at)
   end
 
   def self.mark_as_read(reader_id, conversation)
     conversation.each do |message|
       if message.receiver_id == reader_id && message.read_at.nil?
-        update_attribute(:read_at, Time.zone.now)
+        message.update_attribute(:read_at, Time.zone.now)
       end
     end
   end
 
   def self.all_conversations(current_user)
-    other_user_ids = current_user.received_messages.map(&:sender_id).uniq +
-      current_user.sent_messages.map(&:receiver_id).uniq
+    other_user_ids = (current_user.received_messages.map(&:sender_id).uniq +
+      current_user.sent_messages.map(&:receiver_id).uniq).uniq
     conversations = []
     other_user_ids.each do |user_id|
+      puts user_id
       conversations << conversation(current_user.id, user_id)
     end
     conversations
+  end
+
+  def other_user(current_user)
+    sender == current_user ? receiver : sender
   end
 
 end
