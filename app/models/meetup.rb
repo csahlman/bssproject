@@ -53,25 +53,23 @@ class Meetup < ActiveRecord::Base
   def self.set_attributes_from_json(meetup_hash, idiom, user_zip_code)
     meetups = []
     meetup_hash['results'].each do |result| # hash['results'] returns any array obviously
-      unless where(event_id: result['id']).any?
-        meetup = idiom.meetups.new
-        meetup.zip_code = user_zip_code
-        meetup.event_id = result['id']
-        meetup.name = result['name']
-        meetup.group_name = result['group']['name']
-        meetup.event_url = result['event_url']
-        meetup.description = result['description']
-        meetup.meetup_time = Time.at((result['time'])/1000) 
-        #converts time in seconds to date.  was in milliseconds til /1000
-        meetup.latitude = result['venue']['lat']
-        meetup.longitude = result['venue']['lon']
-        meetup.address = result['venue']['address_1']
-        meetup.state = result['venue']['state']
-        meetup.city = result['venue']['city']
-        meetup.attending = result['yes_rsvp_count']
-        meetup.save!
-        meetups << meetup
-      end
+      meetup = idiom.meetups.new
+      meetup.zip_code = user_zip_code
+      meetup.event_id = result['id']
+      meetup.name = result['name']
+      meetup.group_name = result['group']['name']
+      meetup.event_url = result['event_url']
+      meetup.description = result['description']
+      meetup.meetup_time = Time.at((result['time'])/1000) 
+      #converts time in seconds to date.  was in milliseconds til /1000
+      meetup.latitude = result['venue']['lat']
+      meetup.longitude = result['venue']['lon']
+      meetup.address = result['venue']['address_1']
+      meetup.state = result['venue']['state']
+      meetup.city = result['venue']['city']
+      meetup.attending = result['yes_rsvp_count']
+      meetup.save!
+      meetups << meetup
     end
     meetups
   end

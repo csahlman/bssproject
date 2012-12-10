@@ -2,6 +2,7 @@ class MessagesController < ApplicationController
   before_filter :must_not_send_message_to_self, except: [ :show, :index ]
   before_filter :must_be_part_of_message, only: [ :show ]
   before_filter :must_be_own_inbox, only: [ :index ]
+
   def new
     @message= current_user.sent_messages.new
   end
@@ -40,12 +41,12 @@ class MessagesController < ApplicationController
 
     def must_be_part_of_message
       @message = Message.find(params[:id])
-        redirect_to root_path unless @message.receiver == current_user || 
+      redirect_to root_path, flash: { error: "No access" } unless @message.receiver == current_user || 
         @message.sender == current_user
     end
 
     def must_not_send_message_to_self
-      @receiver= User.find(params[:user_id])
+      @receiver = User.find(params[:user_id])
       redirect_to root_path, flash: 
         { error: "You can't message yourself" } if current_user == @receiver 
     end
