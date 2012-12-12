@@ -14,7 +14,7 @@ class MessagesController < ApplicationController
     @message.receiver = @receiver
     if @message.save
       respond_to do |f|
-        f.html { redirect_to [current_user, @conversation] }
+        f.html { redirect_to [current_user, @message] }
         f.js
       end
     else

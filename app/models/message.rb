@@ -26,20 +26,19 @@ class Message < ActiveRecord::Base
     conversation.sort_by(&:created_at)
   end
 
-  def self.mark_as_read(reader_id, conversation)
+  def self.mark_as_read(current_user_id, conversation)
     conversation.each do |message|
-      if message.receiver_id == reader_id && message.read_at.nil?
+      if message.read_at.nil? && message.receiver_id == current_user_id 
         message.update_attribute(:read_at, Time.zone.now)
       end
     end
   end
 
   def self.all_conversations(current_user)
-    other_user_ids = (current_user.received_messages.map(&:sender_id).uniq +
-      current_user.sent_messages.map(&:receiver_id).uniq).uniq
+    other_user_ids = (current_user.received_messages.map(&:sender_id) +
+      current_user.sent_messages.map(&:receiver_id)).uniq
     conversations = []
     other_user_ids.each do |user_id|
-      puts user_id
       conversations << conversation(current_user.id, user_id)
     end
     conversations

@@ -48,6 +48,16 @@ $(document).ready(function() {
     $('#ajax-spinner').remove();
   }); 
 
+  meetupRequest.failure(function(e) {
+    var source = $('#no-meetup-list').html();
+    var template = Handlebars.compile(source);
+    var html = template({
+      zip : zipCode
+    });
+    $(html).insertAfter('#ajax-spinner');
+    $('#ajax-spinner').remove();
+  });
+
   Handlebars.registerHelper('list', function(urls, options) {
     var out = "<ul id='meetups'>";
 
