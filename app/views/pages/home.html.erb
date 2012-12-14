@@ -10,9 +10,11 @@
 <% end %>
 
 <div class="hero-unit">
-  <h1>Learn to Program!</h1>
-  <p>This is a site to help with bringing together information about how to
-    effectively self-teach programming languages</p>
+  <h1>Welcome to the site!</h1>
+  <p>Please visit <%= link_to "bss-project.herokuapp.com", "bss-project.herokuapp.com" %>
+   for this site to be fully funcitonal, 
+    otherwise there might be some problems with APIs.  Please also visit my 
+    <%= link_to "github.", 'https://github.com/csahlman/' %></p>
     <%= link_to "About the site and Charlie Sahlman", 'pages/about' %>    
 </div>
 <% unless signed_in? %>
